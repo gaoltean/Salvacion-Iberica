@@ -27,6 +27,7 @@ public class ManagerZonaAnimales : MonoBehaviour
     [SerializeField] private GameObject PanelGestion;
     [SerializeField] private TextMeshProUGUI TextoComida;
     [SerializeField] private TextMeshProUGUI TextoSuciedad;
+    [SerializeField] private GameObject TextoGestionar;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -39,6 +40,8 @@ public class ManagerZonaAnimales : MonoBehaviour
 
     private bool _limpiezaUrgente = false;
     private bool _alimentacionUrgente = false;
+    private float _momentoInicioGestion = 0;
+    private float _momentoFinGestion = 0;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -51,6 +54,7 @@ public class ManagerZonaAnimales : MonoBehaviour
     void Start()
     {
         PanelGestion.SetActive(false);
+        TextoGestionar.SetActive(false);
     }
 
     /// <summary>
@@ -75,11 +79,24 @@ public class ManagerZonaAnimales : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!PanelGestion.activeSelf) PanelGestion.SetActive(true);
+        if (!PanelGestion.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
+        if (!PanelGestion.activeSelf && InputManager.Instance.Interact && Time.time > _momentoFinGestion + 1)
+        {
+            _momentoInicioGestion = Time.time;
+            PanelGestion.SetActive(true);
+            TextoGestionar.SetActive(false);
+        }
+        if (PanelGestion.activeSelf && InputManager.Instance.Interact && Time.time > _momentoInicioGestion + 1)
+        {
+            _momentoFinGestion = Time.time;
+            PanelGestion.SetActive(false);
+            TextoGestionar.SetActive(true);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         PanelGestion.SetActive(false);
+        TextoGestionar.SetActive(false);
     }
     #endregion
 
