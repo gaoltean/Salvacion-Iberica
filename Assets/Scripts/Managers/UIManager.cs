@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Dinero.text = "Dinero: " + GameManager.Instance.DimeDinero();
+        Dinero.text = "Dinero: " + GameManager.Instance.DimeDinero() + "€";
     }
 
     #endregion

@@ -47,13 +47,10 @@ TagManager:
   - name: Objetos
     uniqueID: 612688023
     locked: 0
-  m_RenderingLayers:
-  - Default
-  - name: New Layer 1
-    uniqueID: 1984388619
-    locked: 0
-  - name: PanelesCompra
-    uniqueID: 731094317
+  - name: PanelesCompras
+    uniqueID: 3241795173
     locked: 0
   m_RenderingLayers:
   - Default
+  - 
+  - 
