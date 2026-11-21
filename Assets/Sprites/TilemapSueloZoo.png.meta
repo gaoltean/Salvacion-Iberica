@@ -1,0 +1,1209 @@
+fileFormatVersion: 2
+guid: 42db6be75cc667a4ba04cad786d30b11
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6933140085828619203
+    second: TilemapSueloZoo_0
+  - first:
+      213: 1515868583618193144
+    second: TilemapSueloZoo_1
+  - first:
+      213: 7282733413302539539
+    second: TilemapSueloZoo_2
+  - first:
+      213: -6672872861219945178
+    second: TilemapSueloZoo_3
+  - first:
+      213: 9217764792889312202
+    second: TilemapSueloZoo_4
+  - first:
+      213: 1355081631298509671
+    second: TilemapSueloZoo_5
+  - first:
+      213: -2316382287798164957
+    second: TilemapSueloZoo_6
+  - first:
+      213: 3329354379028085387
+    second: TilemapSueloZoo_7
+  - first:
+      213: 2855491588109333537
+    second: TilemapSueloZoo_8
+  - first:
+      213: -4707483440088514175
+    second: TilemapSueloZoo_9
+  - first:
+      213: 5039445835501218366
+    second: TilemapSueloZoo_10
+  - first:
+      213: 7352964396300295686
+    second: TilemapSueloZoo_11
+  - first:
+      213: 8199644638374590290
+    second: TilemapSueloZoo_12
+  - first:
+      213: 6202364286380418162
+    second: TilemapSueloZoo_13
+  - first:
+      213: -3751648261554472038
+    second: TilemapSueloZoo_14
+  - first:
+      213: -4956765288868745631
+    second: TilemapSueloZoo_15
+  - first:
+      213: 2395039360652217317
+    second: TilemapSueloZoo_16
+  - first:
+      213: 3296907575522029242
+    second: TilemapSueloZoo_17
+  - first:
+      213: 5765540848921687158
+    second: TilemapSueloZoo_18
+  - first:
+      213: 8784194526611393188
+    second: TilemapSueloZoo_19
+  - first:
+      213: 9052862285498677443
+    second: TilemapSueloZoo_20
+  - first:
+      213: -3018080991060656241
+    second: TilemapSueloZoo_21
+  - first:
+      213: 296426110902916159
+    second: TilemapSueloZoo_22
+  - first:
+      213: 4785127190028596527
+    second: TilemapSueloZoo_23
+  - first:
+      213: 244447128764524881
+    second: TilemapSueloZoo_24
+  - first:
+      213: -7739869207171884417
+    second: TilemapSueloZoo_25
+  - first:
+      213: -9071337641461186929
+    second: TilemapSueloZoo_26
+  - first:
+      213: 9007003155991432592
+    second: TilemapSueloZoo_27
+  - first:
+      213: -7276578629477494545
+    second: TilemapSueloZoo_28
+  - first:
+      213: -15814349428604296
+    second: TilemapSueloZoo_29
+  - first:
+      213: -6348719521934293649
+    second: TilemapSueloZoo_30
+  - first:
+      213: 8964860821767219093
+    second: TilemapSueloZoo_31
+  - first:
+      213: -5253090764816186986
+    second: TilemapSueloZoo_32
+  - first:
+      213: 3372051643338733487
+    second: TilemapSueloZoo_33
+  - first:
+      213: -678900452831005010
+    second: TilemapSueloZoo_34
+  - first:
+      213: 6936894579230955611
+    second: TilemapSueloZoo_35
+  - first:
+      213: 2863576565414648537
+    second: TilemapSueloZoo_36
+  - first:
+      213: 818493421701693944
+    second: TilemapSueloZoo_37
+  - first:
+      213: 8342022203463240238
+    second: TilemapSueloZoo_38
+  - first:
+      213: 6215906234458725789
+    second: TilemapSueloZoo_39
+  - first:
+      213: -377017139896420626
+    second: TilemapSueloZoo_40
+  - first:
+      213: -8196759336195881489
+    second: TilemapSueloZoo_41
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TilemapSueloZoo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 164
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb06d9bc26773060800000000000000
+      internalID: 6933140085828619203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f6acb40272790510800000000000000
+      internalID: 1515868583618193144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31514cd2477711560800000000000000
+      internalID: 7282733413302539539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62504a3bc713563a0800000000000000
+      internalID: -6672872861219945178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_4
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac30547cd341cef70800000000000000
+      internalID: 9217764792889312202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_5
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b543b60973ec210800000000000000
+      internalID: 1355081631298509671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_6
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 322a8cbf49e8adfd0800000000000000
+      internalID: -2316382287798164957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_7
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8a3c550b2e343e20800000000000000
+      internalID: 3329354379028085387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_8
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1247f58687eb0a720800000000000000
+      internalID: 2855491588109333537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_9
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1818d77a0c8abaeb0800000000000000
+      internalID: -4707483440088514175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 129
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3a2fd98945bfe540800000000000000
+      internalID: 5039445835501218366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_11
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60ed297292afa0660800000000000000
+      internalID: 7352964396300295686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_12
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 257f0c2ea5dfac170800000000000000
+      internalID: 8199644638374590290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_13
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2742649f479331650800000000000000
+      internalID: 6202364286380418162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_14
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9b75df78c77febc0800000000000000
+      internalID: -3751648261554472038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_15
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16eedf95b38063bb0800000000000000
+      internalID: -4956765288868745631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_16
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eb01caeb93ec3120800000000000000
+      internalID: 2395039360652217317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_17
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abee840e8f7f0cd20800000000000000
+      internalID: 3296907575522029242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_18
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6743bfddad0530050800000000000000
+      internalID: 5765540848921687158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_19
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 129
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4aa4a9c916ab7e970800000000000000
+      internalID: 8784194526611393188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 94
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8fda7d84a32ad70800000000000000
+      internalID: 9052862285498677443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_21
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8f7870445f9d16d0800000000000000
+      internalID: -3018080991060656241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_22
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f34d4823afd1d1400800000000000000
+      internalID: 296426110902916159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_23
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f25b7be93df286240800000000000000
+      internalID: 4785127190028596527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_24
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 159af545e53746300800000000000000
+      internalID: 244447128764524881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_25
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a1982b6f5769490800000000000000
+      internalID: -7739869207171884417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_26
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8e73132a722c1280800000000000000
+      internalID: -9071337641461186929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_27
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09d01b336ad4ffc70800000000000000
+      internalID: 9007003155991432592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_28
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 60
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe09bc91a46640b90800000000000000
+      internalID: -7276578629477494545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_29
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87244f7dee0d7cff0800000000000000
+      internalID: -15814349428604296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_30
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 60
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f65c4845b31d4e7a0800000000000000
+      internalID: -6348719521934293649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_31
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 94
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59760466b65996c70800000000000000
+      internalID: 8964860821767219093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_32
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 59
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6910f3e08c54917b0800000000000000
+      internalID: -5253090764816186986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_33
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 59
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa73a7d8a1febce20800000000000000
+      internalID: 3372051643338733487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_34
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 59
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea6f72792af0496f0800000000000000
+      internalID: -678900452831005010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_35
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 59
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b58d467dddcc44060800000000000000
+      internalID: 6936894579230955611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_36
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 25
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9da5ca0e6b77db720800000000000000
+      internalID: 2863576565414648537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_37
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 25
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f106833e6fdb5b00800000000000000
+      internalID: 818493421701693944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_38
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 24
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2a09d10ff0d4c370800000000000000
+      internalID: 8342022203463240238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_39
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 24
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9d5c0679c5534650800000000000000
+      internalID: 6215906234458725789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_40
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 24
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee67d36a8e094caf0800000000000000
+      internalID: -377017139896420626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapSueloZoo_41
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 24
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe58da0efc24f3e80800000000000000
+      internalID: -8196759336195881489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TilemapSueloZoo_0: 6933140085828619203
+      TilemapSueloZoo_1: 1515868583618193144
+      TilemapSueloZoo_10: 5039445835501218366
+      TilemapSueloZoo_11: 7352964396300295686
+      TilemapSueloZoo_12: 8199644638374590290
+      TilemapSueloZoo_13: 6202364286380418162
+      TilemapSueloZoo_14: -3751648261554472038
+      TilemapSueloZoo_15: -4956765288868745631
+      TilemapSueloZoo_16: 2395039360652217317
+      TilemapSueloZoo_17: 3296907575522029242
+      TilemapSueloZoo_18: 5765540848921687158
+      TilemapSueloZoo_19: 8784194526611393188
+      TilemapSueloZoo_2: 7282733413302539539
+      TilemapSueloZoo_20: 9052862285498677443
+      TilemapSueloZoo_21: -3018080991060656241
+      TilemapSueloZoo_22: 296426110902916159
+      TilemapSueloZoo_23: 4785127190028596527
+      TilemapSueloZoo_24: 244447128764524881
+      TilemapSueloZoo_25: -7739869207171884417
+      TilemapSueloZoo_26: -9071337641461186929
+      TilemapSueloZoo_27: 9007003155991432592
+      TilemapSueloZoo_28: -7276578629477494545
+      TilemapSueloZoo_29: -15814349428604296
+      TilemapSueloZoo_3: -6672872861219945178
+      TilemapSueloZoo_30: -6348719521934293649
+      TilemapSueloZoo_31: 8964860821767219093
+      TilemapSueloZoo_32: -5253090764816186986
+      TilemapSueloZoo_33: 3372051643338733487
+      TilemapSueloZoo_34: -678900452831005010
+      TilemapSueloZoo_35: 6936894579230955611
+      TilemapSueloZoo_36: 2863576565414648537
+      TilemapSueloZoo_37: 818493421701693944
+      TilemapSueloZoo_38: 8342022203463240238
+      TilemapSueloZoo_39: 6215906234458725789
+      TilemapSueloZoo_4: 9217764792889312202
+      TilemapSueloZoo_40: -377017139896420626
+      TilemapSueloZoo_41: -8196759336195881489
+      TilemapSueloZoo_5: 1355081631298509671
+      TilemapSueloZoo_6: -2316382287798164957
+      TilemapSueloZoo_7: 3329354379028085387
+      TilemapSueloZoo_8: 2855491588109333537
+      TilemapSueloZoo_9: -4707483440088514175
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
