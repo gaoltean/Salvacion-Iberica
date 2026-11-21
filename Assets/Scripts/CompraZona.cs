@@ -20,7 +20,7 @@ public class CompraZona : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
 
-    
+    [SerializeField] private GameObject ZonaComprada = null;
     [SerializeField] private TextMeshProUGUI InfoCompra;
     [SerializeField] private float Precio;
     #endregion
@@ -41,6 +41,7 @@ public class CompraZona : MonoBehaviour
     /// </summary>
     void Start()
     {
+        if (ZonaComprada != null) ZonaComprada.SetActive(false);
         InfoCompra.text = "Precio: " + Precio + "€";
     }
 
@@ -62,8 +63,9 @@ public class CompraZona : MonoBehaviour
     {
         if (GameManager.Instance.GastaDinero(Precio))
         {
-            this.gameObject.SetActive(false);
             Debug.Log("Compra realizada");
+            this.gameObject.SetActive(false);
+            if (ZonaComprada != null) ZonaComprada.SetActive(true);
         }
     }
     #endregion

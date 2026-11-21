@@ -236,10 +236,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.56100386, g: 0.93207544, b: 0.66562635, a: 1}
-    m_HighlightedColor: {r: 0.1716981, g: 1, b: 0.40711015, a: 1}
+    m_NormalColor: {r: 0.08954048, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.58679235, g: 1, b: 0.7042922, a: 1}
     m_PressedColor: {r: 0, g: 0.5396226, b: 0.15344718, a: 1}
-    m_SelectedColor: {r: 0.17254902, g: 1, b: 0.40784317, a: 1}
+    m_SelectedColor: {r: 0.5882353, g: 1, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0, g: 0.5411765, b: 0.15294118, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1db30bd551ac9d4aab69ad51e244762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ZonaComprada: {fileID: 0}
   InfoCompra: {fileID: 7902982973401232142}
   Precio: 0
 --- !u!1 &4343398857146275889

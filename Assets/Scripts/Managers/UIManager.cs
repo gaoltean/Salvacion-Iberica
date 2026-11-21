@@ -21,18 +21,19 @@ public class UIManager : MonoBehaviour
     // Los atributos públicos y de inspector en formato PascalCase
 
     [SerializeField] private TextMeshProUGUI Dinero;
+    [SerializeField] private TextMeshProUGUI SacosComida;
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -48,6 +49,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         Dinero.text = "Dinero: " + GameManager.Instance.DimeDinero() + "€";
+        SacosComida.text = "Sacos de comida: " + GameManager.Instance.DimeSacosComida();
     }
 
     #endregion

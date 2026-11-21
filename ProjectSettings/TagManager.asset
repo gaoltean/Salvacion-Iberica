@@ -50,6 +50,9 @@ TagManager:
   - name: PanelesCompras
     uniqueID: 3241795173
     locked: 0
+  - name: Player
+    uniqueID: 2941624221
+    locked: 0
   m_RenderingLayers:
   - Default
   - 

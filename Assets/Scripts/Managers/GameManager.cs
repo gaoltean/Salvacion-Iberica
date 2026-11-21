@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     /// Dinero con el que empiezas la partida
     /// </summary>
     [SerializeField] private float DineroInicial = 0;
+    [SerializeField] private int SacosComidaInicial = 10;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -39,6 +40,11 @@ public class GameManager : MonoBehaviour
     /// Dinero que tienes actualmente
     /// </summary>
     private float _dinero;
+
+    /// <summary>
+    /// Sacos de comida que tienes actualmente
+    /// </summary>
+    private int _sacosComida;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -141,12 +147,29 @@ public class GameManager : MonoBehaviour
     /// <returns>True cuando has podido gastar el dinero</returns>
     public bool GastaDinero(float cantidad)
     {
-        if (_dinero - cantidad > 0) _dinero -= cantidad;
-        return _dinero - cantidad > 0;
+        bool ret = _dinero - cantidad > 0;
+        if (ret) _dinero -= cantidad;
+        return ret;
+    }
+    /// <summary>
+    /// Gasta una cantidad de sacos de comida cuando tiene suficiente
+    /// </summary>
+    /// <param name="cantidad">Cantidad de sacos a gastar</param>
+    /// <returns>True cuando has podido gastar comida</returns>
+    public bool GastaComida(int cantidad)
+    {
+        bool ret = _sacosComida - cantidad > 0;
+        if (ret) _sacosComida -= cantidad;
+        return ret;
     }
     public float DimeDinero()
     {
         return _dinero;
+    }
+
+    public float DimeSacosComida()
+    {
+        return _sacosComida;
     }
     #endregion
 
@@ -168,6 +191,7 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         _dinero = DineroInicial;
+        _sacosComida = SacosComidaInicial;
     }
 
     #endregion
