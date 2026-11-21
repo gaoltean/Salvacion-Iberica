@@ -49,3 +49,11 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  - name: New Layer 1
+    uniqueID: 1984388619
+    locked: 0
+  - name: PanelesCompra
+    uniqueID: 731094317
+    locked: 0
+  m_RenderingLayers:
+  - Default
