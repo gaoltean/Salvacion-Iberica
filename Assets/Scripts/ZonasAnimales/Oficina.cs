@@ -40,6 +40,12 @@ public class Oficina : MonoBehaviour
     [SerializeField] private Transform ContenedorComprarComida;
 
     [SerializeField] private GameObject ConstruirZonas;
+    [SerializeField] private int PrecioTienda = 0;
+    [SerializeField] private int PrecioBaño = 0;
+    [SerializeField] private TextMeshProUGUI TextoComprarTienda;
+    [SerializeField] private TextMeshProUGUI TextoComprarBaño;
+    [SerializeField] private List<GameObject> ZonasTiendas;
+    [SerializeField] private List<GameObject> ZonasBaños;
 
     #endregion
 
@@ -53,6 +59,13 @@ public class Oficina : MonoBehaviour
 
     private List<ZonaAnimal> _zonasMostradasCompraComida = new();
     private List<GameObject> _elementosCompraComida = new();
+
+
+    private List<GameObject> _zonasOcultasTiendas = new();
+    private List<GameObject> _zonasOcultasBaños = new();
+
+    private int _tiendasMaxDisponibles = 0;
+    private int _bañosMaxDisponibles = 0;
 
     private float _momentoInicioGestion = 0;
     private float _momentoFinGestion = 0;
@@ -75,6 +88,24 @@ public class Oficina : MonoBehaviour
         ComprarComida.SetActive(false);
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(false);
+
+        _tiendasMaxDisponibles = ZonasTiendas.Count;
+        _bañosMaxDisponibles = ZonasBaños.Count;
+
+        foreach (GameObject tienda in ZonasTiendas)
+        {
+            _zonasOcultasTiendas.Add(tienda);
+            tienda.SetActive(false);
+        }
+        foreach (GameObject baño in ZonasBaños)
+        {
+            _zonasOcultasBaños.Add(baño);
+            baño.SetActive(false);
+        }
+
+        TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza + "€";
+        TextoComprarTienda.text = "Compradas:" + (_tiendasMaxDisponibles - _zonasOcultasTiendas.Count) + "/" + ZonasTiendas.Count + "\n" + "Precio: " + PrecioTienda + "€";
+        TextoComprarBaño.text = "Comprados:" + (_bañosMaxDisponibles - _zonasOcultasBaños.Count) + "/" + ZonasBaños.Count + "\n" + "Precio:" + PrecioBaño + "€";
     }
 
     /// <summary>
@@ -153,6 +184,28 @@ public class Oficina : MonoBehaviour
     {
         GameManager.Instance.CompraProductosLimpieza(1, PrecioProductosLimpieza);
         TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza + "€";
+    }
+    public void ConstruyeTienda()
+    {
+        if (_zonasOcultasTiendas.Count > 0 && GameManager.Instance.GastaDinero(PrecioTienda))
+        {
+            int tiendaComprada = Random.Range(0, _zonasOcultasTiendas.Count);
+            _zonasOcultasTiendas[tiendaComprada].SetActive(true);
+            _zonasOcultasTiendas.RemoveAt(tiendaComprada);
+
+            TextoComprarTienda.text = "Compradas:" + (_tiendasMaxDisponibles - _zonasOcultasTiendas.Count) + "/" + ZonasTiendas.Count + "\n" + "Precio: " + PrecioTienda + "€";
+        }
+    }
+    public void ConstruyeBaño()
+    {
+        if (_zonasOcultasBaños.Count > 0 && GameManager.Instance.GastaDinero(PrecioBaño))
+        {
+            int bañoComprado = Random.Range(0, _zonasOcultasBaños.Count);
+            _zonasOcultasBaños[bañoComprado].SetActive(true);
+            _zonasOcultasBaños.RemoveAt(bañoComprado);
+
+            TextoComprarBaño.text = "Comprados:" + (_bañosMaxDisponibles - _zonasOcultasBaños.Count) + "/" + ZonasBaños.Count + "\n" + "Precio:" + PrecioBaño + "€";
+        }
     }
     #endregion
 
@@ -311,7 +364,7 @@ public class Oficina : MonoBehaviour
         rectTexto.sizeDelta = new Vector2(100, 50);
 
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
-        texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
+        texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "   " + "Precio: " + zona.DimePrecioComida() + "€";
         texto.fontStyle = FontStyles.Bold;
         texto.fontSize = 24;
         texto.textWrappingMode = TextWrappingModes.NoWrap;

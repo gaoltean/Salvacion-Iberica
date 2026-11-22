@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         _dinero = DineroInicial;
+        _productosLimpieza = ProductosLimpiezaInicial;
     }
 
     #endregion
