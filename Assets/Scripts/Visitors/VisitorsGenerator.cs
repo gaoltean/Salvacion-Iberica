@@ -36,6 +36,8 @@ public class VisitorsGenerator : MonoBehaviour
     /// Tiempo que hay que esperar entre spawns
     /// </summary>
     private float _TimeToWait;
+    private float _maxTime;
+    private float _minTime;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -49,8 +51,11 @@ public class VisitorsGenerator : MonoBehaviour
     {
         //Creamos el primero
         GenerateVisitor();
-        _TimeToWait = Random.Range(0.5f, 1.5f);
+        _minTime = 2.5f;
+        _maxTime = 6;
+        _TimeToWait = Random.Range(_minTime, _maxTime);
         _lastVisitorSpawn = Time.time;
+       
     }
 
     /// <summary>
@@ -62,7 +67,7 @@ public class VisitorsGenerator : MonoBehaviour
         if(Time.time-_lastVisitorSpawn > _TimeToWait)
         {
             GenerateVisitor();
-            _TimeToWait = Random.Range(0.5f, 1.5f);
+            _TimeToWait = Random.Range(_minTime, _maxTime);
             _lastVisitorSpawn = Time.time;
         }
     }
@@ -73,7 +78,35 @@ public class VisitorsGenerator : MonoBehaviour
     #region Métodos públicos
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
+    public void SetFame(float cant)
+    {
+        Debug.Log(cant);
+        if(cant > 90)
+        {
+            _minTime = 0.5f;
+            _maxTime = 2;
+        }else if(cant > 70)
+        {
+            _minTime = 1.5f;
+            _maxTime = 4;
 
+        }
+        else if(cant > 50)
+        {
+            _minTime = 2.5f;
+            _maxTime = 6;
+        }
+        else if (cant > 30)
+        {
+            _minTime = 4;
+            _maxTime = 8;
+        }
+        else
+        {
+            _minTime = 5;
+            _maxTime = 10;
+        }
+    }
     #endregion
     
     // ---- MÉTODOS PRIVADOS ----

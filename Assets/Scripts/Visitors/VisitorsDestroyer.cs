@@ -6,7 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using UnityEngine;
-
+using System;
 
 
 /// <summary>
@@ -18,7 +18,7 @@ public class VisitorsDestroyer : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
-
+    [SerializeField] private GameObject VisitorGenerator;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -29,6 +29,8 @@ public class VisitorsDestroyer : MonoBehaviour
     /// Movimiento del visitante
     /// </summary>
     private VisitorsMovement _visitor;
+    private VisitorsGenerator _generator;
+    private float _actualfelicidad;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -40,7 +42,12 @@ public class VisitorsDestroyer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        _actualfelicidad = 50;
+        _generator = VisitorGenerator.GetComponent<VisitorsGenerator>();
+        if (!_generator)
+        {
+            Debug.Log("No hay generador asignado");
+        }
     }
 
     /// <summary>
@@ -69,6 +76,14 @@ public class VisitorsDestroyer : MonoBehaviour
         //Miramos si es un visitante para destruirlo
         _visitor = collision.GetComponent<VisitorsMovement>();
         if (_visitor){
+            float felicidad = _visitor.GetFelicidad();
+            Debug.Log(_actualfelicidad);
+            if(Math.Abs(_actualfelicidad - felicidad) >= 10)
+            {
+                _actualfelicidad = felicidad;
+                _generator.SetFame(_actualfelicidad);
+            }
+
             Destroy(collision.gameObject);
         }
     }

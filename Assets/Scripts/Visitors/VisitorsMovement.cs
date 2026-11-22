@@ -32,7 +32,19 @@ public class VisitorsMovement : MonoBehaviour
     /// Rigidbody del visitante
     /// </summary>
     private Rigidbody2D _rb;
+    /// <summary>
+    /// Direccion del visitante
+    /// </summary>
     private Vector2 dir;
+    /// <summary>
+    /// Indica si ha pagado la entrada
+    /// </summary>
+    private bool _hasPaid;
+    /// <summary>
+    /// Indica si se pausa
+    /// </summary>
+    private bool _paused;
+    private float _felicidad;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -50,6 +62,9 @@ public class VisitorsMovement : MonoBehaviour
             Debug.Log("No hay rigidbody por tanto no se puede mover el visitante");
         }
         dir = new Vector2(0, 1);
+        _hasPaid = false;
+        _paused = false;
+        _felicidad = 100;
     }
 
     /// <summary>
@@ -58,7 +73,12 @@ public class VisitorsMovement : MonoBehaviour
     void Update()
     {
         //Nos movemos a una velocidad establecida
-        Movement(dir);
+        if (!_paused)
+        {
+            Movement(dir);
+            Updatefelicidad();
+        }
+        
     }
 
     #endregion
@@ -90,6 +110,35 @@ public class VisitorsMovement : MonoBehaviour
             dir.x = -dir.x;
         }
     }
+   
+    public void Pay( float entrance)
+    {
+        if (!_hasPaid)
+        {
+            GameManager.Instance.GanaDinero(entrance);
+            //Añadir si es muy cara no entrar
+            _hasPaid = true;
+        }
+    }
+    public void PauseVisitor(bool pause)
+    {
+        _paused = pause;
+    }
+    public float GetFelicidad()
+    {
+        return _felicidad;
+    }
+    public void AumentaFelicidad(float cant)
+    {
+        if(_felicidad+ cant > 100)
+        {
+            _felicidad = 100;
+        }
+        else
+        {
+            _felicidad += cant;
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -103,6 +152,15 @@ public class VisitorsMovement : MonoBehaviour
     private void Movement(Vector2 dir)
     {
         _rb.linearVelocity = dir * Speed;
+    }
+    private void Updatefelicidad()
+    {
+        //Baja  un 1% cada 5 sec
+        if(_felicidad > 0)
+        {
+            _felicidad -= 0.5f * Time.deltaTime;
+        }
+        
     }
     #endregion   
 

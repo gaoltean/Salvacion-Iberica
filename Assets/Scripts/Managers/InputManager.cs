@@ -38,6 +38,10 @@ public class InputManager : MonoBehaviour
     /// la carpeta Settings
     /// </summary>
     private InputSystem_Actions _theController;
+    /// <summary>
+    /// Acción para atacar
+    /// </summary>
+    private InputAction _Attack;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -130,6 +134,11 @@ public class InputManager : MonoBehaviour
     public Vector2 LastMovementVector { get; private set; }
 
     public bool Interact = false;
+   
+    public bool AttackWasPressedThisFrame()
+    {
+        return _Attack.WasPressedThisFrame();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -160,7 +169,7 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
         // y FireWasReleasedThisFrame)
-       
+        _Attack = _theController.Player.Attack;
     }
 
     /// <summary>
