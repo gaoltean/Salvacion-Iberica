@@ -128,6 +128,8 @@ public class InputManager : MonoBehaviour
     /// es un vector normalizado 
     /// </summary>
     public Vector2 LastMovementVector { get; private set; }
+
+    public bool Interact = false;
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -145,12 +147,14 @@ public class InputManager : MonoBehaviour
 
         // Cacheamos la acción de movimiento
         InputAction movement = _theController.Player.Move;
+        InputAction jump = _theController.Player.Interacion;
         // Para el movimiento, actualizamos el vector de movimiento usando
         // el método OnMove
         movement.performed += OnMove;
         movement.performed += LastMove;
         movement.canceled += OnMove;
-
+        jump.performed += OnInteract;
+        jump.canceled += OnInteract;
 
         // Para el disparo solo cacheamos la acción de disparo.
         // El estado lo consultaremos a través de los métodos públicos que 
@@ -185,7 +189,10 @@ public class InputManager : MonoBehaviour
         }
 
     }
-
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        Interact = !Interact;
+    }
     #endregion
 
 } // class InputManager 
