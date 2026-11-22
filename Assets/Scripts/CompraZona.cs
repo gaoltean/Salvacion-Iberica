@@ -63,7 +63,6 @@ public class CompraZona : MonoBehaviour
     {
         if (GameManager.Instance.GastaDinero(Precio))
         {
-            Debug.Log("Compra realizada");
             this.gameObject.SetActive(false);
             if (ZonaComprada != null) ZonaComprada.SetActive(true);
         }

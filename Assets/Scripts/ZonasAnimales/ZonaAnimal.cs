@@ -13,7 +13,7 @@ using UnityEngine;
 /// <summary>
 /// Descripción de qué es y para qué sirve
 /// </summary>
-public class ManagerZonaAnimales : MonoBehaviour
+public class ZonaAnimal : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -28,6 +28,8 @@ public class ManagerZonaAnimales : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextoComida;
     [SerializeField] private TextMeshProUGUI TextoSuciedad;
     [SerializeField] private GameObject TextoGestionar;
+    [SerializeField] private GameObject SpritesAnimales;
+    [SerializeField] private GameObject TextoNoAnimales;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -42,6 +44,8 @@ public class ManagerZonaAnimales : MonoBehaviour
     private bool _alimentacionUrgente = false;
     private float _momentoInicioGestion = 0;
     private float _momentoFinGestion = 0;
+
+    private bool _contieneAnimales = false;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -55,6 +59,8 @@ public class ManagerZonaAnimales : MonoBehaviour
     {
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(false);
+        TextoNoAnimales.SetActive(true);
+        if(SpritesAnimales != null) SpritesAnimales.SetActive(false);
     }
 
     /// <summary>
@@ -62,17 +68,19 @@ public class ManagerZonaAnimales : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Baja la comida 1% cada 5 segundos
-        if(_porcentajeComida > 0) _porcentajeComida -= 0.5f * Time.deltaTime;
-        if (_porcentajeComida < 0) _porcentajeComida = 0;
-        // Alimentacion urgente
-        if (_porcentajeComida < 30) _alimentacionUrgente = true;
-        // Baja la limpieza 1% cada 10 segundo
-        if (_porcentajeSuciedad < 100) _porcentajeSuciedad += 0.2f * Time.deltaTime;
-        if (_porcentajeSuciedad > 100) _porcentajeSuciedad = 100;
-        // Limpieza urgente
-        if (_porcentajeSuciedad > 70) _limpiezaUrgente = true;
-
+        if (_contieneAnimales)
+        {
+            // Baja la comida 1% cada 5 segundos
+            if (_porcentajeComida > 0) _porcentajeComida -= 0.5f * Time.deltaTime;
+            if (_porcentajeComida < 0) _porcentajeComida = 0;
+            // Alimentacion urgente
+            if (_porcentajeComida < 30) _alimentacionUrgente = true;
+            // Baja la limpieza 1% cada 10 segundo
+            if (_porcentajeSuciedad < 100) _porcentajeSuciedad += 0.2f * Time.deltaTime;
+            if (_porcentajeSuciedad > 100) _porcentajeSuciedad = 100;
+            // Limpieza urgente
+            if (_porcentajeSuciedad > 70) _limpiezaUrgente = true;
+        }
         TextoComida.text = "Comida: " + (int)_porcentajeComida + "%";
         TextoSuciedad.text = "Suciedad: " + (int)_porcentajeSuciedad + "%";
     }
@@ -112,6 +120,18 @@ public class ManagerZonaAnimales : MonoBehaviour
     public void LimpiaZona() 
     {
         if (_porcentajeSuciedad > 10) _porcentajeSuciedad = 0;
+    }
+
+    public bool ContieneAnimales()
+    {
+        return _contieneAnimales;
+    }
+
+    public void CompraAnimales()
+    {
+        _contieneAnimales = true;
+        if(SpritesAnimales != null) SpritesAnimales.SetActive(true);
+        TextoNoAnimales.SetActive(false);
     }
     #endregion
 
