@@ -42,11 +42,15 @@ public class ZonaAnimal : MonoBehaviour
     /// <summary>
     /// Cuanto tarda en gastarse la comida (0 = Por defecto)
     /// </summary>
-    [SerializeField] private float DuracionComida = 0;
+    [SerializeField] private float DuracionComida = 300;
+    /// <summary>
+    /// Tiempo que aguantan los animales sin morirse con 100% de hambre
+    /// </summary>
+    [SerializeField] private float ResistenciaALaInanicion = 300;
     /// <summary>
     /// Cuanto tarda en ensuciarse del todo (0 = Por defecto)
     /// </summary>
-    [SerializeField] private float DurazionLimpieza = 0;
+    [SerializeField] private float DurazionLimpieza = 600;
     /// <summary>
     /// Dinero necesario para desbloquear animales en la zona
     /// </summary>
@@ -62,19 +66,18 @@ public class ZonaAnimal : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
 
-    private float _momentoInicioGestion = 0;
-    private float _momentoFinGestion = 0;
-
     private float _porcentajeHambre = 0;
     private float _porcentajeSuciedad = 0;
+    private float _porcentajeMuerte = 0;
 
     private bool _limpiezaUrgente = false;
     private bool _alimentacionUrgente = false;
 
     private int _sacosComida = 0;
 
-    private float _disminucionComida = 0.5f;
-    private float _disminucionLimpieza = 0.2f;
+    private float _disminucionComida = 0;
+    private float _disminucionLimpieza = 0;
+    private float _disminucionSaludPorHambre = 0;
     private bool _contieneAnimales = false;
     #endregion
     
@@ -91,10 +94,12 @@ public class ZonaAnimal : MonoBehaviour
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(false);
         TextoNoAnimales.SetActive(true);
-        if(SpritesAnimales != null) SpritesAnimales.SetActive(false);
-        if (DuracionComida != 0) _disminucionComida = 100f / DuracionComida;
-        if (DurazionLimpieza != 0) _disminucionLimpieza = 100f / DurazionLimpieza;
+        SpritesAnimales.SetActive(false);
+        _disminucionComida = 100f / DuracionComida;
+        _disminucionLimpieza = 100f / DurazionLimpieza;
+        _disminucionSaludPorHambre = 100f / ResistenciaALaInanicion;
         TextoGestionar.GetComponent<TextMeshProUGUI>().text = "Gestionar " + this.name + ": 'E'";
+        
     }
 
     /// <summary>
@@ -106,14 +111,33 @@ public class ZonaAnimal : MonoBehaviour
         {
             // Baja la comida
             if (_porcentajeHambre < 100) _porcentajeHambre += _disminucionComida * Time.deltaTime;
-            if (_porcentajeHambre > 100) _porcentajeHambre = 100;
+            // Alimentacion urgente
+            else if (_porcentajeHambre > 100)
+            {
+                _porcentajeHambre = 100;
+                _alimentacionUrgente = true;
+            } 
             // Baja la limpieza
             if (_porcentajeSuciedad < 100) _porcentajeSuciedad += _disminucionLimpieza * Time.deltaTime;
-            if (_porcentajeSuciedad > 100) _porcentajeSuciedad = 100;
-            // Alimentacion urgente
-            if (_porcentajeHambre > 70) _alimentacionUrgente = true;
+
             // Limpieza urgente
-            if (_porcentajeSuciedad > 70) _limpiezaUrgente = true;
+            else if (_porcentajeSuciedad > 100)
+            {
+                _porcentajeSuciedad = 100;
+                _limpiezaUrgente = true;
+            }
+            // Alimentacion urgente
+            if (_alimentacionUrgente)
+            {
+                _porcentajeMuerte += _disminucionSaludPorHambre * Time.deltaTime;
+                if (_porcentajeMuerte > 100)
+                {
+                    _contieneAnimales = false;
+                    SpritesAnimales.SetActive(false);
+                    _alimentacionUrgente = false;
+                    _porcentajeMuerte = 0;
+                }
+            }
         }
         TextoSacosComida.text = "Sacos de comida: " + _sacosComida;
         TextoProductosLimpieza.text = "Productos de limpieza: " + GameManager.Instance.DimeProductosLimpieza();
@@ -124,17 +148,11 @@ public class ZonaAnimal : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!PanelGestion.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
-        if (!PanelGestion.activeSelf && InputManager.Instance.Interact && Time.time > _momentoFinGestion + 1)
+        if (!PanelGestion.activeSelf && InputManager.Instance.Interact)
         {
-            _momentoInicioGestion = Time.time;
             PanelGestion.SetActive(true);
+            if (TextoNoAnimales.activeSelf != !_contieneAnimales) TextoNoAnimales.SetActive(!_contieneAnimales);
             TextoGestionar.SetActive(false);
-        }
-        if (PanelGestion.activeSelf && InputManager.Instance.Interact && Time.time > _momentoInicioGestion + 1)
-        {
-            _momentoFinGestion = Time.time;
-            PanelGestion.SetActive(false);
-            TextoGestionar.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -170,8 +188,7 @@ public class ZonaAnimal : MonoBehaviour
     public void CompraAnimales()
     {
         _contieneAnimales = true;
-        if(SpritesAnimales != null) SpritesAnimales.SetActive(true);
-        TextoNoAnimales.SetActive(false);
+        SpritesAnimales.SetActive(true);
     }
 
     public void CompraComida(int Cantidad)
@@ -190,6 +207,11 @@ public class ZonaAnimal : MonoBehaviour
     public float DimePrecioComida()
     {
         return PrecioComida;
+    }
+    public void SalirGestion()
+    {
+        PanelGestion.SetActive(false);
+        TextoGestionar.SetActive(true);
     }
     #endregion
 
