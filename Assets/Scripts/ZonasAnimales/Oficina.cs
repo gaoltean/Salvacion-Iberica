@@ -84,10 +84,6 @@ public class Oficina : MonoBehaviour
     {
         if (ComprarAnimales.activeSelf) ActualizaCompraAnimales();
         else if (ComprarComida.activeSelf) ActualizaCompraComida();
-        else if (ComprarUtiles.activeSelf)
-        {
-            TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza;
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -156,6 +152,7 @@ public class Oficina : MonoBehaviour
     public void CompraLimpieza()
     {
         GameManager.Instance.CompraProductosLimpieza(1, PrecioProductosLimpieza);
+        TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza + "€";
     }
     #endregion
 
@@ -314,7 +311,7 @@ public class Oficina : MonoBehaviour
         rectTexto.sizeDelta = new Vector2(100, 50);
 
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
-        texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioAnimales() + "€";
+        texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
         texto.fontStyle = FontStyles.Bold;
         texto.fontSize = 24;
         texto.textWrappingMode = TextWrappingModes.NoWrap;
@@ -341,7 +338,7 @@ public class Oficina : MonoBehaviour
 
         boton.onClick.AddListener(() =>
         {
-            texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioAnimales() + "€";
+            texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
             zona.CompraComida(1);
             ActualizaCompraComida();
         });
