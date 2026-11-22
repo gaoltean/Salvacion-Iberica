@@ -67,9 +67,6 @@ public class Oficina : MonoBehaviour
     private int _tiendasMaxDisponibles = 0;
     private int _bañosMaxDisponibles = 0;
 
-    private float _momentoInicioGestion = 0;
-    private float _momentoFinGestion = 0;
-
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -120,25 +117,11 @@ public class Oficina : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!ComprarAnimales.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
-        if (!PanelGestion.activeSelf && InputManager.Instance.Interact && Time.time > _momentoFinGestion + 1)
+        if (!PanelGestion.activeSelf && InputManager.Instance.Interact)
         {
-            _momentoInicioGestion = Time.time;
-
             PanelGestion.SetActive(true);
             InicioGestion.SetActive(true);
             TextoGestionar.SetActive(false);
-        }
-        if (PanelGestion.activeSelf && InputManager.Instance.Interact && Time.time > _momentoInicioGestion + 1)
-        {
-            _momentoFinGestion = Time.time;
-
-            InicioGestion.SetActive(false);
-            ComprarAnimales.SetActive(false);
-            ConstruirZonas.SetActive(false);
-            ComprarUtiles.SetActive(false);
-            ComprarComida.SetActive(false);
-            PanelGestion.SetActive(false);
-            TextoGestionar.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -205,6 +188,42 @@ public class Oficina : MonoBehaviour
             _zonasOcultasBaños.RemoveAt(bañoComprado);
 
             TextoComprarBaño.text = "Comprados:" + (_bañosMaxDisponibles - _zonasOcultasBaños.Count) + "/" + ZonasBaños.Count + "\n" + "Precio:" + PrecioBaño + "€";
+        }
+    }
+    public void GoBack()
+    {
+        if (InicioGestion.activeSelf)
+        {
+            InicioGestion.SetActive(false);
+            ComprarAnimales.SetActive(false);
+            ConstruirZonas.SetActive(false);
+            ComprarUtiles.SetActive(false);
+            ComprarComida.SetActive(false);
+            PanelGestion.SetActive(false);
+            TextoGestionar.SetActive(true);
+        }
+        if (ComprarAnimales.activeSelf)
+        {
+            ComprarAnimales.SetActive(false);
+            InicioGestion.SetActive(true);
+        }
+        else if (ComprarUtiles.activeSelf)
+        {
+            if (ComprarComida.activeSelf)
+            {
+                ComprarComida.SetActive(false);
+                BotonesComprarUtiles.SetActive(true);
+            }
+            else
+            {
+                ComprarUtiles.SetActive(false);
+                InicioGestion.SetActive(true);
+            }
+        }
+        else if (ConstruirZonas.activeSelf)
+        {
+            ConstruirZonas.SetActive(false);
+            InicioGestion.SetActive(true);
         }
     }
     #endregion
@@ -277,7 +296,7 @@ public class Oficina : MonoBehaviour
         rect.sizeDelta = new Vector2(400, 50);
 
         HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
-        layout.spacing = 50;
+        layout.spacing = 20;
         layout.childAlignment = TextAnchor.MiddleCenter;
 
         // Texto
@@ -290,7 +309,7 @@ public class Oficina : MonoBehaviour
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
         texto.text = zona.name + "\n" + "Precio: " + zona.DimePrecioAnimales() + "€";
         texto.fontStyle = FontStyles.Bold;
-        texto.fontSize = 24;
+        texto.fontSize = 18;
         texto.textWrappingMode = TextWrappingModes.NoWrap;
         texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;
@@ -353,7 +372,7 @@ public class Oficina : MonoBehaviour
         rect.sizeDelta = new Vector2(400, 50);
 
         HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
-        layout.spacing = 50;
+        layout.spacing = 20;
         layout.childAlignment = TextAnchor.MiddleCenter;
 
         // Texto
@@ -366,7 +385,7 @@ public class Oficina : MonoBehaviour
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
         texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "   " + "Precio: " + zona.DimePrecioComida() + "€";
         texto.fontStyle = FontStyles.Bold;
-        texto.fontSize = 24;
+        texto.fontSize = 18;
         texto.textWrappingMode = TextWrappingModes.NoWrap;
         texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;
@@ -391,8 +410,8 @@ public class Oficina : MonoBehaviour
 
         boton.onClick.AddListener(() =>
         {
-            texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
             zona.CompraComida(1);
+            texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "   " + "Precio: " + zona.DimePrecioComida() + "€";
             ActualizaCompraComida();
         });
 
