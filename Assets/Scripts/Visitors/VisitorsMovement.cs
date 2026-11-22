@@ -44,7 +44,18 @@ public class VisitorsMovement : MonoBehaviour
     /// Indica si se pausa
     /// </summary>
     private bool _paused;
+    /// <summary>
+    /// Felicidad del visitante
+    /// </summary>
     private float _felicidad;
+    /// <summary>
+    /// Componente animator del visitante
+    /// </summary>
+    private Animator _animator;
+    /// <summary>
+    /// Sprite render del visitante
+    /// </summary>
+    private SpriteRenderer _sprite;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -65,6 +76,16 @@ public class VisitorsMovement : MonoBehaviour
         _hasPaid = false;
         _paused = false;
         _felicidad = 100;
+        _animator = this.GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.Log("No hay Animator por tanto no hay animaciones el visitor");
+        }
+        _sprite = this.GetComponent<SpriteRenderer>();
+        if (_sprite == null)
+        {
+            Debug.Log("No hay sprite y no hay animaciones en el visitor");
+        }
     }
 
     /// <summary>
@@ -149,9 +170,10 @@ public class VisitorsMovement : MonoBehaviour
     /// Metodo encargado del movimiento del visitante
     /// </summary>
     /// <param name="dir">direcion del movimiento </param>
-    private void Movement(Vector2 dir)
+    private void Movement(Vector2 dirs)
     {
-        _rb.linearVelocity = dir * Speed;
+        _rb.linearVelocity = dirs * Speed;
+        Animate(dirs);
     }
     private void Updatefelicidad()
     {
@@ -161,6 +183,33 @@ public class VisitorsMovement : MonoBehaviour
             _felicidad -= 0.5f * Time.deltaTime;
         }
         
+    }
+    private void Animate(Vector2 dirs)
+    {
+        _sprite.flipX = false;
+        bool dirXNull = dirs.x > -0.1 && dirs.x < 0.1;
+        bool dirYNull = dirs.y > -0.1 && dirs.y < 0.1;
+        //Andar hacia delante
+        if (dirs.y < -0.1 && dirXNull)
+        {
+            _animator.Play("WalkF");
+        }
+        //Andar hacia atras
+        else if (dirs.y > 0.1 && dirXNull)
+        {
+            _animator.Play("WalkB");
+        }
+        //Correr izquierda
+        else if (dirs.x < -0.1 && dirYNull)
+        {
+            _sprite.flipX = true;
+            _animator.Play("WalkL");
+        }
+        //Correr derecha
+        else if (dirs.x > 0.1 && dirYNull)
+        {
+            _animator.Play("WalkL");
+        }
     }
     #endregion   
 
