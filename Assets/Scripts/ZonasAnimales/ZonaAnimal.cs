@@ -94,6 +94,7 @@ public class ZonaAnimal : MonoBehaviour
         if(SpritesAnimales != null) SpritesAnimales.SetActive(false);
         if (DuracionComida != 0) _disminucionComida = 100f / DuracionComida;
         if (DurazionLimpieza != 0) _disminucionLimpieza = 100f / DurazionLimpieza;
+        TextoGestionar.GetComponent<TextMeshProUGUI>().text = "Gestionar " + this.name + ": 'E'";
     }
 
     /// <summary>

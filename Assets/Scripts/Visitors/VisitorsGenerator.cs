@@ -80,7 +80,7 @@ public class VisitorsGenerator : MonoBehaviour
     // Estos métodos se nombren en formato PascalCase
     public void SetFame(float cant)
     {
-        Debug.Log(cant);
+        //Debug.Log(cant);
         if(cant > 90)
         {
             _minTime = 0.5f;
