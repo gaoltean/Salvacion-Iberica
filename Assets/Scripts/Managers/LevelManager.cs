@@ -100,15 +100,29 @@ public class LevelManager : MonoBehaviour
         //Pausamos a los objetos
         ObjetsToPause.SetActive(true);
     }
+    /// <summary>
+    /// Cierra la build
+    /// </summary>
+    public void Exit()
+    {
+        // Debug.Log("Cerrando juego");
+        Application.Quit();
+    }
+    public void ChangeScene(int index)
+    {
+        System.GC.Collect();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(index);
+        System.GC.Collect();
+    }
     #endregion
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí con ///<summary>
-    // Estos métodos se nombren en formato PascalCase
-    /// <summary>
-    /// Dispara la inicialización.
-    /// </summary>
+        // ---- MÉTODOS PRIVADOS ----
+        #region Métodos Privados
+        // Documentar cada método que aparece aquí con ///<summary>
+        // Estos métodos se nombren en formato PascalCase
+        /// <summary>
+        /// Dispara la inicialización.
+        /// </summary>
     private void Init()
     {
         // De momento no hay nada que inicializar
