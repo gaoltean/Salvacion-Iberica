@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour
     // Los atributos públicos y de inspector en formato PascalCase
 
     [SerializeField] private TextMeshProUGUI Dinero;
-    [SerializeField] private TextMeshProUGUI SacosComida;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -49,7 +48,6 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         Dinero.text = "Dinero: " + GameManager.Instance.DimeDinero() + "€";
-        SacosComida.text = "Sacos de comida: " + GameManager.Instance.DimeSacosComida();
     }
 
     #endregion

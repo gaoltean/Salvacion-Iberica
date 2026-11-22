@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     /// Dinero con el que empiezas la partida
     /// </summary>
     [SerializeField] private float DineroInicial = 0;
-    [SerializeField] private int SacosComidaInicial = 10;
+    [SerializeField] private int ProductosLimpiezaInicial = 10;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviour
     private float _dinero;
 
     /// <summary>
-    /// Sacos de comida que tienes actualmente
+    /// Productos de limpieza que tienes actualmente
     /// </summary>
-    private int _sacosComida;
+    private int _productosLimpieza;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -152,24 +152,39 @@ public class GameManager : MonoBehaviour
         return ret;
     }
     /// <summary>
-    /// Gasta una cantidad de sacos de comida cuando tiene suficiente
+    /// Gasta 1 de productos de limpieza cuando tienes suficientes
     /// </summary>
-    /// <param name="cantidad">Cantidad de sacos a gastar</param>
-    /// <returns>True cuando has podido gastar comida</returns>
-    public bool GastaComida(int cantidad)
+    /// <returns>True cuando has podido gastar</returns>
+    public bool GastaProductosLimpieza()
     {
-        bool ret = _sacosComida - cantidad > 0;
-        if (ret) _sacosComida -= cantidad;
+        bool ret = _productosLimpieza - 1 > 0;
+        if (ret) _productosLimpieza -= 1;
         return ret;
     }
+    /// <summary>
+    /// Aumenta la cantidad de productos de limpieza cuando tienes dinero suficiente
+    /// </summary>
+    /// <param name="cantidad">Cantidad a comprar</param>
+    /// <param name="precio">Precio de la comida</param>
+    /// <returns>True si la compra se ha realizado</returns>
+    public bool CompraProductosLimpieza(int cantidad, float precio)
+    {
+        bool ret = _dinero - precio > 0;
+        if (ret) 
+        { 
+            _productosLimpieza += cantidad; 
+            _dinero -= precio;
+        }
+        return ret;
+    }
+
     public float DimeDinero()
     {
         return _dinero;
     }
-
-    public float DimeSacosComida()
+    public int DimeProductosLimpieza()
     {
-        return _sacosComida;
+        return _productosLimpieza;
     }
     #endregion
 
@@ -191,7 +206,6 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         _dinero = DineroInicial;
-        _sacosComida = SacosComidaInicial;
     }
 
     #endregion

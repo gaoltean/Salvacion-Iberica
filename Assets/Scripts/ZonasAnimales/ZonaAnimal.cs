@@ -20,16 +20,41 @@ public class ZonaAnimal : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
 
+    [SerializeField] private GameObject TextoGestionar;
+    [SerializeField] private GameObject PanelGestion;
+    [SerializeField] private TextMeshProUGUI TextoComida;
+    [SerializeField] private TextMeshProUGUI TextoSacosComida;
+    [SerializeField] private TextMeshProUGUI TextoSuciedad;
+    [SerializeField] private TextMeshProUGUI TextoProductosLimpieza;
+    [SerializeField] private GameObject TextoNoAnimales;
+    /// <summary>
+    /// Sacos de comida que tienes al desbloquear una zona
+    /// </summary>
+    [SerializeField] private int SacosIniciales = 10;
+    /// <summary>
+    /// Precio de un saco de comida
+    /// </summary>
+    [SerializeField] private float PrecioComida = 10.0f;
     /// <summary>
     /// Sacos de comida necesarios para alimentar
     /// </summary>
     [SerializeField] private int ComidaParaAlimentar;
-    [SerializeField] private GameObject PanelGestion;
-    [SerializeField] private TextMeshProUGUI TextoComida;
-    [SerializeField] private TextMeshProUGUI TextoSuciedad;
-    [SerializeField] private GameObject TextoGestionar;
+    /// <summary>
+    /// Cuanto tarda en gastarse la comida (0 = Por defecto)
+    /// </summary>
+    [SerializeField] private float DuracionComida = 0;
+    /// <summary>
+    /// Cuanto tarda en ensuciarse del todo (0 = Por defecto)
+    /// </summary>
+    [SerializeField] private float DurazionLimpieza = 0;
+    /// <summary>
+    /// Dinero necesario para desbloquear animales en la zona
+    /// </summary>
+    [SerializeField] private float PrecioAnimales;
+    /// <summary>
+    /// Contenedor de objetos de animales que se desbloquean
+    /// </summary>
     [SerializeField] private GameObject SpritesAnimales;
-    [SerializeField] private GameObject TextoNoAnimales;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -37,14 +62,19 @@ public class ZonaAnimal : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
 
-    private float _porcentajeComida = 100;
+    private float _momentoInicioGestion = 0;
+    private float _momentoFinGestion = 0;
+
+    private float _porcentajeHambre = 0;
     private float _porcentajeSuciedad = 0;
 
     private bool _limpiezaUrgente = false;
     private bool _alimentacionUrgente = false;
-    private float _momentoInicioGestion = 0;
-    private float _momentoFinGestion = 0;
 
+    private int _sacosComida = 0;
+
+    private float _disminucionComida = 0.5f;
+    private float _disminucionLimpieza = 0.2f;
     private bool _contieneAnimales = false;
     #endregion
     
@@ -57,10 +87,13 @@ public class ZonaAnimal : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _sacosComida = SacosIniciales;
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(false);
         TextoNoAnimales.SetActive(true);
         if(SpritesAnimales != null) SpritesAnimales.SetActive(false);
+        if (DuracionComida != 0) _disminucionComida = 100f / DuracionComida;
+        if (DurazionLimpieza != 0) _disminucionLimpieza = 100f / DurazionLimpieza;
     }
 
     /// <summary>
@@ -70,18 +103,20 @@ public class ZonaAnimal : MonoBehaviour
     {
         if (_contieneAnimales)
         {
-            // Baja la comida 1% cada 5 segundos
-            if (_porcentajeComida > 0) _porcentajeComida -= 0.5f * Time.deltaTime;
-            if (_porcentajeComida < 0) _porcentajeComida = 0;
-            // Alimentacion urgente
-            if (_porcentajeComida < 30) _alimentacionUrgente = true;
-            // Baja la limpieza 1% cada 10 segundo
-            if (_porcentajeSuciedad < 100) _porcentajeSuciedad += 0.2f * Time.deltaTime;
+            // Baja la comida
+            if (_porcentajeHambre < 100) _porcentajeHambre += _disminucionComida * Time.deltaTime;
+            if (_porcentajeHambre > 100) _porcentajeHambre = 100;
+            // Baja la limpieza
+            if (_porcentajeSuciedad < 100) _porcentajeSuciedad += _disminucionLimpieza * Time.deltaTime;
             if (_porcentajeSuciedad > 100) _porcentajeSuciedad = 100;
+            // Alimentacion urgente
+            if (_porcentajeHambre > 70) _alimentacionUrgente = true;
             // Limpieza urgente
             if (_porcentajeSuciedad > 70) _limpiezaUrgente = true;
         }
-        TextoComida.text = "Comida: " + (int)_porcentajeComida + "%";
+        TextoSacosComida.text = "Sacos de comida: " + _sacosComida;
+        TextoProductosLimpieza.text = "Productos de limpieza: " + GameManager.Instance.DimeProductosLimpieza();
+        TextoComida.text = "Hambre: " + (int)(_porcentajeHambre) + "%";
         TextoSuciedad.text = "Suciedad: " + (int)_porcentajeSuciedad + "%";
     }
 
@@ -115,11 +150,15 @@ public class ZonaAnimal : MonoBehaviour
 
     public void Alimenta()
     {
-        if(GameManager.Instance.GastaComida(ComidaParaAlimentar) && _porcentajeComida < 90) _porcentajeComida = 100;
+        if (_porcentajeHambre > 10 && _sacosComida > 0)
+        {
+            _sacosComida--; 
+            _porcentajeHambre = 0;
+        }
     }
     public void LimpiaZona() 
     {
-        if (_porcentajeSuciedad > 10) _porcentajeSuciedad = 0;
+        if (_porcentajeSuciedad > 10 && GameManager.Instance.GastaProductosLimpieza()) _porcentajeSuciedad = 0;
     }
 
     public bool ContieneAnimales()
@@ -132,6 +171,24 @@ public class ZonaAnimal : MonoBehaviour
         _contieneAnimales = true;
         if(SpritesAnimales != null) SpritesAnimales.SetActive(true);
         TextoNoAnimales.SetActive(false);
+    }
+
+    public void CompraComida(int Cantidad)
+    {
+        if (GameManager.Instance.GastaDinero(PrecioComida * Cantidad)) _sacosComida += Cantidad;
+    }
+    public int DimeSacosComida()
+    {
+        return _sacosComida;
+    }
+    public float DimePrecioAnimales()
+    {
+        return PrecioAnimales;
+    }
+
+    public float DimePrecioComida()
+    {
+        return PrecioComida;
     }
     #endregion
 
