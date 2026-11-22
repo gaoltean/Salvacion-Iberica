@@ -77,7 +77,7 @@ public class VisitorsDestroyer : MonoBehaviour
         _visitor = collision.GetComponent<VisitorsMovement>();
         if (_visitor){
             float felicidad = _visitor.GetFelicidad();
-            Debug.Log(_actualfelicidad);
+            //Debug.Log(_actualfelicidad);
             if(Math.Abs(_actualfelicidad - felicidad) >= 10)
             {
                 _actualfelicidad = felicidad;

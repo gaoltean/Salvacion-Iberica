@@ -18,6 +18,7 @@ public class ParkEntry : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
+    [SerializeField] private GameObject panelprice;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -32,6 +33,10 @@ public class ParkEntry : MonoBehaviour
     /// Precio de la entrada
     /// </summary>
     private float _entrancePrice = 2;
+    /// <summary>
+    /// Movimiento del player
+    /// </summary>
+    private PlayerMovement _player;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -43,7 +48,7 @@ public class ParkEntry : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        panelprice.SetActive(false);
     }
 
     /// <summary>
@@ -64,9 +69,16 @@ public class ParkEntry : MonoBehaviour
     /// Metodo para cambiar el precio de la entrada al parque
     /// </summary>
     /// <param name="entrance">Nuevo precio de la entrada</param>
-    public void SetEntrancePrice(float entrance)
+    public void SetEntrancePrice(string entrance)
     {
-        _entrancePrice = entrance;
+        //Debug.Log(entrance);
+        int precio;
+        if(int.TryParse(entrance, out precio))
+        {
+           // Debug.Log(precio);
+            _entrancePrice = precio;
+        }
+       
     }
     #endregion
 
@@ -81,6 +93,22 @@ public class ParkEntry : MonoBehaviour
         {
             //Pagamos la entrada
             _visitor.Pay(_entrancePrice);
+        }
+        else
+        {
+            _player = collision.GetComponent<PlayerMovement>();
+            if (_player) //Si es el jugador abrimos el panel de cambiar precio
+            {
+                panelprice.SetActive(true);
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        _player = collision.GetComponent<PlayerMovement>();
+        if (_player) //Si es el jugador cerramos el panel de cambiar precio
+        {
+            panelprice.SetActive(false);
         }
     }
     #endregion   
