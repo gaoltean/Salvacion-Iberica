@@ -6,7 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using UnityEngine;
-
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -20,7 +20,7 @@ public class RobberStation : MonoBehaviour
     // Los atributos públicos y de inspector en formato PascalCase
     [SerializeField] private float TimeToWaitRobber;
     [SerializeField] private float TimeToWait;
-    [SerializeField] private Pictures cuadro;
+    [SerializeField] private List<Pictures> Cuadros;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -31,6 +31,7 @@ public class RobberStation : MonoBehaviour
     private float _startTime;
     private bool _hasRobber;
     private bool _canHaveRobber;
+    private int _numItems = 0;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -43,6 +44,10 @@ public class RobberStation : MonoBehaviour
     void Start()
     {
         _canHaveRobber = true;
+        foreach (Pictures cuadro in Cuadros)
+        {
+            _numItems++;
+        }
     }
 
     /// <summary>
@@ -59,7 +64,13 @@ public class RobberStation : MonoBehaviour
                 _hasRobber = false;
                 _startTime = Time.time;
                 _canHaveRobber = false;
-                Tablet.Instance.AddCuadro(cuadro);
+                if(_numItems > 0)
+                {
+                    Tablet.Instance.AddCuadro(Cuadros[_numItems-1]);
+                    Cuadros.Remove(Cuadros[_numItems-1]);
+                    _numItems--;
+                }
+                
             }
         }
         else 

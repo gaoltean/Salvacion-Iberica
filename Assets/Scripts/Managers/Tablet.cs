@@ -372,7 +372,7 @@ public class Tablet : MonoBehaviour
         TextMeshProUGUI texto = ObjetoTexto.GetComponent<TextMeshProUGUI>();
         texto.text = $"{cuadro.GetTitle()}: Autor: {cuadro.GetAuthor()}\n Precio: {cuadro.GetPrice()}  €";
         texto.fontStyle = FontStyles.Bold;
-        texto.fontSize = 15;
+        texto.fontSize = 10;
         texto.textWrappingMode = TextWrappingModes.NoWrap;
         texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;

@@ -34,6 +34,8 @@ public class RobbersMovement : MonoBehaviour
     private Vector2 _posOfi;
     private Vector2 _posSalida;
     private Vector2 _posInter;
+    private Vector2 _salidaOfi;
+    private bool _salida;
     private bool _inter;
     private bool _exit;
     private bool ReachX;
@@ -81,9 +83,11 @@ public class RobbersMovement : MonoBehaviour
             Debug.Log("No hay sprite y no hay animaciones en el visitor");
         }
         _rob = false;
+        _salida = false;
         _posInter = new Vector2(-0.5f, 3);
         _posSalida = new Vector2(-0.5f, -5);
         _posOfi = new Vector2(-6, 6);
+        _salidaOfi = new Vector2(-6.7f, 2.8f);
     }
 
     /// <summary>
@@ -94,7 +98,11 @@ public class RobbersMovement : MonoBehaviour
         if (_rob)
         {
             //vamos hasta la intersecion
-            if (!_inter)
+            if (!_salida)
+            {
+                _salida = ReachPos(_salidaOfi);
+            }
+            else if (!_inter)
             {
                _inter = ReachPos(_posInter);
             }
@@ -102,22 +110,23 @@ public class RobbersMovement : MonoBehaviour
             {
                 _exit = ReachPos(_posSalida);
             }
-            if(_exit && _inter)
+            if(_exit && _inter && _salida)
             {
                 _rob = false;
                 _inter = false;
                 _exit = false;
+                _salida = false;
             }
         }else if (_back)
         {
             if (!_inter)
             {
                 _inter = ReachPos(_posInter);
-                Debug.Log("llegando a inter");
+               // Debug.Log("llegando a inter");
             }else if(!_office)
             {
               _office= ReachPos(_posOfi);
-                Debug.Log("llegando a offi");
+                //Debug.Log("llegando a offi");
             }
             if(_office && _inter)
             {
@@ -143,6 +152,8 @@ public class RobbersMovement : MonoBehaviour
         _back = true;
         _rob = false;
         _inter = false;
+        _salida = false;
+        _exit = false;
     }
     #endregion
 
