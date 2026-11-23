@@ -242,8 +242,8 @@ public class WorkerMovement : MonoBehaviour
         // Cuando es interseccion
         else 
         {
-            // Cuando no buscamos trabajo
-            if (!_llamadoTrabajar)
+            // Cuando no buscamos trabajo cambiamos 1 de cada 3 veces
+            if (!_llamadoTrabajar && intersection && UnityEngine.Random.Range(0, 3) == 1)
             {
                 // Cambia en x
                 if (UnityEngine.Random.Range(0, 2) == 1)
