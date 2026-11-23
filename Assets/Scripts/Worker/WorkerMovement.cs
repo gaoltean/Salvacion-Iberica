@@ -76,7 +76,7 @@ public class WorkerMovement : MonoBehaviour
     /// <summary>
     /// Posicion del camino justo antes de entrar a la zona de trabajo
     /// </summary>
-    private Vector2 _posCaminoTrabajo;
+    private Vector2 _posEnElCamino;
     /// <summary>
     /// Direccion para volver al camino despues del trabajo
     /// </summary>
@@ -87,6 +87,7 @@ public class WorkerMovement : MonoBehaviour
     private bool ReachY;
     private bool ReachAproximateY;
     private bool _vaPorCamino;
+    private bool _zonaEncontrada;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -136,7 +137,7 @@ public class WorkerMovement : MonoBehaviour
             // Movimiento
             Movement(_dir);
             // Parada a trabajar
-            if (_llamadoTrabajar)
+            if (_llamadoTrabajar && !_zonaEncontrada)
             {
                 ReachX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 1;
                 ReachY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
@@ -145,8 +146,30 @@ public class WorkerMovement : MonoBehaviour
 
                 if (ReachX && ReachAproximateY)
                 {
-                    _posCaminoTrabajo = _transform.position;
+                    _posEnElCamino = _transform.position;
                     _dirVueltaCamino = new Vector2(0, _transform.position.y - _posicionTrabajo.y);
+                    _zonaEncontrada = true;
+                }
+                else if (ReachY && ReachAproximateX)
+                {
+                    _posEnElCamino = _transform.position;
+                    _dirVueltaCamino = new Vector2(_transform.position.x - _posicionTrabajo.x, 0);
+                    _zonaEncontrada = true;
+                }
+                AnimateIlde(-_dirVueltaCamino);
+            }
+            else if (_llamadoTrabajar && _zonaEncontrada)
+            {
+                if (!ReachX || !ReachY)
+                {
+                    Vector2 dir = -_dirVueltaCamino;
+                    Movement(dir.normalized);
+                    ReachX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 1;
+                    ReachY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
+                }
+                else
+                {
+                    Movement(new Vector2(0,0));
                     _paradoTrabajar = true;
                     _trabajoTerminado = false;
                     //Vector2 pause = new Vector2(0,0);
@@ -154,35 +177,24 @@ public class WorkerMovement : MonoBehaviour
                     Vector2 look = new Vector2(0, _posicionTrabajo.y - _transform.position.y);
                     AnimateIlde(look);
                 }
-                else if (ReachY && ReachAproximateX)
-                {
-                    _posCaminoTrabajo = _transform.position;
-                    _dirVueltaCamino = new Vector2(0, _transform.position.x - _posicionTrabajo.x);
-                    _paradoTrabajar = true;
-                    _trabajoTerminado = false;
-                }
-                AnimateIlde(-_dirVueltaCamino);
+                    
             }
         }
         // Cuando esta parado y ha terminado de trabajar
-        else 
+        else if (_trabajoTerminado)
         {
-            if (_trabajoTerminado)
+            _vaPorCamino = Vector2.Distance(_transform.position, _posEnElCamino) < 0.2f;
+            if (!_vaPorCamino)
             {
-                _vaPorCamino = Vector2.Distance(_transform.position, _posCaminoTrabajo) < 0.5f;
-                if (!_vaPorCamino)
-                {
-                    Movement(_dirVueltaCamino);
-                }
-                else
-                {
-                    _paradoTrabajar = false;
-                }
+                Movement(_dirVueltaCamino.normalized);
             }
             else
             {
-                Movement(new Vector2(0, 0));
-            } 
+                _paradoTrabajar = false;
+                _llamadoTrabajar = false;
+                _zonaEncontrada = false;
+                _trabajoTerminado = false;
+            }
         }
     }
 
@@ -211,13 +223,6 @@ public class WorkerMovement : MonoBehaviour
     {
         _trabajoTerminado = true;
     }
-    public void Stop()
-    {
-        _paradoTrabajar = true;
-
-        Vector2 stop = new Vector2(0, 0);
-        Movement(stop);
-    }
     public bool IsCleaner()
     {
         return Cleaner;
@@ -240,28 +245,22 @@ public class WorkerMovement : MonoBehaviour
             // Cuando no buscamos trabajo
             if (!_llamadoTrabajar)
             {
-                // 1 de cada 3 veces cambiamos de direccion
-                bool cambiaDireccion = UnityEngine.Random.Range(0, 3) == 0;
-                if (cambiaDireccion)
+                // Cambia en x
+                if (UnityEngine.Random.Range(0, 2) == 1)
                 {
-                    // Cambia en x
-                    if (UnityEngine.Random.Range(0, 2) == 1)
-                    {
-                        int nuevaDir = UnityEngine.Random.Range(0, 2);
-                        if (nuevaDir == 0) nuevaDir = -1;
-                        _dir.x = nuevaDir;
-                        _dir.y = 0;
-                    }
-                    // Cambia en y
-                    else
-                    {
-                        int nuevaDir = UnityEngine.Random.Range(0, 2);
-                        if (nuevaDir == 0) nuevaDir = -1;
-                        _dir.y = nuevaDir;
-                        _dir.x = 0;
-                    }
+                    int nuevaDir = UnityEngine.Random.Range(0, 2);
+                    if (nuevaDir == 0) nuevaDir = -1;
+                    _dir.x = nuevaDir;
+                    _dir.y = 0;
                 }
-            }
+                // Cambia en y
+                else
+                {
+                    int nuevaDir = UnityEngine.Random.Range(0, 2);
+                    if (nuevaDir == 0) nuevaDir = -1;
+                    _dir.y = nuevaDir;
+                    _dir.x = 0;
+                }            }
             else
             {
                 bool mejorCambiarX = Math.Abs(_transform.position.x - _posicionTrabajo.x) > Math.Abs(_transform.position.y - _posicionTrabajo.y);
@@ -319,7 +318,7 @@ public class WorkerMovement : MonoBehaviour
         //Correr derecha
         else if (LookDir.x > 0.1 && dirYNull)
         {
-            _animator.Play("WalkL");
+            _animator.Play("WalkR");
         }
     }
     private void AnimateIlde(Vector2 direction)
@@ -347,7 +346,7 @@ public class WorkerMovement : MonoBehaviour
         //Correr derecha
         else if (direction.x > 0.1 && dirYNull)
         {
-            _animator.Play("IldeL");
+            _animator.Play("IldeR");
         }
     }
     #endregion   

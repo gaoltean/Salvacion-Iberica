@@ -127,8 +127,7 @@ public class WorkerStation : MonoBehaviour
         {
             _cleaner = _worker.IsCleaner();
             _zoneNeedsWorker = _cleaner && _zonaAnimal.NecesitaLimpieza() || !_cleaner && _zonaAnimal.NecesitaAlimentar();
-            // Lo paramos de andar cuando llega 
-            _worker.Stop();
+            // Lo paramos de andar cuando llega
             _startTime = Time.time;
             _hasWorker = true;
             _duracionTrabajo = _worker.DuracionDelTrabajo();

@@ -79,7 +79,8 @@ public class Intersections : MonoBehaviour
             _worker = collision.GetComponent<WorkerMovement>();
             if (_worker)
             {
-                _worker.ChangeDir(intersection);
+                // 1 de cada 3 veces cambiamos la direccion
+                if (UnityEngine.Random.Range(0, 3) == 1) _worker.ChangeDir(intersection);
             }
         }
     }
