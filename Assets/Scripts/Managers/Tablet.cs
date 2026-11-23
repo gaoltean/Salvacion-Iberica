@@ -22,13 +22,13 @@ public class Tablet : MonoBehaviour
     // Los atributos públicos y de inspector en formato PascalCase
 
     [SerializeField] private GameObject PanelTablet;
-    [SerializeField] private GameObject PanelInicio;
-    [SerializeField] private GameObject PanelAlmacen;
-    [SerializeField] private GameObject PanelEmpleados;
-    [SerializeField] private GameObject PanelEstadoZonas;
-    [SerializeField] private GameObject ContenedorElementosAlmacen;
-    [SerializeField] private GameObject ContenedorElementosEmpleados;
-    [SerializeField] private GameObject ContenedorElementosEstadoZonas;
+    [SerializeField] private GameObject MenuInicio;
+    [SerializeField] private GameObject MenuAlmacen;
+    [SerializeField] private GameObject MenuEmpleados;
+    [SerializeField] private GameObject MenuEstados;
+    [SerializeField] private GameObject ContenedorAlmacen;
+    [SerializeField] private GameObject ContenedorEmpleados;
+    [SerializeField] private GameObject ContenedorEstados;
 
     #endregion
 
@@ -41,6 +41,9 @@ public class Tablet : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static Tablet _instance;
+
+    private float _momentoPuedeCerrarTablet = 0.0f;
+    private float _momentoPuedeAbrirTablet = 0.0f;
 
     /// <summary>
     /// Lista de zonas activas
@@ -97,25 +100,31 @@ public class Tablet : MonoBehaviour
     }
     private void Update()
     {
-        if (!PanelTablet.activeSelf && InputManager.Instance.TabletIsPressed())
+        if (!PanelTablet.activeSelf && Time.time > _momentoPuedeAbrirTablet && InputManager.Instance.TabletIsPressed())
         {
             PanelTablet.SetActive(true);
-            PanelInicio.SetActive(true);
-            PanelAlmacen.SetActive(false);
-            PanelEmpleados.SetActive(false);
-            PanelEstadoZonas.SetActive(false);
+            MenuInicio.SetActive(true);
+            MenuAlmacen.SetActive(false);
+            MenuEmpleados.SetActive(false);
+            MenuEstados.SetActive(false);
+            _momentoPuedeCerrarTablet = Time.time + 1.0f;
         }
         else
         {
-            if (PanelAlmacen.activeSelf)
+            if (Time.time > _momentoPuedeCerrarTablet && InputManager.Instance.TabletIsPressed())
+            {
+                _momentoPuedeAbrirTablet = _momentoPuedeCerrarTablet + 1.0f;
+                PanelTablet.SetActive(false);
+            }
+            else if (MenuAlmacen.activeSelf)
             {
                 ActualizaContenedorAlmacen();
             }
-            else if (PanelEmpleados.activeSelf)
+            else if (MenuEmpleados.activeSelf)
             {
                 ActualizaContenedorEmpleados();
             }
-            else if (PanelEstadoZonas.activeSelf)
+            else if (MenuEstados.activeSelf)
             {
                 ActualizaContenedorEstadosZonas();
             }
@@ -189,41 +198,41 @@ public class Tablet : MonoBehaviour
     {
         return _zonasAnimalesCompradas;
     }
-    public void ActivaPanelAlmacen()
+    public void ActivaMenuAlmacen()
     {
-        PanelInicio.SetActive(false);
-        PanelAlmacen.SetActive(true);
+        MenuInicio.SetActive(false);
+        MenuAlmacen.SetActive(true);
     }
-    public void ActivaPanelEmpleados()
+    public void ActivaMenuEmpleados()
     {
-        PanelInicio.SetActive(false);
-        PanelEmpleados.SetActive(true);
+        MenuInicio.SetActive(false);
+        MenuEmpleados.SetActive(true);
     }
-    public void ActivaPanelEstadoZonas()
+    public void ActivaMenuEstados()
     {
-        PanelInicio.SetActive(false);
-        PanelEstadoZonas.SetActive(true);
+        MenuInicio.SetActive(false);
+        MenuEstados.SetActive(true);
     }
-    public void Volver()
+    public void VolverSalir()
     {
-        if (PanelInicio.activeSelf)
+        if (MenuInicio.activeSelf)
         {
             PanelTablet.SetActive(false);
         }
-        else if (PanelAlmacen.activeSelf)
+        else if (MenuAlmacen.activeSelf)
         {
-            PanelAlmacen.SetActive(false);
-            PanelInicio.SetActive(true);
+            MenuAlmacen.SetActive(false);
+            MenuInicio.SetActive(true);
         }
-        else if (PanelEmpleados.activeSelf)
+        else if (MenuEmpleados.activeSelf)
         {
-            PanelEmpleados.SetActive(false);
-            PanelInicio.SetActive(true);
+            MenuEmpleados.SetActive(false);
+            MenuInicio.SetActive(true);
         }
-        else if (PanelEstadoZonas.activeSelf)
+        else if (MenuEstados.activeSelf)
         {
-            PanelEstadoZonas.SetActive(false);
-            PanelInicio.SetActive(true);
+            MenuEstados.SetActive(false);
+            MenuInicio.SetActive(true);
         }
     }
     #endregion

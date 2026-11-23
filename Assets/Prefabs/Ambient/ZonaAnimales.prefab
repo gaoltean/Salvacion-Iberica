@@ -2583,6 +2583,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasCompraZona
       objectReference: {fileID: 0}
+    - target: {fileID: 6672618818758882178, guid: f1cb3f29c497d1d4a961c2a68027cb12, type: 3}
+      propertyPath: ZonaComprada
+      value: 
+      objectReference: {fileID: 1151441187304079520}
+    - target: {fileID: 6672618818758882178, guid: f1cb3f29c497d1d4a961c2a68027cb12, type: 3}
+      propertyPath: ComponenteZona
+      value: 
+      objectReference: {fileID: 6670845043168388434}
     - target: {fileID: 7902982973401232142, guid: f1cb3f29c497d1d4a961c2a68027cb12, type: 3}
       propertyPath: m_fontSize
       value: 40

@@ -25,21 +25,22 @@ public class Oficina : MonoBehaviour
 
     [SerializeField] private GameObject TextoGestionar;
     [SerializeField] private GameObject PanelGestion;
-    [SerializeField] private GameObject InicioGestion;
+    [SerializeField] private GameObject MenuInicioGestion;
 
-    [SerializeField] private GameObject ComprarAnimales;
-    [SerializeField] private Transform ContenedorComprarAnimales;
+    [SerializeField] private GameObject MenuAnimales;
+    [SerializeField] private Transform ContenedorAnimales;
 
-    [SerializeField] private GameObject ComprarUtiles;
-    [SerializeField] private GameObject BotonesComprarUtiles;
+    [SerializeField] private GameObject MenuUtiles;
+    [SerializeField] private GameObject MenuInicioUtiles;
+    [SerializeField] private GameObject MenuComida;
+    [SerializeField] private Transform ContenedorComida;
     [SerializeField] private float PrecioProductosLimpieza;
-    [SerializeField] private TextMeshProUGUI TextoStockLimpieza;
-    [SerializeField] private GameObject ComprarComida;
-    [SerializeField] private Transform ContenedorComprarComida;
 
-    [SerializeField] private GameObject ConstruirZonas;
-    [SerializeField] private int PrecioTienda = 0;
-    [SerializeField] private int PrecioBaño = 0;
+    [SerializeField] private GameObject MenuConstruir;
+    [SerializeField] private int PrecioTienda = 500;
+    [SerializeField] private int PrecioBaño = 250;
+
+    [SerializeField] private TextMeshProUGUI TextoStockLimpieza;
     [SerializeField] private TextMeshProUGUI TextoComprarTienda;
     [SerializeField] private TextMeshProUGUI TextoComprarBaño;
     [SerializeField] private List<GameObject> ZonasTiendas;
@@ -52,12 +53,11 @@ public class Oficina : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
 
-    private List<ZonaAnimal> _zonasMostradasCompraAnimales = new();
+    private List<ZonaAnimal> _mostradasAnimales = new();
+    private List<GameObject> _elementosAnimales = new();
 
-    private List<GameObject> _elementosCompraAnimales = new();
-
-    private List<ZonaAnimal> _zonasMostradasCompraComida = new();
-    private List<GameObject> _elementosCompraComida = new();
+    private List<ZonaAnimal> _mostradasComida = new();
+    private List<GameObject> _elementosComida = new();
 
 
     private List<GameObject> _zonasOcultasTiendas = new();
@@ -80,11 +80,11 @@ public class Oficina : MonoBehaviour
     /// </summary>
     void Start()
     {
-        InicioGestion.SetActive(false);
-        ComprarAnimales.SetActive(false);
-        ConstruirZonas.SetActive(false);
-        ComprarUtiles.SetActive(false);
-        ComprarComida.SetActive(false);
+        MenuInicioGestion.SetActive(false);
+        MenuAnimales.SetActive(false);
+        MenuConstruir.SetActive(false);
+        MenuUtiles.SetActive(false);
+        MenuComida.SetActive(false);
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(false);
 
@@ -102,8 +102,8 @@ public class Oficina : MonoBehaviour
             baño.SetActive(false);
         }
 
-        _contenedorAnimalesRect = ContenedorComprarAnimales.GetComponent<RectTransform>();
-        _contenedorComidaRect = ContenedorComprarComida.GetComponent<RectTransform>();
+        _contenedorAnimalesRect = ContenedorAnimales.GetComponent<RectTransform>();
+        _contenedorComidaRect = ContenedorComida.GetComponent<RectTransform>();
 
         TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza + "€";
         TextoComprarTienda.text = "Compradas:" + (_tiendasMaxDisponibles - _zonasOcultasTiendas.Count) + "/" + ZonasTiendas.Count + "\n" + "Precio: " + PrecioTienda + "€";
@@ -115,27 +115,27 @@ public class Oficina : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (ComprarAnimales.activeSelf) ActualizaCompraAnimales();
-        else if (ComprarComida.activeSelf) ActualizaCompraComida();
+        if (MenuAnimales.activeSelf) ActualizaMenuAnimales();
+        else if (MenuComida.activeSelf) ActualizaMenuComida();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!ComprarAnimales.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
+        if (!MenuAnimales.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
         if (!PanelGestion.activeSelf && InputManager.Instance.InteractIsPressed())
         {
             PanelGestion.SetActive(true);
-            InicioGestion.SetActive(true);
+            MenuInicioGestion.SetActive(true);
             TextoGestionar.SetActive(false);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        InicioGestion.SetActive(false);
-        ComprarAnimales.SetActive(false);
-        ConstruirZonas.SetActive(false);
-        ComprarUtiles.SetActive(false);
-        ComprarComida.SetActive(false);
+        MenuInicioGestion.SetActive(false);
+        MenuAnimales.SetActive(false);
+        MenuConstruir.SetActive(false);
+        MenuUtiles.SetActive(false);
+        MenuComida.SetActive(false);
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(false);
     }
@@ -147,26 +147,26 @@ public class Oficina : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
 
-    public void ActivaCompraAnimales()
+    public void ActivaMenuAnimales()
     {
-        InicioGestion.SetActive(false);
-        ComprarAnimales.SetActive(true);
+        MenuInicioGestion.SetActive(false);
+        MenuAnimales.SetActive(true);
     }
-    public void ActivaCompraUtiles()
+    public void ActivaMenuUtiles()
     {
-        InicioGestion.SetActive(false);
-        ComprarUtiles.SetActive(true);
-        BotonesComprarUtiles.SetActive(true);
+        MenuInicioGestion.SetActive(false);
+        MenuUtiles.SetActive(true);
+        MenuInicioUtiles.SetActive(true);
     }
-    public void ActivaConstruirZonas()
+    public void ActivaMenuConstruir()
     {
-        InicioGestion.SetActive(false);
-        ConstruirZonas.SetActive(true);
+        MenuInicioGestion.SetActive(false);
+        MenuConstruir.SetActive(true);
     }
-    public void ActivaCompraComida()
+    public void ActivaMenuComida()
     {
-        BotonesComprarUtiles.SetActive(false);
-        ComprarComida.SetActive(true);
+        MenuInicioUtiles.SetActive(false);
+        MenuComida.SetActive(true);
     }
     public void CompraLimpieza()
     {
@@ -195,40 +195,40 @@ public class Oficina : MonoBehaviour
             TextoComprarBaño.text = "Comprados:" + (_bañosMaxDisponibles - _zonasOcultasBaños.Count) + "/" + ZonasBaños.Count + "\n" + "Precio:" + PrecioBaño + "€";
         }
     }
-    public void GoBack()
+    public void VolverSalir()
     {
-        if (InicioGestion.activeSelf)
+        if (MenuInicioGestion.activeSelf)
         {
-            InicioGestion.SetActive(false);
-            ComprarAnimales.SetActive(false);
-            ConstruirZonas.SetActive(false);
-            ComprarUtiles.SetActive(false);
-            ComprarComida.SetActive(false);
+            MenuInicioGestion.SetActive(false);
+            MenuAnimales.SetActive(false);
+            MenuConstruir.SetActive(false);
+            MenuUtiles.SetActive(false);
+            MenuComida.SetActive(false);
             PanelGestion.SetActive(false);
             TextoGestionar.SetActive(true);
         }
-        if (ComprarAnimales.activeSelf)
+        if (MenuAnimales.activeSelf)
         {
-            ComprarAnimales.SetActive(false);
-            InicioGestion.SetActive(true);
+            MenuAnimales.SetActive(false);
+            MenuInicioGestion.SetActive(true);
         }
-        else if (ComprarUtiles.activeSelf)
+        else if (MenuUtiles.activeSelf)
         {
-            if (ComprarComida.activeSelf)
+            if (MenuComida.activeSelf)
             {
-                ComprarComida.SetActive(false);
-                BotonesComprarUtiles.SetActive(true);
+                MenuComida.SetActive(false);
+                MenuInicioUtiles.SetActive(true);
             }
             else
             {
-                ComprarUtiles.SetActive(false);
-                InicioGestion.SetActive(true);
+                MenuUtiles.SetActive(false);
+                MenuInicioGestion.SetActive(true);
             }
         }
-        else if (ConstruirZonas.activeSelf)
+        else if (MenuConstruir.activeSelf)
         {
-            ConstruirZonas.SetActive(false);
-            InicioGestion.SetActive(true);
+            MenuConstruir.SetActive(false);
+            MenuInicioGestion.SetActive(true);
         }
     }
     #endregion
@@ -238,38 +238,38 @@ public class Oficina : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
 
-    private void ActualizaCompraAnimales()
+    private void ActualizaMenuAnimales()
     { 
         foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
         {
             bool debeAparecer = !zona.ContieneAnimales();
-            bool estaMostrada = _zonasMostradasCompraAnimales.Contains(zona);
+            bool estaMostrada = _mostradasAnimales.Contains(zona);
 
             if (debeAparecer && !estaMostrada)
             {
-                CrearElementoCompraAnimales(zona);
+                AgregarElementoMenuAnimales(zona);
             }
             else if (!debeAparecer && estaMostrada)
             {
-                int indice = _zonasMostradasCompraAnimales.IndexOf(zona);
+                int indice = _mostradasAnimales.IndexOf(zona);
 
-                Destroy(_elementosCompraAnimales[indice]);
+                Destroy(_elementosAnimales[indice]);
 
-                _zonasMostradasCompraAnimales.RemoveAt(indice);
-                _elementosCompraAnimales.RemoveAt(indice);
+                _mostradasAnimales.RemoveAt(indice);
+                _elementosAnimales.RemoveAt(indice);
             }
         }
     }
 
-    private void ActualizaCompraComida()
+    private void ActualizaMenuComida()
     {
         foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
         {
-            bool estaMostrada = _zonasMostradasCompraComida.Contains(zona);
+            bool estaMostrada = _mostradasComida.Contains(zona);
 
             if (!estaMostrada)
             {
-                CrearElementoCompraComida(zona);
+                AgregarElementoMenuComida(zona);
             }
         }
     }
@@ -278,7 +278,7 @@ public class Oficina : MonoBehaviour
     /// y un boton para comprar los animales y mete el elemento en la lista
     /// </summary>
     /// <param name="zona">Zona asociada</param>
-    private void CrearElementoCompraAnimales(ZonaAnimal zona)
+    private void AgregarElementoMenuAnimales(ZonaAnimal zona)
     {
         int AltoElemento = 50;
         int AnchoElemento = 200;
@@ -289,7 +289,7 @@ public class Oficina : MonoBehaviour
             typeof(HorizontalLayoutGroup),
             typeof(LayoutElement)
         );
-        objetoZonaMostrada.transform.SetParent(ContenedorComprarAnimales, false);
+        objetoZonaMostrada.transform.SetParent(ContenedorAnimales, false);
 
         RectTransform rect = objetoZonaMostrada.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
@@ -338,7 +338,7 @@ public class Oficina : MonoBehaviour
         boton.onClick.AddListener(() =>
         {
             zona.CompraAnimales();
-            ActualizaCompraAnimales();
+            ActualizaMenuAnimales();
         });
 
         // Texto del botón
@@ -353,8 +353,8 @@ public class Oficina : MonoBehaviour
         text.horizontalAlignment = HorizontalAlignmentOptions.Center;
         text.verticalAlignment = VerticalAlignmentOptions.Middle;
         // Guardar referencias
-        _zonasMostradasCompraAnimales.Add(zona);
-        _elementosCompraAnimales.Add(objetoZonaMostrada);
+        _mostradasAnimales.Add(zona);
+        _elementosAnimales.Add(objetoZonaMostrada);
     }
 
     /// <summary>
@@ -362,7 +362,7 @@ public class Oficina : MonoBehaviour
     /// y un boton para comprar comida y mete el elemento en la lista de elementos de compra comida
     /// </summary>
     /// <param name="zona">Zona asociada</param>
-    private void CrearElementoCompraComida(ZonaAnimal zona)
+    private void AgregarElementoMenuComida(ZonaAnimal zona)
     {
         int AltoElemento = 80;
         int AnchoElemento = 200;
@@ -372,7 +372,7 @@ public class Oficina : MonoBehaviour
             typeof(HorizontalLayoutGroup),
             typeof(LayoutElement)
         );
-        objetoZonaMostrada.transform.SetParent(ContenedorComprarComida, false);
+        objetoZonaMostrada.transform.SetParent(ContenedorComida, false);
 
         RectTransform rect = objetoZonaMostrada.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
@@ -436,8 +436,8 @@ public class Oficina : MonoBehaviour
         text.horizontalAlignment = HorizontalAlignmentOptions.Center;
         text.verticalAlignment = VerticalAlignmentOptions.Middle;
         // Guardar referencias
-        _zonasMostradasCompraComida.Add(zona);
-        _elementosCompraComida.Add(objetoZonaMostrada);
+        _mostradasComida.Add(zona);
+        _elementosComida.Add(objetoZonaMostrada);
     }
     #endregion
 } // class AnimalsManager 
