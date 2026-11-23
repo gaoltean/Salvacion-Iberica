@@ -12,7 +12,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Descripción de qué es y para qué sirve
+/// Tablet de gestion para ver y gestionar algunos datos del parque
 /// </summary>
 public class Tablet : MonoBehaviour
 {
@@ -48,6 +48,10 @@ public class Tablet : MonoBehaviour
     private List<ZonaAnimal> _zonasAnimalesCompradas = new();
 
     private List<int> _sacosComidaAlmacenados = new();
+
+    private RectTransform _contenedorAlmacenRect;
+    private RectTransform _contenedorEmpleadosRect;
+    private RectTransform _contenedorZonasRect;
 
     #endregion
 
