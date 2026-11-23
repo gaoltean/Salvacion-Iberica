@@ -26,6 +26,9 @@ public class Tablet : MonoBehaviour
     [SerializeField] private GameObject PanelAlmacen;
     [SerializeField] private GameObject PanelEmpleados;
     [SerializeField] private GameObject PanelEstadoZonas;
+    [SerializeField] private GameObject ContenedorElementosAlmacen;
+    [SerializeField] private GameObject ContenedorElementosEmpleados;
+    [SerializeField] private GameObject ContenedorElementosEstadoZonas;
 
     #endregion
 
@@ -97,6 +100,21 @@ public class Tablet : MonoBehaviour
             PanelAlmacen.SetActive(false);
             PanelEmpleados.SetActive(false);
             PanelEstadoZonas.SetActive(false);
+        }
+        else
+        {
+            if (PanelAlmacen.activeSelf)
+            {
+                ActualizaContenedorAlmacen();
+            }
+            else if (PanelEmpleados.activeSelf)
+            {
+                ActualizaContenedorEmpleados();
+            }
+            else if (PanelEstadoZonas.activeSelf)
+            {
+                ActualizaContenedorEstadosZonas();
+            }
         }
     }
 
@@ -211,6 +229,32 @@ public class Tablet : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
 
+    private void ActualizaContenedorAlmacen()
+    {
+
+    }
+
+    private void ActualizaContenedorEmpleados()
+    {
+
+    }
+
+    private void ActualizaContenedorEstadosZonas()
+    {
+
+    }
+    private void CreaElementoContenedorAlmacen()
+    {
+
+    }
+    private void CreaElementoContenedorEmpleados()
+    {
+
+    }
+    private void CreaElementoContenedorEstadosZonas()
+    {
+
+    }
     /// <summary>
     /// Metodo que transfiere el setup
     /// </summary>

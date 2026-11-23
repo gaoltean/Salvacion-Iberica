@@ -66,6 +66,9 @@ public class Oficina : MonoBehaviour
     private int _tiendasMaxDisponibles = 0;
     private int _bañosMaxDisponibles = 0;
 
+    private RectTransform _contenedorComidaRect;
+    private RectTransform _contenedorAnimalesRect;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -98,6 +101,9 @@ public class Oficina : MonoBehaviour
             _zonasOcultasBaños.Add(baño);
             baño.SetActive(false);
         }
+
+        _contenedorAnimalesRect = ContenedorComprarAnimales.GetComponent<RectTransform>();
+        _contenedorComidaRect = ContenedorComprarComida.GetComponent<RectTransform>();
 
         TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza + "€";
         TextoComprarTienda.text = "Compradas:" + (_tiendasMaxDisponibles - _zonasOcultasTiendas.Count) + "/" + ZonasTiendas.Count + "\n" + "Precio: " + PrecioTienda + "€";
@@ -274,6 +280,10 @@ public class Oficina : MonoBehaviour
     /// <param name="zona">Zona asociada</param>
     private void CrearElementoCompraAnimales(ZonaAnimal zona)
     {
+        int AltoElemento = 50;
+        int AnchoElemento = 200;
+        _contenedorAnimalesRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
+
         GameObject objetoZonaMostrada = new GameObject(zona.name,
             typeof(RectTransform),
             typeof(HorizontalLayoutGroup),
@@ -282,10 +292,14 @@ public class Oficina : MonoBehaviour
         objetoZonaMostrada.transform.SetParent(ContenedorComprarAnimales, false);
 
         RectTransform rect = objetoZonaMostrada.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(400, 50);
+        rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
 
         HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
         layout.spacing = 20;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
         layout.childAlignment = TextAnchor.MiddleCenter;
 
         // Texto
@@ -293,7 +307,7 @@ public class Oficina : MonoBehaviour
         TextoZonaMostrada.transform.SetParent(objetoZonaMostrada.transform, false);
 
         RectTransform rectTexto = TextoZonaMostrada.GetComponent<RectTransform>();
-        rectTexto.sizeDelta = new Vector2(100, 50);
+        rectTexto.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento);
 
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
         texto.text = zona.name + "\n" + "Precio: " + zona.DimePrecioAnimales() + "€";
@@ -309,7 +323,7 @@ public class Oficina : MonoBehaviour
 
 
         RectTransform rectboton = BotonZonaMostrada.GetComponent<RectTransform>();
-        rectboton.sizeDelta = new Vector2(100, 50);
+        rectboton.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento);
 
         Button boton = BotonZonaMostrada.GetComponent<Button>();
         boton.transition = Selectable.Transition.ColorTint;
@@ -350,6 +364,9 @@ public class Oficina : MonoBehaviour
     /// <param name="zona">Zona asociada</param>
     private void CrearElementoCompraComida(ZonaAnimal zona)
     {
+        int AltoElemento = 80;
+        int AnchoElemento = 200;
+        _contenedorComidaRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
         GameObject objetoZonaMostrada = new GameObject(zona.name,
             typeof(RectTransform),
             typeof(HorizontalLayoutGroup),
@@ -358,10 +375,14 @@ public class Oficina : MonoBehaviour
         objetoZonaMostrada.transform.SetParent(ContenedorComprarComida, false);
 
         RectTransform rect = objetoZonaMostrada.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(400, 80);
+        rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
 
         HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
         layout.spacing = 20;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
         layout.childAlignment = TextAnchor.MiddleCenter;
 
         // Texto
@@ -369,7 +390,7 @@ public class Oficina : MonoBehaviour
         TextoZonaMostrada.transform.SetParent(objetoZonaMostrada.transform, false);
 
         RectTransform rectTexto = TextoZonaMostrada.GetComponent<RectTransform>();
-        rectTexto.sizeDelta = new Vector2(100, 80);
+        rectTexto.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento);
 
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
         texto.text = zona.name + ":\n" + "En almacen: " + Tablet.Instance.TraerSacosAlmacenados(zona) + "\n" + "En el recinto: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
@@ -377,7 +398,7 @@ public class Oficina : MonoBehaviour
         texto.fontSize = 15;
         texto.textWrappingMode = TextWrappingModes.NoWrap;
         texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
-        texto.verticalAlignment = VerticalAlignmentOptions.Top;
+        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
 
         // Botón
         GameObject BotonZonaMostrada = new GameObject("BotonComprar", typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
@@ -385,7 +406,7 @@ public class Oficina : MonoBehaviour
 
 
         RectTransform rectboton = BotonZonaMostrada.GetComponent<RectTransform>();
-        rectboton.sizeDelta = new Vector2(100, 50);
+        rectboton.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento);
 
         Button boton = BotonZonaMostrada.GetComponent<Button>();
         boton.transition = Selectable.Transition.ColorTint;
