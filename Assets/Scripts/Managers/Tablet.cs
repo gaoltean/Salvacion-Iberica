@@ -29,9 +29,11 @@ public class Tablet : MonoBehaviour
     [SerializeField] private GameObject MenuAlmacen;
     [SerializeField] private GameObject MenuEmpleados;
     [SerializeField] private GameObject MenuEstados;
+    [SerializeField] private GameObject MenuCuadros;
     [SerializeField] private Transform ContenedorAlmacen;
     [SerializeField] private Transform ContenedorEmpleados;
     [SerializeField] private Transform ContenedorEstados;
+    [SerializeField] private Transform ContenedorCuadros;
 
     #endregion
 
@@ -65,10 +67,14 @@ public class Tablet : MonoBehaviour
     private List<TextMeshProUGUI> _textosElementosEstados = new();
 
     private List<int> _sacosComidaAlmacenados = new();
+    private List<Pictures> _cuadrosAlmacenados = new();
+    private List<Pictures> _cuadrosMostrados = new();
+    private List<GameObject> _elementosCuadros = new();
 
     private RectTransform _contenedorAlmacenRect;
     private RectTransform _contenedorEmpleadosRect;
     private RectTransform _contenedorEstadosRect;
+    private RectTransform _contenedorCuadrosRect;
 
     #endregion
 
@@ -117,6 +123,7 @@ public class Tablet : MonoBehaviour
         _contenedorAlmacenRect = ContenedorAlmacen.GetComponent<RectTransform>();
         _contenedorEmpleadosRect = ContenedorEmpleados.GetComponent<RectTransform>();
         _contenedorEstadosRect = ContenedorEstados.GetComponent<RectTransform>();
+        _contenedorCuadrosRect = ContenedorCuadros.GetComponent<RectTransform>();
     }
     private void Update()
     {
@@ -127,6 +134,7 @@ public class Tablet : MonoBehaviour
             MenuAlmacen.SetActive(false);
             MenuEmpleados.SetActive(false);
             MenuEstados.SetActive(false);
+            MenuCuadros.SetActive(false);
             _momentoPuedeCerrarTablet = Time.time + 1.0f;
         }
         else
@@ -147,6 +155,9 @@ public class Tablet : MonoBehaviour
             else if (MenuEstados.activeSelf)
             {
                 ActualizaContenedoresZonas();
+            }else if (MenuCuadros.activeSelf)
+            {
+                ActualizaContenerdorCuadros();
             }
         }
     }
@@ -186,6 +197,10 @@ public class Tablet : MonoBehaviour
     {
         _zonasCompradas.Add(zona);
         _sacosComidaAlmacenados.Add(0);
+    }
+    public void AddCuadro(Pictures Cuadro)
+    {
+        _cuadrosAlmacenados.Add(Cuadro);
     }
     
     public void CompraYAlmacenaSacos(int cantidad, ZonaAnimal zona)
@@ -233,6 +248,11 @@ public class Tablet : MonoBehaviour
         MenuInicio.SetActive(false);
         MenuEstados.SetActive(true);
     }
+    public void ActivaMenuCuadros()
+    {
+        MenuInicio.SetActive(false);
+        MenuCuadros.SetActive(true);
+    }
     public void VolverSalir()
     {
         if (MenuInicio.activeSelf)
@@ -252,6 +272,11 @@ public class Tablet : MonoBehaviour
         else if (MenuEstados.activeSelf)
         {
             MenuEstados.SetActive(false);
+            MenuInicio.SetActive(true);
+        }
+        else if (MenuCuadros.activeSelf)
+        {
+            MenuCuadros.SetActive(false);
             MenuInicio.SetActive(true);
         }
     }
@@ -285,7 +310,21 @@ public class Tablet : MonoBehaviour
 
     private void ActualizaContenedorEmpleados()
     {
-
+       
+    }
+    private void ActualizaContenerdorCuadros()
+    {
+        if (_cuadrosAlmacenados.Count != _cuadrosMostrados.Count)
+        {
+            foreach (Pictures Cuadro in _cuadrosAlmacenados)
+            {
+                if (!_cuadrosMostrados.Contains(Cuadro))
+                {
+                    AgregaElementoCuadro(Cuadro);
+                    _cuadrosMostrados.Add(Cuadro);
+                }
+            }
+        }
     }
 
     private void AgregaElementoAlmacen(ZonaAnimal zona)
@@ -312,6 +351,30 @@ public class Tablet : MonoBehaviour
         // Guardamos referencia
         _elementosAlmacen.Add(ObjetoTexto);
         _textosElementosAlmacen.Add(texto);
+    }
+    private void AgregaElementoCuadro(Pictures cuadro)
+    {
+        int AltoElemento = 80;
+        int AnchoElemento = 300;
+        _contenedorCuadrosRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
+
+        // Texto
+        GameObject ObjetoTexto = new GameObject(cuadro.GetTitle(), typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        ObjetoTexto.transform.SetParent(ContenedorCuadros, false);
+
+        RectTransform rectTexto = ObjetoTexto.GetComponent<RectTransform>();
+        rectTexto.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
+
+        TextMeshProUGUI texto = ObjetoTexto.GetComponent<TextMeshProUGUI>();
+        texto.text = $"{cuadro.GetTitle()}: Autor: {cuadro.GetAuthor()}\n Precio: {cuadro.GetPrice()}  €";
+        texto.fontStyle = FontStyles.Bold;
+        texto.fontSize = 15;
+        texto.textWrappingMode = TextWrappingModes.NoWrap;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        // Guardamos referencia
+        _elementosCuadros.Add(ObjetoTexto);
     }
     private void CreaElementoContenedorEmpleados()
     {
