@@ -64,6 +64,10 @@ public class VisitorsMovement : MonoBehaviour
     /// Tiempo de espera
     /// </summary>
     private float _timeToWait;
+    /// <summary>
+    /// Indica si ha ido al baño
+    /// </summary>
+    private bool _Wc = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -161,10 +165,22 @@ public class VisitorsMovement : MonoBehaviour
             GameManager.Instance.GanaDinero(precio);
             _startTime = Time.time;
             _timeToWait = Random.Range(1.5f,2);
+            AumentaFelicidad(10);
         }
        
+    }
+    public bool WC()
+    {
+        int parar = Random.Range(0, 3);
+        //Solo pueden ir una vez al baño
+        if(parar == 0 && !_Wc)
+        {
+            AumentaFelicidad(10);
+            _Wc = true;
+            return true;
+        }
+        return false;
        
-
     }
     public void Pay( float entrance)
     {

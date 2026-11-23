@@ -18,6 +18,9 @@ public class RobbersMovement : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
+    /// <summary>
+    /// Velocidad del ladron
+    /// </summary>
     [SerializeField] private float Speed;
     #endregion
 
@@ -26,21 +29,60 @@ public class RobbersMovement : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
     /// <summary>
-    /// Rigidbody del trabajador
+    /// Rigidbody del Ladron
     /// </summary>
     private Rigidbody2D _rb;
+    /// <summary>
+    /// Transform del ladron
+    /// </summary>
     private Transform _transform;
+    /// <summary>
+    /// Indica si tiene que ir a robar
+    /// </summary>
     private bool _rob;
+    /// <summary>
+    /// Posicion de la oficina
+    /// </summary>
     private Vector2 _posOfi;
+    /// <summary>
+    /// Posicion de la salida de parque
+    /// </summary>
     private Vector2 _posSalida;
+    /// <summary>
+    /// Posicion de la intersecion
+    /// </summary>
     private Vector2 _posInter;
+    /// <summary>
+    /// Posicion de la salida de la oficina
+    /// </summary>
     private Vector2 _salidaOfi;
+    /// <summary>
+    /// Bool que indica si hemos llegado a la salida de la oficina
+    /// </summary>
     private bool _salida;
+    /// <summary>
+    /// Bool que indica si hemos llegado a la interseccion
+    /// </summary>
     private bool _inter;
+    /// <summary>
+    /// Bool que indica si hemos llegado a la salida del parque
+    /// </summary>
     private bool _exit;
+    /// <summary>
+    /// Bool que indica si hemos llegado a la posicion X
+    /// </summary>
     private bool ReachX;
+    /// <summary>
+    /// Bool que indica si hemos llegado a la posicion Y
+    /// </summary>
     private bool ReachY;
+    /// <summary>
+    /// Indica si tenemos que volver
+    /// </summary>
     private bool _back;
+    /// <summary>
+    ///  Bool que indica si hemos llegado a la oficina
+    /// </summary>
     private bool _office;
     /// <summary>
     /// Componente animator del visitante
