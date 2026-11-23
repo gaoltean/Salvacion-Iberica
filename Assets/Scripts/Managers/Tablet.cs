@@ -7,7 +7,10 @@
 // Añadir aquí el resto de directivas using
 using NUnit.Framework;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -26,9 +29,9 @@ public class Tablet : MonoBehaviour
     [SerializeField] private GameObject MenuAlmacen;
     [SerializeField] private GameObject MenuEmpleados;
     [SerializeField] private GameObject MenuEstados;
-    [SerializeField] private GameObject ContenedorAlmacen;
-    [SerializeField] private GameObject ContenedorEmpleados;
-    [SerializeField] private GameObject ContenedorEstados;
+    [SerializeField] private Transform ContenedorAlmacen;
+    [SerializeField] private Transform ContenedorEmpleados;
+    [SerializeField] private Transform ContenedorEstados;
 
     #endregion
 
@@ -48,13 +51,24 @@ public class Tablet : MonoBehaviour
     /// <summary>
     /// Lista de zonas activas
     /// </summary>
-    private List<ZonaAnimal> _zonasAnimalesCompradas = new();
+    private List<ZonaAnimal> _zonasCompradas = new();
+
+    /// <summary>
+    /// Lista de zonas mostradas en los menus
+    /// </summary>
+    private List<ZonaAnimal> _zonasMostradas = new();
+
+    private List<GameObject> _elementosAlmacen = new();
+    private List<TextMeshProUGUI> _textosElementosAlmacen = new();
+
+    private List<GameObject> _elementosEstados = new();
+    private List<TextMeshProUGUI> _textosElementosEstados = new();
 
     private List<int> _sacosComidaAlmacenados = new();
 
     private RectTransform _contenedorAlmacenRect;
     private RectTransform _contenedorEmpleadosRect;
-    private RectTransform _contenedorZonasRect;
+    private RectTransform _contenedorEstadosRect;
 
     #endregion
 
@@ -98,6 +112,12 @@ public class Tablet : MonoBehaviour
 
 
     }
+    private void Start()
+    {
+        _contenedorAlmacenRect = ContenedorAlmacen.GetComponent<RectTransform>();
+        _contenedorEmpleadosRect = ContenedorEmpleados.GetComponent<RectTransform>();
+        _contenedorEstadosRect = ContenedorEstados.GetComponent<RectTransform>();
+    }
     private void Update()
     {
         if (!PanelTablet.activeSelf && Time.time > _momentoPuedeAbrirTablet && InputManager.Instance.TabletIsPressed())
@@ -118,7 +138,7 @@ public class Tablet : MonoBehaviour
             }
             else if (MenuAlmacen.activeSelf)
             {
-                ActualizaContenedorAlmacen();
+                ActualizaContenedoresZonas();
             }
             else if (MenuEmpleados.activeSelf)
             {
@@ -126,7 +146,7 @@ public class Tablet : MonoBehaviour
             }
             else if (MenuEstados.activeSelf)
             {
-                ActualizaContenedorEstadosZonas();
+                ActualizaContenedoresZonas();
             }
         }
     }
@@ -164,39 +184,39 @@ public class Tablet : MonoBehaviour
 
     public void AddZona(ZonaAnimal zona)
     {
-        _zonasAnimalesCompradas.Add(zona);
+        _zonasCompradas.Add(zona);
         _sacosComidaAlmacenados.Add(0);
     }
     
     public void CompraYAlmacenaSacos(int cantidad, ZonaAnimal zona)
     {
-        if (_zonasAnimalesCompradas.Contains(zona) && GameManager.Instance.GastaDinero(zona.DimePrecioComida() * cantidad))
+        if (_zonasCompradas.Contains(zona) && GameManager.Instance.GastaDinero(zona.DimePrecioComida() * cantidad))
         {
-            _sacosComidaAlmacenados[_zonasAnimalesCompradas.IndexOf(zona)]+= cantidad;
+            _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)]+= cantidad;
         }
     }
 
     public int DimeSacosAlmacenados(ZonaAnimal zona)
     {
-        if (_zonasAnimalesCompradas.Contains(zona))
+        if (_zonasCompradas.Contains(zona))
         {
-            return _sacosComidaAlmacenados[_zonasAnimalesCompradas.IndexOf(zona)];
+            return _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)];
         }
         else return 0;
     }
     public int TraerSacosAlmacenados(ZonaAnimal zona)
     {
-        if (_zonasAnimalesCompradas.Contains(zona))
+        if (_zonasCompradas.Contains(zona))
         {
-            int sacos = _sacosComidaAlmacenados[_zonasAnimalesCompradas.IndexOf(zona)];
-            _sacosComidaAlmacenados[_zonasAnimalesCompradas.IndexOf(zona)] = 0;
+            int sacos = _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)];
+            _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)] = 0;
             return sacos;
         }
         else return 0;
     }
     public List<ZonaAnimal> DameListaZonasCompradas()
     {
-        return _zonasAnimalesCompradas;
+        return _zonasCompradas;
     }
     public void ActivaMenuAlmacen()
     {
@@ -242,9 +262,25 @@ public class Tablet : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
 
-    private void ActualizaContenedorAlmacen()
+    private void ActualizaContenedoresZonas()
     {
-
+        if (_zonasCompradas.Count != _zonasMostradas.Count)
+        {
+            foreach (ZonaAnimal zona in _zonasCompradas)
+            {
+                if (!_zonasMostradas.Contains(zona))
+                {
+                    AgregaElementoAlmacen(zona);
+                    AgregaElementoEstados(zona);
+                    _zonasMostradas.Add(zona);
+                }
+            }
+        }
+        foreach (ZonaAnimal zona in _zonasMostradas)
+        {
+            _textosElementosAlmacen[_zonasMostradas.IndexOf(zona)].text = $"Comida en el almacen para\n {zona.name}: {DimeSacosAlmacenados(zona)}\n Precio: {zona.DimePrecioComida()}€";
+            _textosElementosEstados[_zonasMostradas.IndexOf(zona)].text = $"Estado de {zona.name}:\n Hambre: {zona.PorcentajeHambre()}%   Suciedad: {zona.PorcentajeSuciedad()}\n {zona.HayAnimales()}   Salud: {zona.SaludAnimales()}%";
+        }
     }
 
     private void ActualizaContenedorEmpleados()
@@ -252,21 +288,59 @@ public class Tablet : MonoBehaviour
 
     }
 
-    private void ActualizaContenedorEstadosZonas()
+    private void AgregaElementoAlmacen(ZonaAnimal zona)
     {
+        int AltoElemento = 80;
+        int AnchoElemento = 300;
+        _contenedorAlmacenRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
 
-    }
-    private void CreaElementoContenedorAlmacen()
-    {
+        // Texto
+        GameObject ObjetoTexto = new GameObject(zona.name, typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        ObjetoTexto.transform.SetParent(ContenedorAlmacen, false);
 
+        RectTransform rectTexto = ObjetoTexto.GetComponent<RectTransform>();
+        rectTexto.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
+
+        TextMeshProUGUI texto = ObjetoTexto.GetComponent<TextMeshProUGUI>();
+        texto.text = "Comida en el almacen para " + zona.name + ":" + DimeSacosAlmacenados(zona) + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
+        texto.fontStyle = FontStyles.Bold;
+        texto.fontSize = 15;
+        texto.textWrappingMode = TextWrappingModes.NoWrap;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        // Guardamos referencia
+        _elementosAlmacen.Add(ObjetoTexto);
+        _textosElementosAlmacen.Add(texto);
     }
     private void CreaElementoContenedorEmpleados()
     {
 
     }
-    private void CreaElementoContenedorEstadosZonas()
+    private void AgregaElementoEstados(ZonaAnimal zona)
     {
+        int AltoElemento = 80;
+        int AnchoElemento = 300;
+        _contenedorEstadosRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
 
+        // Texto
+        GameObject ObjetoTexto = new GameObject(zona.name, typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        ObjetoTexto.transform.SetParent(ContenedorEstados, false);
+
+        RectTransform rectTexto = ObjetoTexto.GetComponent<RectTransform>();
+        rectTexto.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
+
+        TextMeshProUGUI texto = ObjetoTexto.GetComponent<TextMeshProUGUI>();
+        texto.text = $"Estado de {zona.name}:\n Hambre: {zona.PorcentajeHambre()}%   Suciedad: {zona.PorcentajeSuciedad()}\n {zona.HayAnimales()}   Salud: {zona.SaludAnimales()}%";
+        texto.fontStyle = FontStyles.Bold;
+        texto.fontSize = 15;
+        texto.textWrappingMode = TextWrappingModes.NoWrap;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        // Guardamos referencia
+        _elementosEstados.Add(ObjetoTexto);
+        _textosElementosEstados.Add(texto);
     }
     /// <summary>
     /// Metodo que transfiere el setup

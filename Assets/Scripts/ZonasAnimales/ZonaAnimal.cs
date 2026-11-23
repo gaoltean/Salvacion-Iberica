@@ -216,6 +216,25 @@ public class ZonaAnimal : MonoBehaviour
         PanelGestion.SetActive(false);
         TextoGestionar.SetActive(true);
     }
+
+    public int PorcentajeHambre()
+    {
+        return (int)_porcentajeHambre;
+    }
+
+    public int PorcentajeSuciedad()
+    {
+        return (int)_porcentajeSuciedad;
+    }
+    public int SaludAnimales()
+    {
+        return (int)(100f - _porcentajeMuerte);
+    }
+    public string HayAnimales()
+    {
+        if (_contieneAnimales) return "Hay animales";
+        else return "No hay animales";
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
