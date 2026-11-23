@@ -18,7 +18,7 @@ public class WorkerStation : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
-
+     
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -26,6 +26,12 @@ public class WorkerStation : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
     private WorkerMovement _worker;
+    private ZonaAnimal Zona;
+    private float _timeToWait;
+    private float _startTime;
+    private bool _hasWorker;
+    private bool _finishWork;
+    private bool _isCleaner;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -37,7 +43,13 @@ public class WorkerStation : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        _hasWorker = false;
+        _timeToWait = 2f;
+        Zona = this.gameObject.GetComponent<ZonaAnimal>();
+        if (!Zona)
+        {
+            Debug.Log("No hay componente zona animal");
+        }
     }
 
     /// <summary>
@@ -45,7 +57,25 @@ public class WorkerStation : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        if (Time.time-_startTime > _timeToWait && _hasWorker)
+        {
+            if (_isCleaner)
+            {
+                if (Zona.PorcentajeSuciedad() > 50)
+                {
+                    Zona.LimpiaZona();
+                }
+            }
+            else
+            {
+                if (Zona.PorcentajeHambre() > 50)
+                {
+                    Zona.Alimenta();
+                }
+            }
+            _worker.finish();
+            _hasWorker = false;
+        }
     }
 
     #endregion
@@ -68,7 +98,11 @@ public class WorkerStation : MonoBehaviour
         {
             //Lo paramos de andar cuando llega 
             _worker.Stop();
-            _worker.finish();
+            _isCleaner = _worker.IsCleaner();
+            _startTime = Time.time;
+            _hasWorker = true;
+
+            
         }
     }
     #endregion   

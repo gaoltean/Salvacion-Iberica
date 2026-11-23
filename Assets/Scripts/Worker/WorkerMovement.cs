@@ -23,6 +23,7 @@ public class WorkerMovement : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
     [SerializeField] private float Speed;
+    [SerializeField] private bool Cleaner;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -150,6 +151,10 @@ public class WorkerMovement : MonoBehaviour
 
         Vector2 stop = new Vector2(0, 0);
         Movement(stop);
+    }
+    public bool IsCleaner()
+    {
+        return Cleaner;
     }
     #endregion
 
