@@ -99,6 +99,10 @@ public class WorkerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
+        if (Cleaner) Tablet.Instance.AddLimpiadorContratable(this);
+        else Tablet.Instance.AddCuidadorContratable(this);
+        this.gameObject.SetActive(false);
+
         _rb = this.GetComponent<Rigidbody2D>();
         if (_rb == null)
         {
@@ -141,8 +145,8 @@ public class WorkerMovement : MonoBehaviour
             {
                 ReachX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 1;
                 ReachY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
-                ReachAproximateX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 4;
-                ReachAproximateY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 4;
+                ReachAproximateX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 6; // Los caminos que van hacia arriba son mas anchos
+                ReachAproximateY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 5;
 
                 if (ReachX && ReachAproximateY)
                 {
@@ -242,28 +246,32 @@ public class WorkerMovement : MonoBehaviour
         // Cuando es interseccion
         else 
         {
-            // Cuando no buscamos trabajo cambiamos 1 de cada 3 veces
-            if (!_llamadoTrabajar && intersection && UnityEngine.Random.Range(0, 3) == 1)
+            if (!_llamadoTrabajar)
             {
-                // Cambia en x
-                if (UnityEngine.Random.Range(0, 2) == 1)
+                Vector2 nuevaDir;
+                int direccion = UnityEngine.Random.Range(0, 4);
+
+                if (direccion == 0) nuevaDir = Vector2.up;
+                else if (direccion == 1) nuevaDir = Vector2.down;
+                else if (direccion == 2) nuevaDir = Vector2.left;
+                else nuevaDir = Vector2.right;
+
+                // Si el nuevo movimiento es en el mismo eje, cambiarla por 2 vez para evitar movimientos repetitivos
+                if ((_dir.x != 0 && nuevaDir.x != 0 || !(_dir.x != 0) && nuevaDir.y != 0))
                 {
-                    int nuevaDir = UnityEngine.Random.Range(0, 2);
-                    if (nuevaDir == 0) nuevaDir = -1;
-                    _dir.x = nuevaDir;
-                    _dir.y = 0;
+                    direccion = UnityEngine.Random.Range(0, 4);
+
+                    if (direccion == 0) nuevaDir = Vector2.up;
+                    else if (direccion == 1) nuevaDir = Vector2.down;
+                    else if (direccion == 2) nuevaDir = Vector2.left;
+                    else nuevaDir = Vector2.right;
                 }
-                // Cambia en y
-                else
-                {
-                    int nuevaDir = UnityEngine.Random.Range(0, 2);
-                    if (nuevaDir == 0) nuevaDir = -1;
-                    _dir.y = nuevaDir;
-                    _dir.x = 0;
-                }            }
+                _dir = nuevaDir;
+            }
             else
             {
-                bool mejorCambiarX = Math.Abs(_transform.position.x - _posicionTrabajo.x) > Math.Abs(_transform.position.y - _posicionTrabajo.y);
+                // Priorizamos cambiar en el eje y
+                bool mejorCambiarX = Math.Abs(_transform.position.y - _posicionTrabajo.y) < 7;
                 if (mejorCambiarX)
                 {
                     if (_posicionTrabajo.x > _transform.position.x) _dir = new Vector2(1, 0);

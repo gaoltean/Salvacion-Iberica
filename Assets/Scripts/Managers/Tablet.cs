@@ -7,6 +7,7 @@
 // Añadir aquí el resto de directivas using
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,11 +28,18 @@ public class Tablet : MonoBehaviour
     [SerializeField] private GameObject PanelTablet;
     [SerializeField] private GameObject MenuInicio;
     [SerializeField] private GameObject MenuAlmacen;
-    [SerializeField] private GameObject MenuEmpleados;
     [SerializeField] private GameObject MenuEstados;
     [SerializeField] private GameObject MenuCuadros;
+    [SerializeField] private GameObject MenuEmpleados;
+    [SerializeField] private GameObject MenuInicioEmpleados;
+    [SerializeField] private GameObject MenuEnviarEmpleados;
+    [SerializeField] private GameObject MenuContratarEmpleados;
+    [SerializeField] private float SalarioDiarioCuidador;
+    [SerializeField] private float SalarioDiarioLimpiador;
+    [SerializeField] private TextMeshProUGUI TextoContratarLimpiador;
+    [SerializeField] private TextMeshProUGUI TextoContratarCuidador;
     [SerializeField] private Transform ContenedorAlmacen;
-    [SerializeField] private Transform ContenedorEmpleados;
+    [SerializeField] private Transform ContenedorEnviarEmpleados;
     [SerializeField] private Transform ContenedorEstados;
     [SerializeField] private Transform ContenedorCuadros;
 
@@ -61,18 +69,26 @@ public class Tablet : MonoBehaviour
     private List<ZonaAnimal> _zonasMostradas = new();
 
     private List<GameObject> _elementosAlmacen = new();
+    private List<int> _sacosComidaAlmacenados = new();
     private List<TextMeshProUGUI> _textosElementosAlmacen = new();
 
     private List<GameObject> _elementosEstados = new();
     private List<TextMeshProUGUI> _textosElementosEstados = new();
 
-    private List<int> _sacosComidaAlmacenados = new();
     private List<Pictures> _cuadrosAlmacenados = new();
     private List<Pictures> _cuadrosMostrados = new();
     private List<GameObject> _elementosCuadros = new();
 
+    private List<WorkerMovement> _listaCuidadores = new();
+    private List<WorkerMovement> _listaLimpiadores = new();
+    private int _cantCuidadores = 0;
+    private int _cantidadLimpiadores = 0;
+    private List<WorkerMovement> _listaCuidadoresContratados = new();
+    private List<WorkerMovement> _listaLimpiadoresContratados = new();
+    private List<GameObject> _elementosEnviarEmpleados = new();
+
     private RectTransform _contenedorAlmacenRect;
-    private RectTransform _contenedorEmpleadosRect;
+    private RectTransform _contenedorEnviarEmpleadosRect;
     private RectTransform _contenedorEstadosRect;
     private RectTransform _contenedorCuadrosRect;
 
@@ -121,7 +137,7 @@ public class Tablet : MonoBehaviour
     private void Start()
     {
         _contenedorAlmacenRect = ContenedorAlmacen.GetComponent<RectTransform>();
-        _contenedorEmpleadosRect = ContenedorEmpleados.GetComponent<RectTransform>();
+        _contenedorEnviarEmpleadosRect = ContenedorEnviarEmpleados.GetComponent<RectTransform>();
         _contenedorEstadosRect = ContenedorEstados.GetComponent<RectTransform>();
         _contenedorCuadrosRect = ContenedorCuadros.GetComponent<RectTransform>();
     }
@@ -150,7 +166,15 @@ public class Tablet : MonoBehaviour
             }
             else if (MenuEmpleados.activeSelf)
             {
-                ActualizaContenedorEmpleados();
+                if (MenuEnviarEmpleados.activeSelf)
+                {
+                    ActualizaContenedoresZonas();
+                }
+                else if (MenuContratarEmpleados.activeSelf)
+                {
+                    TextoContratarCuidador.text  = $"Contratados: {_cantCuidadores}/{_listaCuidadores.Count}\n Salario: {SalarioDiarioCuidador}";
+                    TextoContratarLimpiador.text = $"Contratados: {_cantidadLimpiadores}/{_listaLimpiadores.Count}\n Salario: {SalarioDiarioLimpiador}";
+                }
             }
             else if (MenuEstados.activeSelf)
             {
@@ -203,6 +227,35 @@ public class Tablet : MonoBehaviour
         _cuadrosAlmacenados.Add(Cuadro);
     }
     
+    public void AddLimpiadorContratable(WorkerMovement trabajador)
+    {
+        _listaLimpiadores.Add(trabajador);
+    }
+    public void AddCuidadorContratable(WorkerMovement trabajador)
+    {
+        _listaCuidadores.Add(trabajador);
+    }
+    public void ContrataCuidador()
+    {
+        if (_cantCuidadores < _listaCuidadores.Count)
+        {
+            WorkerMovement trabajador = _listaCuidadores[_cantCuidadores];
+            trabajador.gameObject.SetActive(true);
+            _listaCuidadoresContratados.Add(trabajador);
+            _cantCuidadores++;
+        }
+    }
+    public void ContrataLimpiador()
+    {
+        if (_cantidadLimpiadores < _listaLimpiadores.Count)
+        {
+            WorkerMovement trabajador = _listaLimpiadores[_cantidadLimpiadores];
+            trabajador.gameObject.SetActive(true);
+            _listaLimpiadoresContratados.Add(trabajador);
+            _cantidadLimpiadores++;
+        }
+    }
+    
     public void CompraYAlmacenaSacos(int cantidad, ZonaAnimal zona)
     {
         if (_zonasCompradas.Contains(zona) && GameManager.Instance.GastaDinero(zona.DimePrecioComida() * cantidad))
@@ -233,6 +286,10 @@ public class Tablet : MonoBehaviour
     {
         return _zonasCompradas;
     }
+    public int CantidadZonasCompradas()
+    {
+        return _zonasCompradas.Count;
+    }
     public void ActivaMenuAlmacen()
     {
         MenuInicio.SetActive(false);
@@ -242,6 +299,17 @@ public class Tablet : MonoBehaviour
     {
         MenuInicio.SetActive(false);
         MenuEmpleados.SetActive(true);
+        MenuInicioEmpleados.SetActive(true);
+    }
+    public void ActivaMenuContratarEmpleados()
+    {
+        MenuInicioEmpleados.SetActive(false);
+        MenuContratarEmpleados.SetActive(true);
+    }
+    public void ActivaMenuEnviarEmpleados()
+    {
+        MenuInicioEmpleados.SetActive(false);
+        MenuEnviarEmpleados.SetActive(true);
     }
     public void ActivaMenuEstados()
     {
@@ -266,8 +334,21 @@ public class Tablet : MonoBehaviour
         }
         else if (MenuEmpleados.activeSelf)
         {
-            MenuEmpleados.SetActive(false);
-            MenuInicio.SetActive(true);
+            if (MenuEnviarEmpleados.activeSelf)
+            {
+                MenuEnviarEmpleados.SetActive(false);
+                MenuInicioEmpleados.SetActive(true);
+            }
+            else if (MenuContratarEmpleados.activeSelf)
+            {
+                MenuContratarEmpleados.SetActive(false);
+                MenuInicioEmpleados.SetActive(true);
+            }
+            else
+            {
+                MenuEmpleados.SetActive(false);
+                MenuInicio.SetActive(true);
+            }
         }
         else if (MenuEstados.activeSelf)
         {
@@ -279,10 +360,6 @@ public class Tablet : MonoBehaviour
             MenuCuadros.SetActive(false);
             MenuInicio.SetActive(true);
         }
-    }
-    public int CantidadZonasCompradas()
-    {
-        return _zonasCompradas.Count;
     }
     #endregion
 
@@ -301,6 +378,7 @@ public class Tablet : MonoBehaviour
                 {
                     AgregaElementoAlmacen(zona);
                     AgregaElementoEstados(zona);
+                    AgregaElementoEmpleados(zona);
                     _zonasMostradas.Add(zona);
                 }
             }
@@ -310,11 +388,6 @@ public class Tablet : MonoBehaviour
             _textosElementosAlmacen[_zonasMostradas.IndexOf(zona)].text = $"Comida en el almacen para\n {zona.name}: {DimeSacosAlmacenados(zona)}\n Precio: {zona.DimePrecioComida()}€";
             _textosElementosEstados[_zonasMostradas.IndexOf(zona)].text = $"Estado de {zona.name}:\n Hambre: {zona.PorcentajeHambre()}%   Suciedad: {zona.PorcentajeSuciedad()}\n {zona.HayAnimales()}   Salud: {zona.SaludAnimales()}%";
         }
-    }
-
-    private void ActualizaContenedorEmpleados()
-    {
-       
     }
     private void ActualizaContenerdorCuadros()
     {
@@ -380,9 +453,118 @@ public class Tablet : MonoBehaviour
         // Guardamos referencia
         _elementosCuadros.Add(ObjetoTexto);
     }
-    private void CreaElementoContenedorEmpleados()
+    private void AgregaElementoEmpleados(ZonaAnimal zona)
     {
+        int AltoElemento = 70;
+        int AnchoElemento = 300;
+        int FontSize = 18;
 
+        _contenedorEnviarEmpleadosRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
+
+        GameObject objetoEnviarEmpleados = new GameObject(zona.name,
+            typeof(RectTransform),
+            typeof(HorizontalLayoutGroup),
+            typeof(LayoutElement)
+        );
+        objetoEnviarEmpleados.transform.SetParent(ContenedorEnviarEmpleados, false);
+
+        RectTransform rect = objetoEnviarEmpleados.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
+
+        HorizontalLayoutGroup layout = objetoEnviarEmpleados.GetComponent<HorizontalLayoutGroup>();
+        layout.spacing = 20;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+
+        // Texto
+        GameObject TextoZonaMostrada = new GameObject(zona.name, typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        TextoZonaMostrada.transform.SetParent(objetoEnviarEmpleados.transform, false);
+
+        RectTransform rectTexto = TextoZonaMostrada.GetComponent<RectTransform>();
+        rectTexto.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento);
+
+        TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
+        texto.text = "Enviar a:\n"+ zona.name;
+        texto.fontStyle = FontStyles.Bold;
+        texto.fontSize = FontSize;
+        texto.textWrappingMode = TextWrappingModes.Normal;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        // Botón
+        GameObject BotonEnviarCuidador = new GameObject("BotonCuidador", typeof(RectTransform), typeof(UnityEngine.UI.Image), typeof(Button), typeof(LayoutElement));
+        BotonEnviarCuidador.transform.SetParent(objetoEnviarEmpleados.transform, false);
+
+
+        RectTransform rectbotoncuidador = BotonEnviarCuidador.GetComponent<RectTransform>();
+        rectbotoncuidador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento);
+
+        Button botoncuidador = BotonEnviarCuidador.GetComponent<Button>();
+        botoncuidador.transition = Selectable.Transition.ColorTint;
+        ColorBlock colores = botoncuidador.colors;
+        colores.normalColor = new Color32(0, 195, 255, 255);
+        colores.highlightedColor = new Color32(152, 231, 255, 255);
+        colores.selectedColor = new Color32(152, 231, 255, 255);
+        colores.pressedColor = new Color32(0, 143, 183, 255);
+        colores.disabledColor = new Color32(0, 143, 183, 255);
+        botoncuidador.colors = colores;
+
+        botoncuidador.onClick.AddListener(() =>
+        {
+            
+        });
+
+        // Texto del botón
+        GameObject textoBotonCuidador = new GameObject("Cuidador", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textoBotonCuidador.transform.SetParent(BotonEnviarCuidador.transform, false);
+
+        TMP_Text textCuidador = textoBotonCuidador.GetComponent<TMP_Text>();
+        textCuidador.text = "Cuidador";
+        textCuidador.fontSize = FontSize;
+        textCuidador.fontStyle = FontStyles.Bold;
+        textCuidador.color = Color.white;
+        textCuidador.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        textCuidador.verticalAlignment = VerticalAlignmentOptions.Middle;
+        // Botón
+        GameObject BotonEnviarLimpiador = new GameObject("BotonLimpiador", typeof(RectTransform), typeof(UnityEngine.UI.Image), typeof(Button), typeof(LayoutElement));
+        BotonEnviarLimpiador.transform.SetParent(objetoEnviarEmpleados.transform, false);
+
+
+        RectTransform rectbotonLimpiador = BotonEnviarLimpiador.GetComponent<RectTransform>();
+        rectbotonLimpiador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento);
+
+        Button botonLimpiador = BotonEnviarLimpiador.GetComponent<Button>();
+        botonLimpiador.transition = Selectable.Transition.ColorTint;
+        colores = botonLimpiador.colors;
+        colores.normalColor = new Color32(0, 195, 255, 255);
+        colores.highlightedColor = new Color32(152, 231, 255, 255);
+        colores.selectedColor = new Color32(152, 231, 255, 255);
+        colores.pressedColor = new Color32(0, 143, 183, 255);
+        colores.disabledColor = new Color32(0, 143, 183, 255);
+        botonLimpiador.colors = colores;
+
+        botonLimpiador.onClick.AddListener(() =>
+        {
+
+        });
+
+        // Texto del botón
+        GameObject textoBotonLimpiador = new GameObject("Limpiador", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textoBotonLimpiador.transform.SetParent(BotonEnviarLimpiador.transform, false);
+
+        TMP_Text textLimpiador = textoBotonLimpiador.GetComponent<TMP_Text>();
+        textLimpiador.text = "Limpiador";
+        textLimpiador.fontSize = FontSize;
+        textLimpiador.fontStyle = FontStyles.Bold;
+        textLimpiador.color = Color.white;
+        textLimpiador.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        textLimpiador.verticalAlignment = VerticalAlignmentOptions.Middle;
+        
+        // Guardar referencias
+        _elementosEnviarEmpleados.Add(objetoEnviarEmpleados);
     }
     private void AgregaElementoEstados(ZonaAnimal zona)
     {

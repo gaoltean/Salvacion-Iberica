@@ -38067,6 +38067,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1540945221387577567, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1540945221387577567, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1540945221387577567, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1636790371195757141, guid: d90715680904e554eb75d9278398bf13, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -38203,9 +38215,29 @@ PrefabInstance:
       propertyPath: 'ZonasAnimales.Array.data[13]'
       value: 
       objectReference: {fileID: 1906925954}
+    - target: {fileID: 3350978798467069227, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350978798467069227, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350978798467069227, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5207743043073868947, guid: d90715680904e554eb75d9278398bf13, type: 3}
       propertyPath: m_Name
       value: Oficina
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166985413413900546, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000018954277
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959567507777899766, guid: d90715680904e554eb75d9278398bf13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000018954277
       objectReference: {fileID: 0}
     - target: {fileID: 8002514203588275780, guid: d90715680904e554eb75d9278398bf13, type: 3}
       propertyPath: m_LocalPosition.x
