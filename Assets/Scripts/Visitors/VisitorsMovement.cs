@@ -56,6 +56,14 @@ public class VisitorsMovement : MonoBehaviour
     /// Sprite render del visitante
     /// </summary>
     private SpriteRenderer _sprite;
+    /// <summary>
+    /// Tiempo de espera en sus paradas
+    /// </summary>
+    private float _startTime;
+    /// <summary>
+    /// Tiempo de espera
+    /// </summary>
+    private float _timeToWait;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -99,6 +107,10 @@ public class VisitorsMovement : MonoBehaviour
             Movement(dir);
             Updatefelicidad();
         }
+        else if(Time.time - _startTime >= _timeToWait)
+        {
+            _paused = false;
+        }
         
     }
 
@@ -131,7 +143,29 @@ public class VisitorsMovement : MonoBehaviour
             dir.x = -dir.x;
         }
     }
-   
+    public void PlaceToVisit(Vector2 dir)
+    {
+        
+        //tiramos aleatoriamente si paramos 
+        int parar = Random.Range(0, 3);
+        if(parar == 0)
+        {
+            //Paramos al jugador
+            _paused = true;
+            Vector2 stop = new Vector2(0, 0);
+            Movement(stop);
+            //Miramos a la direccion de la tienda
+            AnimateIlde(dir);
+            //Pagamos entre 2 y 8 
+            int precio = Random.Range(2, 9);
+            GameManager.Instance.GanaDinero(precio);
+            _startTime = Time.time;
+            _timeToWait = Random.Range(1.5f,2);
+        }
+       
+       
+
+    }
     public void Pay( float entrance)
     {
         if (!_hasPaid)
@@ -209,6 +243,33 @@ public class VisitorsMovement : MonoBehaviour
         else if (dirs.x > 0.1 && dirYNull)
         {
             _animator.Play("WalkL");
+        }
+    }
+    private void AnimateIlde(Vector2 direction)
+    {
+        _sprite.flipX = false;
+        bool dirXNull = direction.x > -0.1 && direction.x < 0.1;
+        bool dirYNull = direction.y > -0.1 && direction.y < 0.1;
+        //Andar hacia delante
+        if (direction.y < -0.1 && dirXNull)
+        {
+            _animator.Play("IldeF");
+        }
+        //Andar hacia atras
+        else if (direction.y > 0.1 && dirXNull)
+        {
+            _animator.Play("IldeB");
+        }
+        //Correr izquierda
+        else if (direction.x < -0.1 && dirYNull)
+        {
+            _sprite.flipX = true;
+            _animator.Play("IldeL");
+        }
+        //Correr derecha
+        else if (direction.x > 0.1 && dirYNull)
+        {
+            _animator.Play("IldeL");
         }
     }
     #endregion   
