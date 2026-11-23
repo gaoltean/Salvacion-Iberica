@@ -139,7 +139,7 @@ public class ZonaAnimal : MonoBehaviour
                 }
             }
         }
-        TextoSacosComida.text = "Sacos de comida: " + _sacosComida;
+        TextoSacosComida.text = "Sacos de comida: " + "\n" + "En el almacen: " + Tablet.Instance.DimeSacosAlmacenados(this) + "\n" + "En el recinto: " + _sacosComida;
         TextoProductosLimpieza.text = "Productos de limpieza: " + GameManager.Instance.DimeProductosLimpieza();
         TextoComida.text = "Hambre: " + (int)(_porcentajeHambre) + "%";
         TextoSuciedad.text = "Suciedad: " + (int)_porcentajeSuciedad + "%";
@@ -147,12 +147,15 @@ public class ZonaAnimal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!PanelGestion.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
-        if (!PanelGestion.activeSelf && InputManager.Instance.Interact)
+        if (!PanelGestion.activeSelf)
         {
-            PanelGestion.SetActive(true);
-            if (TextoNoAnimales.activeSelf != !_contieneAnimales) TextoNoAnimales.SetActive(!_contieneAnimales);
-            TextoGestionar.SetActive(false);
+            if (!TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
+            if (InputManager.Instance.InteractIsPressed())
+            {
+                PanelGestion.SetActive(true);
+                if (TextoNoAnimales.activeSelf != !_contieneAnimales) TextoNoAnimales.SetActive(!_contieneAnimales);
+                TextoGestionar.SetActive(false);
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -191,10 +194,6 @@ public class ZonaAnimal : MonoBehaviour
         SpritesAnimales.SetActive(true);
     }
 
-    public void CompraComida(int Cantidad)
-    {
-        if (GameManager.Instance.GastaDinero(PrecioComida * Cantidad)) _sacosComida += Cantidad;
-    }
     public int DimeSacosComida()
     {
         return _sacosComida;
@@ -207,6 +206,10 @@ public class ZonaAnimal : MonoBehaviour
     public float DimePrecioComida()
     {
         return PrecioComida;
+    }
+    public void TraerSacosAlmacen()
+    {
+        _sacosComida += Tablet.Instance.TraerSacosAlmacenados(this);
     }
     public void SalirGestion()
     {

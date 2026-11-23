@@ -23,8 +23,6 @@ public class Oficina : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
 
-    [SerializeField] private List<ZonaAnimal> ZonasAnimales;
-
     [SerializeField] private GameObject TextoGestionar;
     [SerializeField] private GameObject PanelGestion;
     [SerializeField] private GameObject InicioGestion;
@@ -55,6 +53,7 @@ public class Oficina : MonoBehaviour
     // Los atributos privados en formato _camelCase
 
     private List<ZonaAnimal> _zonasMostradasCompraAnimales = new();
+
     private List<GameObject> _elementosCompraAnimales = new();
 
     private List<ZonaAnimal> _zonasMostradasCompraComida = new();
@@ -117,7 +116,7 @@ public class Oficina : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!ComprarAnimales.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
-        if (!PanelGestion.activeSelf && InputManager.Instance.Interact)
+        if (!PanelGestion.activeSelf && InputManager.Instance.InteractIsPressed())
         {
             PanelGestion.SetActive(true);
             InicioGestion.SetActive(true);
@@ -235,9 +234,9 @@ public class Oficina : MonoBehaviour
 
     private void ActualizaCompraAnimales()
     { 
-        foreach (ZonaAnimal zona in ZonasAnimales)
+        foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
         {
-            bool debeAparecer = zona.gameObject.activeInHierarchy && !zona.ContieneAnimales();
+            bool debeAparecer = !zona.ContieneAnimales();
             bool estaMostrada = _zonasMostradasCompraAnimales.Contains(zona);
 
             if (debeAparecer && !estaMostrada)
@@ -258,23 +257,13 @@ public class Oficina : MonoBehaviour
 
     private void ActualizaCompraComida()
     {
-        foreach (ZonaAnimal zona in ZonasAnimales)
+        foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
         {
-            bool debeAparecer = zona.gameObject.activeInHierarchy;
             bool estaMostrada = _zonasMostradasCompraComida.Contains(zona);
 
-            if (debeAparecer && !estaMostrada)
+            if (!estaMostrada)
             {
                 CrearElementoCompraComida(zona);
-            }
-            else if (!debeAparecer && estaMostrada)
-            {
-                int indice = _zonasMostradasCompraComida.IndexOf(zona);
-
-                Destroy(_elementosCompraComida[indice]);
-
-                _zonasMostradasCompraComida.RemoveAt(indice);
-                _elementosCompraAnimales.RemoveAt(indice);
             }
         }
     }
@@ -369,7 +358,7 @@ public class Oficina : MonoBehaviour
         objetoZonaMostrada.transform.SetParent(ContenedorComprarComida, false);
 
         RectTransform rect = objetoZonaMostrada.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(400, 50);
+        rect.sizeDelta = new Vector2(400, 80);
 
         HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
         layout.spacing = 20;
@@ -380,15 +369,15 @@ public class Oficina : MonoBehaviour
         TextoZonaMostrada.transform.SetParent(objetoZonaMostrada.transform, false);
 
         RectTransform rectTexto = TextoZonaMostrada.GetComponent<RectTransform>();
-        rectTexto.sizeDelta = new Vector2(100, 50);
+        rectTexto.sizeDelta = new Vector2(100, 80);
 
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
-        texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "   " + "Precio: " + zona.DimePrecioComida() + "€";
+        texto.text = zona.name + ":\n" + "En almacen: " + Tablet.Instance.TraerSacosAlmacenados(zona) + "\n" + "En el recinto: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
         texto.fontStyle = FontStyles.Bold;
-        texto.fontSize = 18;
+        texto.fontSize = 15;
         texto.textWrappingMode = TextWrappingModes.NoWrap;
         texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
-        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
+        texto.verticalAlignment = VerticalAlignmentOptions.Top;
 
         // Botón
         GameObject BotonZonaMostrada = new GameObject("BotonComprar", typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
@@ -410,9 +399,8 @@ public class Oficina : MonoBehaviour
 
         boton.onClick.AddListener(() =>
         {
-            zona.CompraComida(1);
-            texto.text = zona.name + "\n" + "Stock: " + zona.DimeSacosComida() + "   " + "Precio: " + zona.DimePrecioComida() + "€";
-            ActualizaCompraComida();
+            Tablet.Instance.CompraYAlmacenaSacos(1, zona);
+            texto.text = zona.name + "\n" + "En almacen: " + Tablet.Instance.DimeSacosAlmacenados(zona) + "\n" + "En el recinto: " + zona.DimeSacosComida() + "\n" + "Precio: " + zona.DimePrecioComida() + "€";
         });
 
         // Texto del botón

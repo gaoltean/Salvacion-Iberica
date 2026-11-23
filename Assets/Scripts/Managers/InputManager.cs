@@ -42,6 +42,8 @@ public class InputManager : MonoBehaviour
     /// Acción para atacar
     /// </summary>
     private InputAction _Attack;
+    private InputAction _Interact;
+    private InputAction _Tablet;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -133,8 +135,14 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public Vector2 LastMovementVector { get; private set; }
 
-    public bool Interact = false;
-   
+    public bool InteractIsPressed()
+    {
+        return _Interact.IsPressed();
+    }
+    public bool TabletIsPressed()
+    {
+        return _Tablet.IsPressed();
+    }
     public bool AttackWasPressedThisFrame()
     {
         return _Attack.WasPressedThisFrame();
@@ -156,20 +164,19 @@ public class InputManager : MonoBehaviour
 
         // Cacheamos la acción de movimiento
         InputAction movement = _theController.Player.Move;
-        InputAction jump = _theController.Player.Interacion;
         // Para el movimiento, actualizamos el vector de movimiento usando
         // el método OnMove
         movement.performed += OnMove;
         movement.performed += LastMove;
         movement.canceled += OnMove;
-        jump.performed += OnInteract;
-        jump.canceled += OnInteract;
 
         // Para el disparo solo cacheamos la acción de disparo.
         // El estado lo consultaremos a través de los métodos públicos que 
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
         // y FireWasReleasedThisFrame)
         _Attack = _theController.Player.Attack;
+        _Interact = _theController.Player.Interact;
+        _Tablet = _theController.Player.TabletGestion;
     }
 
     /// <summary>
@@ -196,11 +203,6 @@ public class InputManager : MonoBehaviour
             LastMovementVector = posibleLastMovement;
             //Debug.Log(LastMovementVector);
         }
-
-    }
-    private void OnInteract(InputAction.CallbackContext context)
-    {
-        Interact = !Interact;
     }
     #endregion
 
