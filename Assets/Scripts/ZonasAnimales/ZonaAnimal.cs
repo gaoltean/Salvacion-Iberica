@@ -6,6 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -79,6 +80,8 @@ public class ZonaAnimal : MonoBehaviour
     private float _disminucionLimpieza = 0;
     private float _disminucionSaludPorHambre = 0;
     private bool _contieneAnimales = false;
+
+    private Vector2 _zonePosition = Vector2.zero;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -99,7 +102,10 @@ public class ZonaAnimal : MonoBehaviour
         _disminucionLimpieza = 100f / DurazionLimpieza;
         _disminucionSaludPorHambre = 100f / ResistenciaALaInanicion;
         TextoGestionar.GetComponent<TextMeshProUGUI>().text = "Gestionar " + this.name + ": 'E'";
-        
+
+        Vector2 posicionPadre = this.GetComponentInParent<Transform>().position;
+
+        _zonePosition = posicionPadre + (Vector2) this.transform.position;
     }
 
     /// <summary>
@@ -170,6 +176,14 @@ public class ZonaAnimal : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
 
+    public bool NecesitaLimpieza()
+    {
+        return _porcentajeSuciedad > 40;
+    }
+    public bool NecesitaAlimentar()
+    {
+        return _porcentajeHambre > 40;
+    }
     public void Alimenta()
     {
         if (_porcentajeHambre > 10 && _sacosComida > 0)
@@ -234,6 +248,10 @@ public class ZonaAnimal : MonoBehaviour
     {
         if (_contieneAnimales) return "Hay animales";
         else return "No hay animales";
+    }
+    public Vector2 GetPosition()
+    {
+        return _zonePosition;
     }
     #endregion
 

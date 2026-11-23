@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="dir">direcion del movimiento </param>
     private void Movement(Vector2 dir)
     {
+        dir.Normalize();
         _rb.linearVelocity = dir * Speed;
         Animations(dir);
     }

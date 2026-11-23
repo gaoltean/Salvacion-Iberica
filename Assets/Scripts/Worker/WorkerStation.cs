@@ -18,20 +18,46 @@ public class WorkerStation : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
-     
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
+    /// <summary>
+    /// Trabajador que ha entrado en la estacion
+    /// </summary>
     private WorkerMovement _worker;
-    private ZonaAnimal Zona;
-    private float _timeToWait;
+    /// <summary>
+    /// Componente de la zonaAnimal
+    /// </summary>
+    private ZonaAnimal _zonaAnimal;
+    /// <summary>
+    /// Momento en el que inicio el trabajo
+    /// </summary>
     private float _startTime;
+    /// <summary>
+    /// True cuando hay un trabajador
+    /// </summary>
     private bool _hasWorker;
-    private bool _finishWork;
-    private bool _isCleaner;
+    /// <summary>
+    /// True cuando el tranajador es limpiador
+    /// </summary>
+    private bool _cleaner;
+    /// <summary>
+    /// Tiempo que tarda el trabajador en completar el trabajo
+    /// </summary>
+    private float _duracionTrabajo;
+    /// <summary>
+    /// Tiempo que tarda el trabajador en comprobar si necesita trabajar la zona o no
+    /// </summary>
+    private float _duracionComprobacion = 1.0f;
+    /// <summary>
+    /// Indica si la zona necesita el trabajador
+    /// </summary>
+    private bool _zoneNeedsWorker;
+
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -44,9 +70,9 @@ public class WorkerStation : MonoBehaviour
     void Start()
     {
         _hasWorker = false;
-        _timeToWait = 2f;
-        Zona = this.gameObject.GetComponent<ZonaAnimal>();
-        if (!Zona)
+        _duracionTrabajo = 2f;
+        _zonaAnimal = this.gameObject.GetComponent<ZonaAnimal>();
+        if (!_zonaAnimal)
         {
             Debug.Log("No hay componente zona animal");
         }
@@ -57,24 +83,27 @@ public class WorkerStation : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Time.time-_startTime > _timeToWait && _hasWorker)
+        if (_hasWorker)
         {
-            if (_isCleaner)
+            if (_zoneNeedsWorker && Time.time - _startTime > _duracionTrabajo)
             {
-                if (Zona.PorcentajeSuciedad() > 50)
+                if (_cleaner)
                 {
-                    Zona.LimpiaZona();
+                    _zonaAnimal.LimpiaZona();
                 }
+                else
+                {
+                    _zonaAnimal.Alimenta();
+                }
+                _worker.finish();
+                _hasWorker = false;
+                _zoneNeedsWorker = false;
             }
-            else
+            else if (!_zoneNeedsWorker && Time.time - _startTime > _duracionComprobacion)
             {
-                if (Zona.PorcentajeHambre() > 50)
-                {
-                    Zona.Alimenta();
-                }
+                _worker.finish();
+                _hasWorker = false;
             }
-            _worker.finish();
-            _hasWorker = false;
         }
     }
 
@@ -96,13 +125,13 @@ public class WorkerStation : MonoBehaviour
         _worker = collision.GetComponent<WorkerMovement>();
         if (_worker)
         {
-            //Lo paramos de andar cuando llega 
+            _cleaner = _worker.IsCleaner();
+            _zoneNeedsWorker = _cleaner && _zonaAnimal.NecesitaLimpieza() || !_cleaner && _zonaAnimal.NecesitaAlimentar();
+            // Lo paramos de andar cuando llega 
             _worker.Stop();
-            _isCleaner = _worker.IsCleaner();
             _startTime = Time.time;
             _hasWorker = true;
-
-            
+            _duracionTrabajo = _worker.DuracionDelTrabajo();
         }
     }
     #endregion   

@@ -280,6 +280,10 @@ public class Tablet : MonoBehaviour
             MenuInicio.SetActive(true);
         }
     }
+    public int CantidadZonasCompradas()
+    {
+        return _zonasCompradas.Count;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
