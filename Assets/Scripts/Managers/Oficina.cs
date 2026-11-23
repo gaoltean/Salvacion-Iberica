@@ -263,13 +263,14 @@ public class Oficina : MonoBehaviour
 
     private void ActualizaMenuComida()
     {
-        foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
+        if (_mostradasComida.Count != Tablet.Instance.CantidadZonasCompradas())
         {
-            bool estaMostrada = _mostradasComida.Contains(zona);
-
-            if (!estaMostrada)
+            foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
             {
-                AgregarElementoMenuComida(zona);
+                if (!_mostradasComida.Contains(zona))
+                {
+                    AgregarElementoMenuComida(zona);
+                }
             }
         }
     }

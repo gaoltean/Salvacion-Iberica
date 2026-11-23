@@ -25,7 +25,14 @@ public class Intersections : MonoBehaviour
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
+    /// <summary>
+    /// Componente del visitante que entra en la interseccion
+    /// </summary>
     private VisitorsMovement _vistor;
+    /// <summary>
+    /// Componente del trabajador que entra en la interseccion
+    /// </summary>
+    private WorkerMovement _worker;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -66,6 +73,14 @@ public class Intersections : MonoBehaviour
         if (_vistor)
         {
             _vistor.changeDir(intersection);
+        }
+        else
+        {
+            _worker = collision.GetComponent<WorkerMovement>();
+            if (_worker)
+            {
+                _worker.ChangeDir(intersection);
+            }
         }
     }
     #endregion   
