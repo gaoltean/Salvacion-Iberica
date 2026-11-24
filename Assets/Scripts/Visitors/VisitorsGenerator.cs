@@ -64,7 +64,7 @@ public class VisitorsGenerator : MonoBehaviour
     void Update()
     {
         //Si ha pasado el tiempo correspondiente creamos otro
-        if(Time.time-_lastVisitorSpawn > _TimeToWait)
+        if(Time.time-_lastVisitorSpawn > _TimeToWait && !TimeManager.Instance.IsNight())
         {
             GenerateVisitor();
             _TimeToWait = Random.Range(_minTime, _maxTime);

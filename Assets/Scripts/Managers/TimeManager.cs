@@ -6,6 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 
@@ -20,10 +21,11 @@ public class TimeManager : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
     [SerializeField] private float TiempoDia;
-    [SerializeField] private float TiempoNoche;
     [SerializeField] private float LuzDia;
     [SerializeField] private float LuzNoche;
     [SerializeField] private float TiempoCambio;
+    [SerializeField] private GameObject PanelFinDia;
+    [SerializeField] private GameObject BotonFinDia;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -80,6 +82,8 @@ public class TimeManager : MonoBehaviour
         _cambio = false;
         _startTime = Time.time;
         _luz.intensity = LuzDia;
+        PanelFinDia.SetActive(false);
+        BotonFinDia.SetActive(false);
     }
 
     /// <summary>
@@ -90,12 +94,6 @@ public class TimeManager : MonoBehaviour
         if (_dia && Time.time - _startTime > TiempoDia && !_cambio)
         {
             Debug.Log("Dia");
-            _cambio = true;
-            _startTime = Time.time;
-        }
-        if (!_dia && Time.time - _startTime > TiempoNoche && !_cambio)
-        {
-            Debug.Log("Noche");
             _cambio = true;
             _startTime = Time.time;
         }
@@ -110,20 +108,10 @@ public class TimeManager : MonoBehaviour
                 _dia = false;
                 _cambio = false;
                 _startTime = Time.time;
+                BotonFinDia.SetActive(true);
             }
         }
-        if (!_dia && _cambio && Time.time - _startTime > TiempoCambio)
-        {
-            _luz.intensity += 0.01f;
-            _startTime = Time.time;
-            if (_luz.intensity >= LuzDia)
-            {
-                _luz.intensity = LuzDia;
-                _dia = true;
-                _cambio = false;
-                _startTime = Time.time;
-            }
-        }
+        
     }
 
     #endregion
@@ -157,7 +145,24 @@ public class TimeManager : MonoBehaviour
     /// <returns></returns>
     public bool IsDay()
     {
-        return _dia;
+        return !_cambio;
+    }
+    public bool IsNight()
+    {
+        return !_dia;
+    }
+    public void ChangeToDay()
+    {
+        _dia = true;
+        _startTime = Time.time;
+        _cambio = false;
+        _luz.intensity = LuzDia;
+        PanelFinDia.SetActive(false);
+    }
+    public void ActivaPanelFinDia()
+    {
+        BotonFinDia.SetActive(false);
+        PanelFinDia.SetActive(true);
     }
     #endregion
 

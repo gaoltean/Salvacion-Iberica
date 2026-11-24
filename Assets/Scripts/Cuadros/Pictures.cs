@@ -5,6 +5,7 @@
 //---------------------------------------------------------
 
 // Añadir aquí el resto de directivas using
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -22,12 +23,12 @@ public class Pictures : MonoBehaviour
     [SerializeField] private string Author;
     [SerializeField] private float Price;
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
-
+    private bool _sell = false;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -67,6 +68,15 @@ public class Pictures : MonoBehaviour
     public float GetPrice()
     {
         return Price;
+    }
+    public bool hasbeenSell()
+    {
+        return _sell;
+    }
+    public void VendeCuadro()
+    {
+        GameManager.Instance.GanaDinero(Price);
+        _sell = true;
     }
     #endregion
     

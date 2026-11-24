@@ -30,9 +30,13 @@ public class Oficina : MonoBehaviour
     [SerializeField] private GameObject MenuAnimales;
     [SerializeField] private Transform ContenedorAnimales;
 
+    [SerializeField] private GameObject MenuCuadros;
+    [SerializeField] private Transform ContenedorCuadros;
+
     [SerializeField] private GameObject MenuUtiles;
     [SerializeField] private GameObject MenuInicioUtiles;
     [SerializeField] private GameObject MenuComida;
+
     [SerializeField] private Transform ContenedorComida;
     [SerializeField] private float PrecioProductosLimpieza;
 
@@ -56,6 +60,9 @@ public class Oficina : MonoBehaviour
     private List<ZonaAnimal> _mostradasAnimales = new();
     private List<GameObject> _elementosAnimales = new();
 
+    private List<Pictures> _mostradosCuadros = new();
+    private List<GameObject> _elementosCuadros = new();
+
     private List<ZonaAnimal> _mostradasComida = new();
     private List<GameObject> _elementosComida = new();
 
@@ -68,6 +75,7 @@ public class Oficina : MonoBehaviour
 
     private RectTransform _contenedorComidaRect;
     private RectTransform _contenedorAnimalesRect;
+    private RectTransform _contenedorCuadrosRect;
 
     #endregion
 
@@ -82,6 +90,7 @@ public class Oficina : MonoBehaviour
     {
         MenuInicioGestion.SetActive(false);
         MenuAnimales.SetActive(false);
+        MenuCuadros.SetActive(false);
         MenuConstruir.SetActive(false);
         MenuUtiles.SetActive(false);
         MenuComida.SetActive(false);
@@ -104,6 +113,7 @@ public class Oficina : MonoBehaviour
 
         _contenedorAnimalesRect = ContenedorAnimales.GetComponent<RectTransform>();
         _contenedorComidaRect = ContenedorComida.GetComponent<RectTransform>();
+        _contenedorCuadrosRect = ContenedorCuadros.GetComponent<RectTransform>();
 
         TextoStockLimpieza.text = "Stock: " + GameManager.Instance.DimeProductosLimpieza() + "\n" + "Precio: " + PrecioProductosLimpieza + "€";
         TextoComprarTienda.text = "Compradas:" + (_tiendasMaxDisponibles - _zonasOcultasTiendas.Count) + "/" + ZonasTiendas.Count + "\n" + "Precio: " + PrecioTienda + "€";
@@ -117,11 +127,13 @@ public class Oficina : MonoBehaviour
     {
         if (MenuAnimales.activeSelf) ActualizaMenuAnimales();
         else if (MenuComida.activeSelf) ActualizaMenuComida();
+        else if (MenuCuadros.activeSelf) ActualizaMenuCuadros();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!MenuAnimales.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
+        if (!MenuCuadros.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
         if (!PanelGestion.activeSelf && InputManager.Instance.InteractIsPressed())
         {
             PanelGestion.SetActive(true);
@@ -134,6 +146,7 @@ public class Oficina : MonoBehaviour
         MenuInicioGestion.SetActive(false);
         MenuAnimales.SetActive(false);
         MenuConstruir.SetActive(false);
+        MenuCuadros.SetActive(false);
         MenuUtiles.SetActive(false);
         MenuComida.SetActive(false);
         PanelGestion.SetActive(false);
@@ -167,6 +180,11 @@ public class Oficina : MonoBehaviour
     {
         MenuInicioUtiles.SetActive(false);
         MenuComida.SetActive(true);
+    }
+    public void ActivaMenuCuadros()
+    {
+        MenuInicioGestion.SetActive(false);
+        MenuCuadros.SetActive(true);
     }
     public void CompraLimpieza()
     {
@@ -229,6 +247,10 @@ public class Oficina : MonoBehaviour
         {
             MenuConstruir.SetActive(false);
             MenuInicioGestion.SetActive(true);
+        }else if (MenuCuadros.activeSelf)
+        {
+            MenuCuadros.SetActive(false);
+            MenuInicioGestion.SetActive(true);
         }
     }
     #endregion
@@ -247,6 +269,7 @@ public class Oficina : MonoBehaviour
 
             if (debeAparecer && !estaMostrada)
             {
+                Debug.Log("Agregando elemento Animal");
                 AgregarElementoMenuAnimales(zona);
             }
             else if (!debeAparecer && estaMostrada)
@@ -260,7 +283,29 @@ public class Oficina : MonoBehaviour
             }
         }
     }
+    private void ActualizaMenuCuadros()
+    {
+        foreach (Pictures cuadro in Tablet.Instance.DameListaCuadros())
+        {
+            bool debeAparecer = !cuadro.hasbeenSell();
+            bool estaMostrada = _mostradosCuadros.Contains(cuadro);
 
+            if (debeAparecer && !estaMostrada)
+            {
+                Debug.Log("Agregando elemento cuadro");
+                AgregarElementoMenuCuadros(cuadro);
+            }
+            else if (!debeAparecer && estaMostrada)
+            {
+                int indice = _mostradosCuadros.IndexOf(cuadro);
+
+                Destroy(_elementosCuadros[indice]);
+
+                _mostradosCuadros.RemoveAt(indice);
+                _elementosCuadros.RemoveAt(indice);
+            }
+        }
+    }
     private void ActualizaMenuComida()
     {
         if (_mostradasComida.Count != Tablet.Instance.CantidadZonasCompradas())
@@ -356,6 +401,89 @@ public class Oficina : MonoBehaviour
         // Guardar referencias
         _mostradasAnimales.Add(zona);
         _elementosAnimales.Add(objetoZonaMostrada);
+    }
+    /// <summary>
+    /// Crea un elemento con texto de nombre de zona y precio de animales
+    /// y un boton para comprar los animales y mete el elemento en la lista
+    /// </summary>
+    /// <param name="Cuadro">Zona asociada</param>
+    private void AgregarElementoMenuCuadros(Pictures Cuadro)
+    {
+        int AltoElemento = 50;
+        int AnchoElemento = 200;
+        _contenedorCuadrosRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
+
+        GameObject objetoZonaMostrada = new GameObject(Cuadro.GetTitle(),
+            typeof(RectTransform),
+            typeof(HorizontalLayoutGroup),
+            typeof(LayoutElement)
+        );
+        objetoZonaMostrada.transform.SetParent(ContenedorCuadros, false);
+
+        RectTransform rect = objetoZonaMostrada.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
+
+        HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
+        layout.spacing = 95;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+
+        // Texto
+        GameObject TextoZonaMostrada = new GameObject(Cuadro.name, typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        TextoZonaMostrada.transform.SetParent(objetoZonaMostrada.transform, false);
+
+        RectTransform rectTexto = TextoZonaMostrada.GetComponent<RectTransform>();
+        rectTexto.sizeDelta = new Vector2(AnchoElemento / 2, AltoElemento);
+
+        TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
+        texto.text =$"{Cuadro.GetTitle()} Autor: {Cuadro.GetAuthor()}\n Precio: {Cuadro.GetPrice()} €";
+        texto.fontStyle = FontStyles.Bold;
+        texto.fontSize = 9;
+        texto.textWrappingMode = TextWrappingModes.NoWrap;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        // Botón
+        GameObject BotonZonaMostrada = new GameObject("BotonVender", typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
+        BotonZonaMostrada.transform.SetParent(objetoZonaMostrada.transform, false);
+
+
+        RectTransform rectboton = BotonZonaMostrada.GetComponent<RectTransform>();
+        rectboton.sizeDelta = new Vector2(AnchoElemento / 2, AltoElemento);
+
+        Button boton = BotonZonaMostrada.GetComponent<Button>();
+        boton.transition = Selectable.Transition.ColorTint;
+        ColorBlock colores = boton.colors;
+        colores.normalColor = new Color32(0, 195, 255, 255);
+        colores.highlightedColor = new Color32(152, 231, 255, 255);
+        colores.selectedColor = new Color32(152, 231, 255, 255);
+        colores.pressedColor = new Color32(0, 143, 183, 255);
+        colores.disabledColor = new Color32(0, 143, 183, 255);
+        boton.colors = colores;
+
+        boton.onClick.AddListener(() =>
+        {
+            Cuadro.VendeCuadro();
+            ActualizaMenuCuadros();
+        });
+
+        // Texto del botón
+        GameObject textoBoton = new GameObject("VenderCuadros", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textoBoton.transform.SetParent(BotonZonaMostrada.transform, false);
+
+        TMP_Text text = textoBoton.GetComponent<TMP_Text>();
+        text.text = "Vender" + "\n" + "Cuadros";
+        text.fontSize = 11;
+        text.fontStyle = FontStyles.Bold;
+        text.color = Color.black;
+        text.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        text.verticalAlignment = VerticalAlignmentOptions.Middle;
+        // Guardar referencias
+        _mostradosCuadros.Add(Cuadro);
+        _elementosCuadros.Add(objetoZonaMostrada);
     }
 
     /// <summary>

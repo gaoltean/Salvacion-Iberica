@@ -130,17 +130,50 @@ public class VisitorsMovement : MonoBehaviour
         {
             int dir1 = Random.Range(0, 2);
             int dir2 = Random.Range(0, 2);
+            Vector2 Newdir;
             if (dir1 == 0)
             {
-                if (dir2 == 0) dir = new Vector2(0, 1);
-                else dir = new Vector2(0, -1);
+                if (dir2 == 0)
+                {
+                    Newdir = new Vector2(0, 1);
+                    
+                }
+                else 
+                {
+                     Newdir = new Vector2(0, -1);
+                    
+                }
+              
+                if (Newdir.y != -dir.y)
+                {
+                    dir = Newdir;
+                }
+                else
+                {
+                    changeDir(intersect);
+                }
             }
             else
             {
-                if (dir2 == 0) dir = new Vector2(1, 0);
-                else dir = new Vector2(-1, 0);
+                if (dir2 == 0)
+                {
+                    Newdir = new Vector2(1, 0);
+                }
+                else
+                {
+                    Newdir = new Vector2(-1, 0);
+                }
+                if (Newdir.x != -dir.x)
+                {
+                    dir = Newdir;
+                }
+                else
+                {
+                    changeDir(intersect);
+                }
             }
-        }
+        
+    }
         else
         {
             dir.y = -dir.y;
@@ -168,6 +201,22 @@ public class VisitorsMovement : MonoBehaviour
             AumentaFelicidad(10);
         }
        
+    }
+    public void FreePlaceToVisit(Vector2 dir)
+    {
+        int parar = Random.Range(0, 3);
+        if (parar == 0)
+        {
+            //Paramos al jugador
+            _paused = true;
+            Vector2 stop = new Vector2(0, 0);
+            Movement(stop);
+            //Miramos a la direccion de la tienda
+            AnimateIlde(dir);
+            _startTime = Time.time;
+            _timeToWait = Random.Range(1.5f, 2);
+            AumentaFelicidad(15);
+        }
     }
     public bool WC()
     {

@@ -286,6 +286,10 @@ public class Tablet : MonoBehaviour
     {
         return _zonasCompradas;
     }
+    public List<Pictures> DameListaCuadros()
+    {
+        return _cuadrosAlmacenados;
+    }
     public int CantidadZonasCompradas()
     {
         return _zonasCompradas.Count;
@@ -320,6 +324,10 @@ public class Tablet : MonoBehaviour
     {
         MenuInicio.SetActive(false);
         MenuCuadros.SetActive(true);
+    }
+    public void BorraCuadroVendido(Pictures cuadro)
+    {
+        _cuadrosAlmacenados.Remove(cuadro);
     }
     public void VolverSalir()
     {
