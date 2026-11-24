@@ -12,7 +12,7 @@ using UnityEngine;
 /// <summary>
 /// Descripción de qué es y para qué sirve
 /// </summary>
-public class NewMonoBehaviourScript : MonoBehaviour
+public class ExibitStop : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)

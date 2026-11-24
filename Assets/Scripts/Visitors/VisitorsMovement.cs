@@ -204,7 +204,7 @@ public class VisitorsMovement : MonoBehaviour
     }
     public void FreePlaceToVisit(Vector2 dir)
     {
-        int parar = Random.Range(0, 3);
+        int parar = Random.Range(0, 2);
         if (parar == 0)
         {
             //Paramos al jugador

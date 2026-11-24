@@ -93,13 +93,13 @@ public class TimeManager : MonoBehaviour
     {
         if (_dia && Time.time - _startTime > TiempoDia && !_cambio)
         {
-            Debug.Log("Dia");
+            //Debug.Log("Dia");
             _cambio = true;
             _startTime = Time.time;
         }
         if (_dia && _cambio && Time.time - _startTime > TiempoCambio)
         {
-            Debug.Log("cambio a noche");
+           // Debug.Log("cambio a noche");
             _luz.intensity -= 0.01f;
             _startTime = Time.time;
             if (_luz.intensity <= LuzNoche)
@@ -145,7 +145,7 @@ public class TimeManager : MonoBehaviour
     /// <returns></returns>
     public bool IsDay()
     {
-        return !_cambio;
+        return _dia && !_cambio;
     }
     public bool IsNight()
     {
