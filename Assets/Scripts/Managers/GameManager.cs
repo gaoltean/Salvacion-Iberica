@@ -132,6 +132,10 @@ public class GameManager : MonoBehaviour
         return _instance != null;
     }
 
+    public void PagaTrabajador(float salario)
+    {
+        _dinero -= salario;
+    }
     /// <summary>
     /// Suma una cantidad a tu dinero actual
     /// </summary>

@@ -89,6 +89,9 @@ public class Tablet : MonoBehaviour
     /// Lista de cuidadores contratados
     /// </summary>
     private List<WorkerMovement> _listaCuidadoresContratados = new();
+    /// <summary>
+    /// Cantidad de cuidadores contratados actualmentes
+    /// </summary>
     private int _cantidadCuidadores = 0;
     private List<WorkerMovement> _listaCuidadoresDisponibles = new();
 
@@ -100,6 +103,9 @@ public class Tablet : MonoBehaviour
     /// Lista de limpiadores contratados
     /// </summary>
     private List<WorkerMovement> _listaLimpiadoresContratados = new();
+    /// <summary>
+    /// Cantidad de limpiadores contratados actualmentes
+    /// </summary>
     private int _cantidadLimpiadores = 0;
     private List<WorkerMovement> _listaLimpiadoresDisponibles = new();
 
@@ -125,6 +131,8 @@ public class Tablet : MonoBehaviour
     private RectTransform _contenedorEstadosRect;
     private RectTransform _contenedorCuadrosRect;
 
+    private bool _trabajadoresHanCobradoHoy = false;
+    private float _gastosHoyEnSalarios = 0.0f;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -221,6 +229,23 @@ public class Tablet : MonoBehaviour
                 ActualizaContenerdorCuadros();
             }
         }
+
+        if (_cantidadCuidadores > 0 || _cantidadLimpiadores > 0)
+        {
+            // Cobran todos a la vez por la noche
+            if (TimeManager.Instance.IsNight())
+            {
+                if (!_trabajadoresHanCobradoHoy)
+                {
+                    _trabajadoresHanCobradoHoy = true;
+                    GameManager.Instance.PagaTrabajador(SalarioDiarioCuidador * _cantidadCuidadores);
+                    GameManager.Instance.PagaTrabajador(SalarioDiarioLimpiador * _cantidadLimpiadores);
+                    _gastosHoyEnSalarios = SalarioDiarioCuidador * _cantidadCuidadores + SalarioDiarioLimpiador * _cantidadLimpiadores;
+                }
+            }
+            // Al inicio del dia se resetea el cobro de los trabajadores
+            else if (_trabajadoresHanCobradoHoy) _trabajadoresHanCobradoHoy = false;
+        }
     }
 
     /// <summary>
@@ -253,7 +278,10 @@ public class Tablet : MonoBehaviour
             return _instance;
         }
     }
-
+    public float GastosEnSalarios()
+    {
+        return _gastosHoyEnSalarios;
+    }
     public void AddZona(ZonaAnimal zona)
     {
         _zonasCompradas.Add(zona);
