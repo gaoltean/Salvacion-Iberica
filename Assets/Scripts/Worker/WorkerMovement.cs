@@ -36,10 +36,6 @@ public class WorkerMovement : MonoBehaviour
     /// </summary>
     private Rigidbody2D _rb;
     /// <summary>
-    /// Componente transform del trabajador
-    /// </summary>
-    private Transform _transform;
-    /// <summary>
     /// Componente animator del Trabajador
     /// </summary>
     private Animator _animator;
@@ -78,6 +74,7 @@ public class WorkerMovement : MonoBehaviour
     /// Direccion para volver al camino despues del trabajo
     /// </summary>
     private Vector2 _dirVueltaCamino;
+    private Vector2 _dirPorCaminoAntesDeTrabajo;
 
     private bool ReachX;
     private bool ReachAproximateX;
@@ -115,11 +112,6 @@ public class WorkerMovement : MonoBehaviour
         {
             Debug.Log("No hay sprite y no hay animaciones en el trabajdor");
         }
-        _transform = this.GetComponent<Transform>();
-        if (!_transform)
-        {
-            Debug.Log("No hay transform");
-        }
         _llamadoTrabajar = false;
         _trabajoTerminado = false;
         _paradoTrabajar = false;
@@ -140,48 +132,37 @@ public class WorkerMovement : MonoBehaviour
             // Parada a trabajar
             if (_llamadoTrabajar && !_zonaEncontrada)
             {
-                float dx = _transform.position.x - _posicionTrabajo.x;
-                float dy = _transform.position.y - _posicionTrabajo.y;
+                float dx = this.transform.position.x - _posicionTrabajo.x;
+                float dy = this.transform.position.y - _posicionTrabajo.y;
 
                 ReachX = Mathf.Abs(dx) <= 0.7f;
                 ReachY = Mathf.Abs(dy) <= 0.7f;
+                ReachAproximateY = Mathf.Abs(dy) <= 5f;
+                ReachAproximateX = Mathf.Abs(dx) <= 6f;
 
-                if (ReachX && !ReachY)
+                if (ReachX && ReachAproximateY)
                 {
-                    _dir = new Vector2(0f, - Mathf.Sign(dy));
-                    ReachAproximateY = Mathf.Abs(dy) <= 5f;
-                    if (ReachAproximateY)
-                    {
-                        // Fuerza el movimiento estrictamente en el eje Y (X = 0)
-                        _dirVueltaCamino = new Vector2(0f, Mathf.Sign(dy));
-                        _zonaEncontrada = true;
-                    }
+                    _dirPorCaminoAntesDeTrabajo = _dir;
+                    _dirVueltaCamino = new Vector2(0f, Mathf.Sign(dy));
+                    _dir = -_dirVueltaCamino;
+                    _zonaEncontrada = true;
                 }
-                else if (ReachY && !ReachX)
+                else if (ReachY && ReachAproximateX)
                 {
-                    _dir = new Vector2(- Mathf.Sign(dx), 0f);
-                    ReachAproximateX = Mathf.Abs(dx) <= 6f; // Los caminos hacia arriba son más anchos
-                    if (ReachY && ReachAproximateX)
-                    {
-                        // Fuerza el movimiento estrictamente en el eje X (Y = 0)
-                        _dirVueltaCamino = new Vector2(Mathf.Sign(dx), 0f);
-                        _zonaEncontrada = true;
-                    }
+                    _dirPorCaminoAntesDeTrabajo = _dir;
+                    _dirVueltaCamino = new Vector2(Mathf.Sign(dx), 0f);
+                    _dir = -_dirVueltaCamino;
+                    _zonaEncontrada = true;
                 }
             }
             else if (_llamadoTrabajar && _zonaEncontrada)
             {
-                if (!ReachX || !ReachY)
-                {
-                    Vector2 dir = -_dirVueltaCamino;
-                    Movement(dir);
-                    if (!ReachX) ReachX = Mathf.Abs(_transform.position.x - _posicionTrabajo.x) <= 0.7f;
-                    else if (!ReachY) ReachY = Mathf.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
-                }
+                if(!ReachX) ReachX = Mathf.Abs(this.transform.position.x - _posicionTrabajo.x) <= 0.7f;
+                else if(!ReachY) ReachY = Mathf.Abs(this.transform.position.y - _posicionTrabajo.y) <= 0.7f;
                 else
                 {
                     Movement(new Vector2(0,0));
-                    _posEnElTrabajo = _transform.position;
+                    _posEnElTrabajo = this.transform.position;
                     _paradoTrabajar = true;
                     _trabajoTerminado = false;
                     //Vector2 pause = new Vector2(0,0);
@@ -194,9 +175,10 @@ public class WorkerMovement : MonoBehaviour
         // Cuando esta parado y ha terminado de trabajar
         else if (_trabajoTerminado)
         {
-            _vaPorCamino = Vector2.Distance(_transform.position, _posEnElTrabajo) > 1f;
+            _vaPorCamino = Vector2.Distance(this.transform.position, _posEnElTrabajo) > 0.5f;
             if (_vaPorCamino)
             {
+                _dir = _dirPorCaminoAntesDeTrabajo;
                 _paradoTrabajar = false;
                 _llamadoTrabajar = false;
                 _zonaEncontrada = false;
@@ -204,7 +186,7 @@ public class WorkerMovement : MonoBehaviour
             }
             else
             {
-                Movement(_dirVueltaCamino.normalized);
+                Movement(_dirVueltaCamino);
             }
         }
     }
@@ -283,15 +265,15 @@ public class WorkerMovement : MonoBehaviour
             else
             {
                 // Priorizamos cambiar en el eje y
-                bool mejorCambiarX = Math.Abs(_transform.position.y - _posicionTrabajo.y) < 7;
+                bool mejorCambiarX = Math.Abs(this.transform.position.y - _posicionTrabajo.y) < 5;
                 if (mejorCambiarX)
                 {
-                    if (_posicionTrabajo.x > _transform.position.x) _dir = new Vector2(1, 0);
+                    if (_posicionTrabajo.x > this.transform.position.x) _dir = new Vector2(1, 0);
                     else _dir = new Vector2(-1, 0);
                 }
                 else
                 {
-                    if (_posicionTrabajo.y > _transform.position.y) _dir = new Vector2(0, 1);
+                    if (_posicionTrabajo.y > this.transform.position.y) _dir = new Vector2(0, 1);
                     else _dir = new Vector2(0, -1);
                 }
             }
