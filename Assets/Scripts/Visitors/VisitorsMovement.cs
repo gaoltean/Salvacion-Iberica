@@ -6,6 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using UnityEngine;
+using System;
 
 
 
@@ -68,6 +69,26 @@ public class VisitorsMovement : MonoBehaviour
     /// Indica si ha ido al baño
     /// </summary>
     private bool _Wc = false;
+    /// <summary>
+    /// Bool que indica si tenemos que salir 
+    /// </summary>
+    private bool _exit = false;
+    /// <summary>
+    /// Bool que indica si hemos llegado en x
+    /// </summary>
+    private bool ReachX;
+    /// <summary>
+    /// Bool que indica que hemos llegado en y
+    /// </summary>
+    private bool ReachY;
+    /// <summary>
+    /// Transform del visitante
+    /// </summary>
+    private Transform _transform;
+    /// <summary>
+    /// Posicion del destructor para que salgan a destruirse
+    /// </summary>
+    private Vector2 _posDestroyer = new Vector2(-0.5f,-2);
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -98,6 +119,11 @@ public class VisitorsMovement : MonoBehaviour
         {
             Debug.Log("No hay sprite y no hay animaciones en el visitor");
         }
+        _transform = this.GetComponent<Transform>();
+        if (_transform == null)
+        {
+            Debug.Log("No hay transform");
+        }
     }
 
     /// <summary>
@@ -105,8 +131,9 @@ public class VisitorsMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        _exit = TimeManager.Instance.IsNight();
         //Nos movemos a una velocidad establecida
-        if (!_paused)
+        if (!_paused && !_exit)
         {
             Movement(dir);
             Updatefelicidad();
@@ -114,6 +141,11 @@ public class VisitorsMovement : MonoBehaviour
         else if(Time.time - _startTime >= _timeToWait)
         {
             _paused = false;
+        }
+
+        if (_exit)
+        {
+            ReachPos(_posDestroyer);
         }
         
     }
@@ -128,8 +160,8 @@ public class VisitorsMovement : MonoBehaviour
     {
         if (intersect)
         {
-            int dir1 = Random.Range(0, 2);
-            int dir2 = Random.Range(0, 2);
+            int dir1 = UnityEngine.Random.Range(0, 2);
+            int dir2 = UnityEngine.Random.Range(0, 2);
             Vector2 Newdir;
             if (dir1 == 0)
             {
@@ -184,7 +216,7 @@ public class VisitorsMovement : MonoBehaviour
     {
         
         //tiramos aleatoriamente si paramos 
-        int parar = Random.Range(0, 3);
+        int parar = UnityEngine.Random.Range(0, 3);
         if(parar == 0)
         {
             //Paramos al jugador
@@ -194,17 +226,17 @@ public class VisitorsMovement : MonoBehaviour
             //Miramos a la direccion de la tienda
             AnimateIlde(dir);
             //Pagamos entre 2 y 8 
-            int precio = Random.Range(2, 9);
+            int precio = UnityEngine.Random.Range(2, 9);
             GameManager.Instance.GanaDinero(precio);
             _startTime = Time.time;
-            _timeToWait = Random.Range(1.5f,2);
+            _timeToWait = UnityEngine.Random.Range(1.5f,2);
             AumentaFelicidad(10);
         }
        
     }
     public void FreePlaceToVisit(Vector2 dir)
     {
-        int parar = Random.Range(0, 2);
+        int parar = UnityEngine.Random.Range(0, 2);
         if (parar == 0)
         {
             //Paramos al jugador
@@ -214,13 +246,13 @@ public class VisitorsMovement : MonoBehaviour
             //Miramos a la direccion de la tienda
             AnimateIlde(dir);
             _startTime = Time.time;
-            _timeToWait = Random.Range(1.5f, 2);
+            _timeToWait = UnityEngine.Random.Range(1.5f, 2);
             AumentaFelicidad(15);
         }
     }
     public bool WC()
     {
-        int parar = Random.Range(0, 3);
+        int parar = UnityEngine.Random.Range(0, 3);
         //Solo pueden ir una vez al baño
         if(parar == 0 && !_Wc)
         {
@@ -336,6 +368,46 @@ public class VisitorsMovement : MonoBehaviour
         {
             _animator.Play("IldeL");
         }
+    }
+    private bool ReachPos(Vector2 pos)
+    {
+        Vector2 dir = new Vector2(0, 0);
+        ReachX = Math.Abs(_transform.position.x - pos.x) <= 0.5;
+        ReachY = Math.Abs(_transform.position.y - pos.y) <= 0.5;
+        if (!ReachX)
+        {
+
+            if (pos.x > _transform.position.x)
+            {
+                //Esta a derecha
+                dir = new Vector2(1, 0);
+            }
+            else
+            {
+                //Esta a izquierda
+                dir = new Vector2(-1, 0);
+            }
+        }
+        if (!ReachY && ReachX)
+        {
+            if (!ReachY)
+            {
+                //Movemos la y
+                if (pos.y > _transform.position.y)
+                {
+                    //Esta a arriba
+                    dir = new Vector2(0, 1);
+                }
+                else
+                {
+                    //Esta a abajo
+                    dir = new Vector2(0, -1);
+                }
+            }
+
+        }
+        Movement(dir);
+        return ReachX && ReachY;
     }
     #endregion   
 
