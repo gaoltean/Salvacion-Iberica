@@ -153,7 +153,7 @@ public class ZonaAnimal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!PanelGestion.activeSelf)
+        if (!PanelGestion.activeSelf && collision.GetComponent<PlayerMovement>())
         {
             if (!TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
             if (InputManager.Instance.InteractIsPressed())
@@ -166,8 +166,11 @@ public class ZonaAnimal : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        PanelGestion.SetActive(false);
-        TextoGestionar.SetActive(false);
+        if (collision.GetComponent<PlayerMovement>())
+        {
+            PanelGestion.SetActive(false);
+            TextoGestionar.SetActive(false);
+        }
     }
     #endregion
 

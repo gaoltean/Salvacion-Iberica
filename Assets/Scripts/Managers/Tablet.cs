@@ -155,9 +155,9 @@ public class Tablet : MonoBehaviour
         }
         else
         {
-            if (Time.time > _momentoPuedeCerrarTablet && InputManager.Instance.TabletIsPressed())
+            if (PanelTablet.activeSelf && Time.time > _momentoPuedeCerrarTablet && InputManager.Instance.TabletIsPressed())
             {
-                _momentoPuedeAbrirTablet = _momentoPuedeCerrarTablet + 1.0f;
+                _momentoPuedeAbrirTablet = Time.time + 1.0f;
                 PanelTablet.SetActive(false);
             }
             else if (MenuAlmacen.activeSelf)
@@ -369,6 +369,16 @@ public class Tablet : MonoBehaviour
             MenuInicio.SetActive(true);
         }
     }
+    public void CuadroVendido(Pictures cuadro)
+    {
+        int indice = _cuadrosMostrados.IndexOf(cuadro);
+
+        QuitaElementoContenedor(_elementosCuadros[indice], ContenedorCuadros);
+
+        _cuadrosMostrados.RemoveAt(indice);
+        _elementosCuadros.RemoveAt(indice);
+        _cuadrosAlmacenados.RemoveAt(_cuadrosAlmacenados.IndexOf(cuadro));
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -406,7 +416,6 @@ public class Tablet : MonoBehaviour
                 if (!_cuadrosMostrados.Contains(Cuadro))
                 {
                     AgregaElementoCuadro(Cuadro);
-                    _cuadrosMostrados.Add(Cuadro);
                 }
             }
         }
@@ -441,6 +450,7 @@ public class Tablet : MonoBehaviour
     {
         int AltoElemento = 80;
         int AnchoElemento = 300;
+        int FontSize = 15;
         _contenedorCuadrosRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
 
         // Texto
@@ -451,15 +461,17 @@ public class Tablet : MonoBehaviour
         rectTexto.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
 
         TextMeshProUGUI texto = ObjetoTexto.GetComponent<TextMeshProUGUI>();
-        texto.text = $"{cuadro.GetTitle()}: Autor: {cuadro.GetAuthor()}\n Precio: {cuadro.GetPrice()}  €";
+        texto.text = $"Cuadro: {cuadro.GetTitle()}\nAutor: {cuadro.GetAuthor()}\nPrecio: {cuadro.GetPrice()} €";
         texto.fontStyle = FontStyles.Bold;
-        texto.fontSize = 10;
-        texto.textWrappingMode = TextWrappingModes.NoWrap;
-        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.color = Color.black;
+        texto.fontSize = FontSize;
+        texto.textWrappingMode = TextWrappingModes.Normal;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Left;
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;
 
         // Guardamos referencia
         _elementosCuadros.Add(ObjetoTexto);
+        _cuadrosMostrados.Add(cuadro);
     }
     private void AgregaElementoEmpleados(ZonaAnimal zona)
     {
@@ -508,7 +520,7 @@ public class Tablet : MonoBehaviour
 
 
         RectTransform rectbotoncuidador = BotonEnviarCuidador.GetComponent<RectTransform>();
-        rectbotoncuidador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento);
+        rectbotoncuidador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento / 1.5f);
 
         Button botoncuidador = BotonEnviarCuidador.GetComponent<Button>();
         botoncuidador.transition = Selectable.Transition.ColorTint;
@@ -542,7 +554,7 @@ public class Tablet : MonoBehaviour
 
 
         RectTransform rectbotonLimpiador = BotonEnviarLimpiador.GetComponent<RectTransform>();
-        rectbotonLimpiador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento);
+        rectbotonLimpiador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento / 1.5f);
 
         Button botonLimpiador = BotonEnviarLimpiador.GetComponent<Button>();
         botonLimpiador.transition = Selectable.Transition.ColorTint;
@@ -598,6 +610,12 @@ public class Tablet : MonoBehaviour
         // Guardamos referencia
         _elementosEstados.Add(ObjetoTexto);
         _textosElementosEstados.Add(texto);
+    }
+
+    private void QuitaElementoContenedor(GameObject objeto, Transform contenedor)
+    {
+        contenedor.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, objeto.GetComponent<RectTransform>().sizeDelta.y*1.5f);
+        Destroy(objeto);
     }
     /// <summary>
     /// Metodo que transfiere el setup

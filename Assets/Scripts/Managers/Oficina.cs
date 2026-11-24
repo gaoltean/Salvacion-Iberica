@@ -132,25 +132,30 @@ public class Oficina : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!MenuAnimales.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
-        if (!MenuCuadros.activeSelf && !TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
-        if (!PanelGestion.activeSelf && InputManager.Instance.InteractIsPressed())
+        if (!PanelGestion.activeSelf && collision.GetComponent<PlayerMovement>())
         {
-            PanelGestion.SetActive(true);
-            MenuInicioGestion.SetActive(true);
-            TextoGestionar.SetActive(false);
+            if (!TextoGestionar.activeSelf) TextoGestionar.SetActive(true);
+            if (InputManager.Instance.InteractIsPressed())
+            {
+                PanelGestion.SetActive(true);
+                MenuInicioGestion.SetActive(true);
+                TextoGestionar.SetActive(false);
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        MenuInicioGestion.SetActive(false);
-        MenuAnimales.SetActive(false);
-        MenuConstruir.SetActive(false);
-        MenuCuadros.SetActive(false);
-        MenuUtiles.SetActive(false);
-        MenuComida.SetActive(false);
-        PanelGestion.SetActive(false);
-        TextoGestionar.SetActive(false);
+        if (collision.GetComponent<PlayerMovement>())
+        {
+            MenuInicioGestion.SetActive(false);
+            MenuAnimales.SetActive(false);
+            MenuConstruir.SetActive(false);
+            MenuCuadros.SetActive(false);
+            MenuUtiles.SetActive(false);
+            MenuComida.SetActive(false);
+            PanelGestion.SetActive(false);
+            TextoGestionar.SetActive(false);
+        }
     }
 
     #endregion
@@ -260,6 +265,11 @@ public class Oficina : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
 
+    private void QuitaElementoContenedor(GameObject objeto, Transform contenedor)
+    {
+        contenedor.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, objeto.GetComponent<RectTransform>().sizeDelta.y * 1.5f);
+        Destroy(objeto);
+    }
     private void ActualizaMenuAnimales()
     { 
         foreach (ZonaAnimal zona in Tablet.Instance.DameListaZonasCompradas())
@@ -269,14 +279,13 @@ public class Oficina : MonoBehaviour
 
             if (debeAparecer && !estaMostrada)
             {
-                Debug.Log("Agregando elemento Animal");
                 AgregarElementoMenuAnimales(zona);
             }
             else if (!debeAparecer && estaMostrada)
             {
                 int indice = _mostradasAnimales.IndexOf(zona);
 
-                Destroy(_elementosAnimales[indice]);
+                QuitaElementoContenedor(_elementosAnimales[indice] ,ContenedorAnimales);
 
                 _mostradasAnimales.RemoveAt(indice);
                 _elementosAnimales.RemoveAt(indice);
@@ -285,6 +294,7 @@ public class Oficina : MonoBehaviour
     }
     private void ActualizaMenuCuadros()
     {
+        List<Pictures> ListaCuadrosVendidos = new ();
         foreach (Pictures cuadro in Tablet.Instance.DameListaCuadros())
         {
             bool debeAparecer = !cuadro.hasbeenSell();
@@ -292,18 +302,24 @@ public class Oficina : MonoBehaviour
 
             if (debeAparecer && !estaMostrada)
             {
-                Debug.Log("Agregando elemento cuadro");
                 AgregarElementoMenuCuadros(cuadro);
             }
             else if (!debeAparecer && estaMostrada)
             {
                 int indice = _mostradosCuadros.IndexOf(cuadro);
 
-                Destroy(_elementosCuadros[indice]);
+                QuitaElementoContenedor(_elementosCuadros[indice], ContenedorCuadros);
 
                 _mostradosCuadros.RemoveAt(indice);
                 _elementosCuadros.RemoveAt(indice);
+                // Lo guardamos en una lista para quitarlos todos luego
+                ListaCuadrosVendidos.Add(cuadro);
             }
+        }
+        foreach (Pictures cuadro in ListaCuadrosVendidos)
+        {
+            // Quitamos los cuadros vendidos en la tablet
+            Tablet.Instance.CuadroVendido(cuadro);
         }
     }
     private void ActualizaMenuComida()
@@ -369,7 +385,7 @@ public class Oficina : MonoBehaviour
 
 
         RectTransform rectboton = BotonZonaMostrada.GetComponent<RectTransform>();
-        rectboton.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento);
+        rectboton.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento/1.5f);
 
         Button boton = BotonZonaMostrada.GetComponent<Button>();
         boton.transition = Selectable.Transition.ColorTint;
@@ -409,8 +425,9 @@ public class Oficina : MonoBehaviour
     /// <param name="Cuadro">Zona asociada</param>
     private void AgregarElementoMenuCuadros(Pictures Cuadro)
     {
-        int AltoElemento = 50;
-        int AnchoElemento = 200;
+        int AltoElemento = 80;
+        int AnchoElemento = 300;
+        int FontSize = 15;
         _contenedorCuadrosRect.sizeDelta += new Vector2(0, AltoElemento * 1.5f);
 
         GameObject objetoZonaMostrada = new GameObject(Cuadro.GetTitle(),
@@ -424,7 +441,7 @@ public class Oficina : MonoBehaviour
         rect.sizeDelta = new Vector2(AnchoElemento, AltoElemento);
 
         HorizontalLayoutGroup layout = objetoZonaMostrada.GetComponent<HorizontalLayoutGroup>();
-        layout.spacing = 95;
+        layout.spacing = 15;
         layout.childControlWidth = false;
         layout.childControlHeight = false;
         layout.childForceExpandWidth = false;
@@ -436,14 +453,15 @@ public class Oficina : MonoBehaviour
         TextoZonaMostrada.transform.SetParent(objetoZonaMostrada.transform, false);
 
         RectTransform rectTexto = TextoZonaMostrada.GetComponent<RectTransform>();
-        rectTexto.sizeDelta = new Vector2(AnchoElemento / 2, AltoElemento);
+        rectTexto.sizeDelta = new Vector2(AnchoElemento / 1.5f, AltoElemento);
 
         TextMeshProUGUI texto = TextoZonaMostrada.GetComponent<TextMeshProUGUI>();
-        texto.text =$"{Cuadro.GetTitle()} Autor: {Cuadro.GetAuthor()}\n Precio: {Cuadro.GetPrice()} €";
+        texto.text =$"Cuadro: {Cuadro.GetTitle()}\nAutor: {Cuadro.GetAuthor()}\nPrecio: {Cuadro.GetPrice()} €";
         texto.fontStyle = FontStyles.Bold;
-        texto.fontSize = 9;
-        texto.textWrappingMode = TextWrappingModes.NoWrap;
-        texto.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        texto.color = Color.black;
+        texto.fontSize = FontSize;
+        texto.textWrappingMode = TextWrappingModes.Normal;
+        texto.horizontalAlignment = HorizontalAlignmentOptions.Left;
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;
 
         // Botón
@@ -452,7 +470,7 @@ public class Oficina : MonoBehaviour
 
 
         RectTransform rectboton = BotonZonaMostrada.GetComponent<RectTransform>();
-        rectboton.sizeDelta = new Vector2(AnchoElemento / 2, AltoElemento);
+        rectboton.sizeDelta = new Vector2(AnchoElemento - rectTexto.sizeDelta.x, AltoElemento/1.5f);
 
         Button boton = BotonZonaMostrada.GetComponent<Button>();
         boton.transition = Selectable.Transition.ColorTint;
@@ -467,16 +485,15 @@ public class Oficina : MonoBehaviour
         boton.onClick.AddListener(() =>
         {
             Cuadro.VendeCuadro();
-            ActualizaMenuCuadros();
         });
 
         // Texto del botón
-        GameObject textoBoton = new GameObject("VenderCuadros", typeof(RectTransform), typeof(TextMeshProUGUI));
+        GameObject textoBoton = new GameObject("VenderCuadro", typeof(RectTransform), typeof(TextMeshProUGUI));
         textoBoton.transform.SetParent(BotonZonaMostrada.transform, false);
 
         TMP_Text text = textoBoton.GetComponent<TMP_Text>();
-        text.text = "Vender" + "\n" + "Cuadros";
-        text.fontSize = 11;
+        text.text = "Vender\nCuadro";
+        text.fontSize = FontSize;
         text.fontStyle = FontStyles.Bold;
         text.color = Color.black;
         text.horizontalAlignment = HorizontalAlignmentOptions.Center;
@@ -535,7 +552,7 @@ public class Oficina : MonoBehaviour
 
 
         RectTransform rectboton = BotonZonaMostrada.GetComponent<RectTransform>();
-        rectboton.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento);
+        rectboton.sizeDelta = new Vector2(AnchoElemento/2, AltoElemento/1.5f);
 
         Button boton = BotonZonaMostrada.GetComponent<Button>();
         boton.transition = Selectable.Transition.ColorTint;
