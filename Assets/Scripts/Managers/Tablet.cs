@@ -5,13 +5,10 @@
 //---------------------------------------------------------
 
 // Añadir aquí el resto de directivas using
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -38,6 +35,8 @@ public class Tablet : MonoBehaviour
     [SerializeField] private float SalarioDiarioLimpiador;
     [SerializeField] private TextMeshProUGUI TextoContratarLimpiador;
     [SerializeField] private TextMeshProUGUI TextoContratarCuidador;
+    [SerializeField] private TextMeshProUGUI TextoLimpiadoresDisponibles;
+    [SerializeField] private TextMeshProUGUI TextoCuidadoresDisponibles;
     [SerializeField] private Transform ContenedorAlmacen;
     [SerializeField] private Transform ContenedorEnviarEmpleados;
     [SerializeField] private Transform ContenedorEstados;
@@ -68,25 +67,59 @@ public class Tablet : MonoBehaviour
     /// </summary>
     private List<ZonaAnimal> _zonasMostradas = new();
 
-    private List<GameObject> _elementosAlmacen = new();
-    private List<int> _sacosComidaAlmacenados = new();
-    private List<TextMeshProUGUI> _textosElementosAlmacen = new();
+    /// <summary>
+    /// Lista de componentes de las zonas de tranajadores
+    /// </summary>
+    private List<WorkerStation> _zonasTrabajadores = new();
 
-    private List<GameObject> _elementosEstados = new();
-    private List<TextMeshProUGUI> _textosElementosEstados = new();
-
+    /// <summary>
+    /// Lista de Cuadros almacenados
+    /// </summary>
     private List<Pictures> _cuadrosAlmacenados = new();
+    /// <summary>
+    /// Lista de Cuadros mostrados en el Menu
+    /// </summary>
     private List<Pictures> _cuadrosMostrados = new();
+
+    /// <summary>
+    /// Lista de Cuidadores
+    /// </summary>
+    private List<WorkerMovement> _listaCuidadores = new();
+    /// <summary>
+    /// Lista de cuidadores contratados
+    /// </summary>
+    private List<WorkerMovement> _listaCuidadoresContratados = new();
+    private int _cantidadCuidadores = 0;
+    private List<WorkerMovement> _listaCuidadoresDisponibles = new();
+
+    /// <summary>
+    /// Lista de Limpiadores
+    /// </summary>
+    private List<WorkerMovement> _listaLimpiadores = new();
+    /// <summary>
+    /// Lista de limpiadores contratados
+    /// </summary>
+    private List<WorkerMovement> _listaLimpiadoresContratados = new();
+    private int _cantidadLimpiadores = 0;
+    private List<WorkerMovement> _listaLimpiadoresDisponibles = new();
+
+
+    // === Elementos mostrados menu Almacen ===
+    private List<GameObject> _elemetosAlmacen = new();
+    private List<int> _sacosDeCadaElementoAlmacen = new();
+    private List<TextMeshProUGUI> _textoDeCadaElementoAlmacen = new();
+
+    // === Elementos mostrados menu Estados zonas ===
+    private List<GameObject> _elementosEstados = new();
+    private List<TextMeshProUGUI> _textosDeCadaElementoEstados = new();
+
+    // === Elementos mostrados menu Cuadros ===
     private List<GameObject> _elementosCuadros = new();
 
-    private List<WorkerMovement> _listaCuidadores = new();
-    private List<WorkerMovement> _listaLimpiadores = new();
-    private int _cantCuidadores = 0;
-    private int _cantidadLimpiadores = 0;
-    private List<WorkerMovement> _listaCuidadoresContratados = new();
-    private List<WorkerMovement> _listaLimpiadoresContratados = new();
+    // === Elementos mostrados menu Enviar Empleados
     private List<GameObject> _elementosEnviarEmpleados = new();
 
+    // === Componentes rectTransform de los contenedores
     private RectTransform _contenedorAlmacenRect;
     private RectTransform _contenedorEnviarEmpleadosRect;
     private RectTransform _contenedorEstadosRect;
@@ -168,11 +201,15 @@ public class Tablet : MonoBehaviour
             {
                 if (MenuEnviarEmpleados.activeSelf)
                 {
+                    TextoCuidadoresDisponibles.text = $"Cuidadores disponibles\n: {_listaCuidadoresDisponibles.Count}/{_cantidadCuidadores}";
+                    TextoLimpiadoresDisponibles.text = $"Limpiadores disponibles\n: {_listaLimpiadoresDisponibles.Count}/{_cantidadLimpiadores}";
                     ActualizaContenedoresZonas();
+                    ActualizaListaCuidadoresDisponibles();
+                    ActualizaListaLimpiadoresDisponibles();
                 }
                 else if (MenuContratarEmpleados.activeSelf)
                 {
-                    TextoContratarCuidador.text  = $"Contratados: {_cantCuidadores}/{_listaCuidadores.Count}\n Salario: {SalarioDiarioCuidador}";
+                    TextoContratarCuidador.text  = $"Contratados: {_cantidadCuidadores}/{_listaCuidadores.Count}\n Salario: {SalarioDiarioCuidador}";
                     TextoContratarLimpiador.text = $"Contratados: {_cantidadLimpiadores}/{_listaLimpiadores.Count}\n Salario: {SalarioDiarioLimpiador}";
                 }
             }
@@ -220,13 +257,16 @@ public class Tablet : MonoBehaviour
     public void AddZona(ZonaAnimal zona)
     {
         _zonasCompradas.Add(zona);
-        _sacosComidaAlmacenados.Add(0);
+        _sacosDeCadaElementoAlmacen.Add(0);
     }
     public void AddCuadro(Pictures Cuadro)
     {
         _cuadrosAlmacenados.Add(Cuadro);
     }
-    
+    public void AddWorkerStation(WorkerStation zonaTrabajador)
+    {
+        _zonasTrabajadores.Add(zonaTrabajador);
+    }
     public void AddLimpiadorContratable(WorkerMovement trabajador)
     {
         _listaLimpiadores.Add(trabajador);
@@ -237,12 +277,13 @@ public class Tablet : MonoBehaviour
     }
     public void ContrataCuidador()
     {
-        if (_cantCuidadores < _listaCuidadores.Count)
+        if (_cantidadCuidadores < _listaCuidadores.Count)
         {
-            WorkerMovement trabajador = _listaCuidadores[_cantCuidadores];
+            WorkerMovement trabajador = _listaCuidadores[_cantidadCuidadores];
             trabajador.gameObject.SetActive(true);
             _listaCuidadoresContratados.Add(trabajador);
-            _cantCuidadores++;
+            _listaCuidadoresDisponibles.Add(trabajador);
+            _cantidadCuidadores++;
         }
     }
     public void ContrataLimpiador()
@@ -252,6 +293,7 @@ public class Tablet : MonoBehaviour
             WorkerMovement trabajador = _listaLimpiadores[_cantidadLimpiadores];
             trabajador.gameObject.SetActive(true);
             _listaLimpiadoresContratados.Add(trabajador);
+            _listaLimpiadoresDisponibles.Add(trabajador);
             _cantidadLimpiadores++;
         }
     }
@@ -260,7 +302,7 @@ public class Tablet : MonoBehaviour
     {
         if (_zonasCompradas.Contains(zona) && GameManager.Instance.GastaDinero(zona.DimePrecioComida() * cantidad))
         {
-            _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)]+= cantidad;
+            _sacosDeCadaElementoAlmacen[_zonasCompradas.IndexOf(zona)]+= cantidad;
         }
     }
 
@@ -268,7 +310,7 @@ public class Tablet : MonoBehaviour
     {
         if (_zonasCompradas.Contains(zona))
         {
-            return _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)];
+            return _sacosDeCadaElementoAlmacen[_zonasCompradas.IndexOf(zona)];
         }
         else return 0;
     }
@@ -276,8 +318,8 @@ public class Tablet : MonoBehaviour
     {
         if (_zonasCompradas.Contains(zona))
         {
-            int sacos = _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)];
-            _sacosComidaAlmacenados[_zonasCompradas.IndexOf(zona)] = 0;
+            int sacos = _sacosDeCadaElementoAlmacen[_zonasCompradas.IndexOf(zona)];
+            _sacosDeCadaElementoAlmacen[_zonasCompradas.IndexOf(zona)] = 0;
             return sacos;
         }
         else return 0;
@@ -304,6 +346,8 @@ public class Tablet : MonoBehaviour
         MenuInicio.SetActive(false);
         MenuEmpleados.SetActive(true);
         MenuInicioEmpleados.SetActive(true);
+        MenuEnviarEmpleados.SetActive(false);
+        MenuContratarEmpleados.SetActive(false);
     }
     public void ActivaMenuContratarEmpleados()
     {
@@ -377,7 +421,32 @@ public class Tablet : MonoBehaviour
 
         _cuadrosMostrados.RemoveAt(indice);
         _elementosCuadros.RemoveAt(indice);
-        _cuadrosAlmacenados.RemoveAt(_cuadrosAlmacenados.IndexOf(cuadro));
+        _cuadrosAlmacenados.Remove(cuadro);
+    }
+
+    public void ActualizaListaCuidadoresDisponibles()
+    {
+        foreach (WorkerMovement trabajador in _listaCuidadoresContratados)
+        {
+            if (!trabajador.IsWorking() && !_listaCuidadoresDisponibles.Contains(trabajador))
+            {
+                _listaCuidadoresDisponibles.Add(trabajador);
+                TextoCuidadoresDisponibles.text = $"Cuidadores disponibles\n: {_listaCuidadoresDisponibles.Count}/{_cantidadCuidadores}";
+                TextoLimpiadoresDisponibles.text = $"Limpiadores disponibles\n: {_listaLimpiadoresDisponibles.Count}/{_cantidadLimpiadores}";
+            }
+        }
+    }
+    public void ActualizaListaLimpiadoresDisponibles()
+    {
+        foreach (WorkerMovement trabajador in _listaLimpiadoresContratados)
+        {
+            if (!trabajador.IsWorking() && !_listaLimpiadoresDisponibles.Contains(trabajador))
+            {
+                _listaLimpiadoresDisponibles.Add(trabajador);
+                TextoCuidadoresDisponibles.text = $"Cuidadores disponibles\n: {_listaCuidadoresDisponibles.Count}/{_cantidadCuidadores}";
+                TextoLimpiadoresDisponibles.text = $"Limpiadores disponibles\n: {_listaLimpiadoresDisponibles.Count}/{_cantidadLimpiadores}";
+            }
+        }
     }
     #endregion
 
@@ -385,7 +454,6 @@ public class Tablet : MonoBehaviour
     #region Métodos Privados
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
-
     private void ActualizaContenedoresZonas()
     {
         if (_zonasCompradas.Count != _zonasMostradas.Count)
@@ -403,8 +471,8 @@ public class Tablet : MonoBehaviour
         }
         foreach (ZonaAnimal zona in _zonasMostradas)
         {
-            _textosElementosAlmacen[_zonasMostradas.IndexOf(zona)].text = $"Comida en el almacen para\n {zona.name}: {DimeSacosAlmacenados(zona)}\n Precio: {zona.DimePrecioComida()}€";
-            _textosElementosEstados[_zonasMostradas.IndexOf(zona)].text = $"Estado de {zona.name}:\n Hambre: {zona.PorcentajeHambre()}%   Suciedad: {zona.PorcentajeSuciedad()}\n {zona.HayAnimales()}   Salud: {zona.SaludAnimales()}%";
+            _textoDeCadaElementoAlmacen[_zonasMostradas.IndexOf(zona)].text = $"Comida en el almacen para\n {zona.name}: {DimeSacosAlmacenados(zona)}\n Precio: {zona.DimePrecioComida()}€";
+            _textosDeCadaElementoEstados[_zonasMostradas.IndexOf(zona)].text = $"Estado de {zona.name}:\n Hambre: {zona.PorcentajeHambre()}%   Suciedad: {zona.PorcentajeSuciedad()}\n {zona.HayAnimales()}   Salud: {zona.SaludAnimales()}%";
         }
     }
     private void ActualizaContenerdorCuadros()
@@ -420,6 +488,7 @@ public class Tablet : MonoBehaviour
             }
         }
     }
+
 
     private void AgregaElementoAlmacen(ZonaAnimal zona)
     {
@@ -443,8 +512,8 @@ public class Tablet : MonoBehaviour
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;
 
         // Guardamos referencia
-        _elementosAlmacen.Add(ObjetoTexto);
-        _textosElementosAlmacen.Add(texto);
+        _elemetosAlmacen.Add(ObjetoTexto);
+        _textoDeCadaElementoAlmacen.Add(texto);
     }
     private void AgregaElementoCuadro(Pictures cuadro)
     {
@@ -534,7 +603,7 @@ public class Tablet : MonoBehaviour
 
         botoncuidador.onClick.AddListener(() =>
         {
-            
+            EnviaCuidador(zona);
         });
 
         // Texto del botón
@@ -568,7 +637,7 @@ public class Tablet : MonoBehaviour
 
         botonLimpiador.onClick.AddListener(() =>
         {
-
+            EnviaLimpiador(zona);
         });
 
         // Texto del botón
@@ -609,7 +678,7 @@ public class Tablet : MonoBehaviour
 
         // Guardamos referencia
         _elementosEstados.Add(ObjetoTexto);
-        _textosElementosEstados.Add(texto);
+        _textosDeCadaElementoEstados.Add(texto);
     }
 
     private void QuitaElementoContenedor(GameObject objeto, Transform contenedor)
@@ -617,6 +686,40 @@ public class Tablet : MonoBehaviour
         contenedor.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, objeto.GetComponent<RectTransform>().sizeDelta.y*1.5f);
         Destroy(objeto);
     }
+
+    private void EnviaCuidador(ZonaAnimal zona)
+    {
+        int indice = _zonasMostradas.IndexOf(zona);
+        WorkerStation zonaTrabajo = _zonasTrabajadores[indice];
+        bool yaTieneTrabajador = zonaTrabajo.HayTrabajador();
+        int cantidadTrabajadores = _listaCuidadoresDisponibles.Count;
+        Vector2 PosicionTrabajo = zonaTrabajo.GetPosition();
+        if (!yaTieneTrabajador &&  cantidadTrabajadores > 0)
+        {
+            Debug.Log($"Cuidador enviado a: {PosicionTrabajo.x} , {PosicionTrabajo.y}");
+            int trabajadorEnviado = Random.Range(0, cantidadTrabajadores);
+            _listaCuidadoresDisponibles[trabajadorEnviado].Call(zonaTrabajo.GetPosition());
+            _listaCuidadoresDisponibles.Remove(_listaCuidadoresDisponibles[trabajadorEnviado]);
+            _zonasTrabajadores[indice].TrabajadorEnviado();
+        }
+    }
+    private void EnviaLimpiador(ZonaAnimal zona)
+    {
+        int indice = _zonasMostradas.IndexOf(zona);
+        WorkerStation zonaTrabajo = _zonasTrabajadores[indice];
+        bool yaTieneTrabajador = zonaTrabajo.HayTrabajador();
+        int cantidadTrabajadores = _listaLimpiadoresDisponibles.Count;
+        Vector2 PosicionTrabajo = zonaTrabajo.GetPosition();
+        if (!yaTieneTrabajador && cantidadTrabajadores > 0)
+        {
+            Debug.Log($"Limpiador enviado a: {PosicionTrabajo.x} , {PosicionTrabajo.y}");
+            int trabajadorEnviado = Random.Range(0, cantidadTrabajadores);
+            _listaLimpiadoresDisponibles[trabajadorEnviado].Call(PosicionTrabajo);
+            _listaLimpiadoresDisponibles.Remove(_listaLimpiadoresDisponibles[trabajadorEnviado]);
+            zonaTrabajo.TrabajadorEnviado();
+        }
+    }
+
     /// <summary>
     /// Metodo que transfiere el setup
     /// </summary>

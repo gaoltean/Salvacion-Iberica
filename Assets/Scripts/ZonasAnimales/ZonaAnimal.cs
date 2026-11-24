@@ -80,8 +80,7 @@ public class ZonaAnimal : MonoBehaviour
     private float _disminucionLimpieza = 0;
     private float _disminucionSaludPorHambre = 0;
     private bool _contieneAnimales = false;
-
-    private Vector2 _zonePosition = Vector2.zero;
+    private bool _contieneAnimalesMuertos = false;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -103,9 +102,6 @@ public class ZonaAnimal : MonoBehaviour
         _disminucionSaludPorHambre = 100f / ResistenciaALaInanicion;
         TextoGestionar.GetComponent<TextMeshProUGUI>().text = "Gestionar " + this.name + ": 'E'";
 
-        Vector2 posicionPadre = this.GetComponentInParent<Transform>().position;
-
-        _zonePosition = posicionPadre + (Vector2) this.transform.position;
     }
 
     /// <summary>
@@ -139,6 +135,7 @@ public class ZonaAnimal : MonoBehaviour
                 if (_porcentajeMuerte > 100)
                 {
                     _contieneAnimales = false;
+                    _contieneAnimalesMuertos = true;
                     SpritesAnimales.SetActive(false);
                     _alimentacionUrgente = false;
                     _porcentajeMuerte = 0;
@@ -204,11 +201,18 @@ public class ZonaAnimal : MonoBehaviour
     {
         return _contieneAnimales;
     }
-
+    public bool AnimalesMuertos()
+    {
+        return _contieneAnimalesMuertos;
+    }
     public void CompraAnimales()
     {
-        _contieneAnimales = true;
-        SpritesAnimales.SetActive(true);
+        if (GameManager.Instance.GastaDinero(PrecioAnimales))
+        {
+            _contieneAnimales = true;
+            _contieneAnimalesMuertos = false;
+            SpritesAnimales.SetActive(true);
+        }
     }
 
     public int DimeSacosComida()
@@ -251,10 +255,6 @@ public class ZonaAnimal : MonoBehaviour
     {
         if (_contieneAnimales) return "Hay animales";
         else return "No hay animales";
-    }
-    public Vector2 GetPosition()
-    {
-        return _zonePosition;
     }
     #endregion
 

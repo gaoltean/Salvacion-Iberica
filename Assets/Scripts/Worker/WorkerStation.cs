@@ -42,6 +42,10 @@ public class WorkerStation : MonoBehaviour
     /// </summary>
     private bool _hasWorker;
     /// <summary>
+    /// True cuando hay un trabajador en camino
+    /// </summary>
+    private bool _workerSent;
+    /// <summary>
     /// True cuando el tranajador es limpiador
     /// </summary>
     private bool _cleaner;
@@ -58,11 +62,13 @@ public class WorkerStation : MonoBehaviour
     /// </summary>
     private bool _zoneNeedsWorker;
 
+    private Vector2 _zonePosition = Vector2.zero;
+
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -76,6 +82,7 @@ public class WorkerStation : MonoBehaviour
         {
             Debug.Log("No hay componente zona animal");
         }
+        _zonePosition = this.transform.position;
     }
 
     /// <summary>
@@ -98,11 +105,13 @@ public class WorkerStation : MonoBehaviour
                 _worker.finish();
                 _hasWorker = false;
                 _zoneNeedsWorker = false;
+                _workerSent = false;
             }
             else if (!_zoneNeedsWorker && Time.time - _startTime > _duracionComprobacion)
             {
                 _worker.finish();
                 _hasWorker = false;
+                _workerSent = false;
             }
         }
     }
@@ -113,6 +122,19 @@ public class WorkerStation : MonoBehaviour
     #region Métodos públicos
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
+    
+    public void TrabajadorEnviado()
+    {
+        _workerSent = true;
+    }
+    public bool HayTrabajador()
+    {
+        return _workerSent;
+    }
+    public Vector2 GetPosition()
+    {
+        return _zonePosition;
+    }
 
     #endregion
 
@@ -122,9 +144,12 @@ public class WorkerStation : MonoBehaviour
     // Estos métodos se nombren en formato PascalCase
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _worker = collision.GetComponent<WorkerMovement>();
-        if (_worker)
+        
+        if (_workerSent && !_hasWorker)
         {
+            _worker = collision.GetComponent<WorkerMovement>();
+            if (!_worker) return;
+
             _cleaner = _worker.IsCleaner();
             _zoneNeedsWorker = _cleaner && _zonaAnimal.NecesitaLimpieza() || !_cleaner && _zonaAnimal.NecesitaAlimentar();
             // Lo paramos de andar cuando llega

@@ -893,6 +893,7 @@ GameObject:
   - component: {fileID: 9078075327683355829}
   - component: {fileID: 8937335721117646881}
   - component: {fileID: 6670845043168388434}
+  - component: {fileID: 8753244360876832309}
   m_Layer: 0
   m_Name: NombreZona
   m_TagString: Untagged
@@ -1045,6 +1046,18 @@ MonoBehaviour:
   DurazionLimpieza: 600
   PrecioAnimales: 100
   SpritesAnimales: {fileID: 5215828868859699233}
+--- !u!114 &8753244360876832309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4183149850041828256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638fb385cf2017a4c97a0b5a5cd85a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4590867963850121396
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,6 +2697,10 @@ PrefabInstance:
       propertyPath: ComponenteZona
       value: 
       objectReference: {fileID: 6670845043168388434}
+    - target: {fileID: 6672618818758882178, guid: f1cb3f29c497d1d4a961c2a68027cb12, type: 3}
+      propertyPath: ComponenteZonaTrabajador
+      value: 
+      objectReference: {fileID: 8753244360876832309}
     - target: {fileID: 7902982973401232142, guid: f1cb3f29c497d1d4a961c2a68027cb12, type: 3}
       propertyPath: m_fontSize
       value: 40

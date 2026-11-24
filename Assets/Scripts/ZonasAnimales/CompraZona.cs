@@ -22,6 +22,7 @@ public class CompraZona : MonoBehaviour
 
     [SerializeField] private GameObject ZonaComprada = null;
     [SerializeField] private ZonaAnimal ComponenteZona;
+    [SerializeField] private WorkerStation ComponenteZonaTrabajador;
     [SerializeField] private TextMeshProUGUI InfoCompra;
     [SerializeField] private float Precio;
     #endregion
@@ -68,6 +69,7 @@ public class CompraZona : MonoBehaviour
             if (ZonaComprada != null)
             {
                 Tablet.Instance.AddZona(ComponenteZona);
+                Tablet.Instance.AddWorkerStation(ComponenteZonaTrabajador);
                 ZonaComprada.SetActive(true);
             }
         }

@@ -6,10 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using System;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 
 
@@ -74,9 +71,9 @@ public class WorkerMovement : MonoBehaviour
     private Vector2 _posicionTrabajo;
 
     /// <summary>
-    /// Posicion del camino justo antes de entrar a la zona de trabajo
+    /// Posicion en el trabajo
     /// </summary>
-    private Vector2 _posEnElCamino;
+    private Vector2 _posEnElTrabajo;
     /// <summary>
     /// Direccion para volver al camino despues del trabajo
     /// </summary>
@@ -143,43 +140,53 @@ public class WorkerMovement : MonoBehaviour
             // Parada a trabajar
             if (_llamadoTrabajar && !_zonaEncontrada)
             {
-                ReachX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 1;
-                ReachY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
-                ReachAproximateX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 6; // Los caminos que van hacia arriba son mas anchos
-                ReachAproximateY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 5;
+                float dx = _transform.position.x - _posicionTrabajo.x;
+                float dy = _transform.position.y - _posicionTrabajo.y;
 
-                if (ReachX && ReachAproximateY)
+                ReachX = Mathf.Abs(dx) <= 0.7f;
+                ReachY = Mathf.Abs(dy) <= 0.7f;
+
+                if (ReachX && !ReachY)
                 {
-                    _posEnElCamino = _transform.position;
-                    _dirVueltaCamino = new Vector2(0, _transform.position.y - _posicionTrabajo.y);
-                    _zonaEncontrada = true;
+                    _dir = new Vector2(0f, - Mathf.Sign(dy));
+                    ReachAproximateY = Mathf.Abs(dy) <= 5f;
+                    if (ReachAproximateY)
+                    {
+                        // Fuerza el movimiento estrictamente en el eje Y (X = 0)
+                        _dirVueltaCamino = new Vector2(0f, Mathf.Sign(dy));
+                        _zonaEncontrada = true;
+                    }
                 }
-                else if (ReachY && ReachAproximateX)
+                else if (ReachY && !ReachX)
                 {
-                    _posEnElCamino = _transform.position;
-                    _dirVueltaCamino = new Vector2(_transform.position.x - _posicionTrabajo.x, 0);
-                    _zonaEncontrada = true;
+                    _dir = new Vector2(- Mathf.Sign(dx), 0f);
+                    ReachAproximateX = Mathf.Abs(dx) <= 6f; // Los caminos hacia arriba son más anchos
+                    if (ReachY && ReachAproximateX)
+                    {
+                        // Fuerza el movimiento estrictamente en el eje X (Y = 0)
+                        _dirVueltaCamino = new Vector2(Mathf.Sign(dx), 0f);
+                        _zonaEncontrada = true;
+                    }
                 }
-                AnimateIlde(-_dirVueltaCamino);
             }
             else if (_llamadoTrabajar && _zonaEncontrada)
             {
                 if (!ReachX || !ReachY)
                 {
                     Vector2 dir = -_dirVueltaCamino;
-                    Movement(dir.normalized);
-                    ReachX = Math.Abs(_transform.position.x - _posicionTrabajo.x) <= 1;
-                    ReachY = Math.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
+                    Movement(dir);
+                    if (!ReachX) ReachX = Mathf.Abs(_transform.position.x - _posicionTrabajo.x) <= 0.7f;
+                    else if (!ReachY) ReachY = Mathf.Abs(_transform.position.y - _posicionTrabajo.y) <= 1;
                 }
                 else
                 {
                     Movement(new Vector2(0,0));
+                    _posEnElTrabajo = _transform.position;
                     _paradoTrabajar = true;
                     _trabajoTerminado = false;
                     //Vector2 pause = new Vector2(0,0);
                     //Movement(pause);
-                    Vector2 look = new Vector2(0, _posicionTrabajo.y - _transform.position.y);
-                    AnimateIlde(look);
+                    AnimateIlde(-_dirVueltaCamino);
                 }
                     
             }
@@ -187,17 +194,17 @@ public class WorkerMovement : MonoBehaviour
         // Cuando esta parado y ha terminado de trabajar
         else if (_trabajoTerminado)
         {
-            _vaPorCamino = Vector2.Distance(_transform.position, _posEnElCamino) < 0.2f;
-            if (!_vaPorCamino)
-            {
-                Movement(_dirVueltaCamino.normalized);
-            }
-            else
+            _vaPorCamino = Vector2.Distance(_transform.position, _posEnElTrabajo) > 1f;
+            if (_vaPorCamino)
             {
                 _paradoTrabajar = false;
                 _llamadoTrabajar = false;
                 _zonaEncontrada = false;
                 _trabajoTerminado = false;
+            }
+            else
+            {
+                Movement(_dirVueltaCamino.normalized);
             }
         }
     }
@@ -212,6 +219,11 @@ public class WorkerMovement : MonoBehaviour
     /// Indica al trabajador que debe ir a trabajar
     /// </summary>
     /// <param name="posLlamadoTrabajar">Zona a la que debe llegar el trabajador</param>
+    
+    public bool IsWorking()
+    {
+        return _llamadoTrabajar;
+    }
     public void Call(Vector2 posLlamadoTrabajar)
     {
          _llamadoTrabajar = true;
@@ -257,7 +269,7 @@ public class WorkerMovement : MonoBehaviour
                 else nuevaDir = Vector2.right;
 
                 // Si el nuevo movimiento es en el mismo eje, cambiarla por 2 vez para evitar movimientos repetitivos
-                if ((_dir.x != 0 && nuevaDir.x != 0 || !(_dir.x != 0) && nuevaDir.y != 0))
+                if ((_dir.x != 0 && nuevaDir.x != 0 || _dir.y != 0 && nuevaDir.y != 0))
                 {
                     direccion = UnityEngine.Random.Range(0, 4);
 
