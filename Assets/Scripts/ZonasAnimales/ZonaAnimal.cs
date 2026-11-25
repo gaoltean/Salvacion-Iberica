@@ -188,13 +188,18 @@ public class ZonaAnimal : MonoBehaviour
     {
         if (_porcentajeHambre > 10 && _sacosComida > 0)
         {
+            _alimentacionUrgente = false;
             _sacosComida--; 
             _porcentajeHambre = 0;
         }
     }
     public void LimpiaZona() 
     {
-        if (_porcentajeSuciedad > 10 && GameManager.Instance.GastaProductosLimpieza()) _porcentajeSuciedad = 0;
+        if (_porcentajeSuciedad > 10 && GameManager.Instance.GastaProductosLimpieza())
+        {
+            _limpiezaUrgente = false;
+            _porcentajeSuciedad = 0;
+        }
     }
 
     public bool ContieneAnimales()

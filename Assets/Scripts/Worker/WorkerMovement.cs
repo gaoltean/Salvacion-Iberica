@@ -124,68 +124,97 @@ public class WorkerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Cuando no esta parado ni al camino
-        if(!_paradoTrabajar)
+        // Cuando no está parado trabajando
+        if (!_paradoTrabajar)
         {
-            // Movimiento
-            Movement(_dir);
-            // Parada a trabajar
-            if (_llamadoTrabajar && !_zonaEncontrada)
+            // 1. Movimiento normal mientras busca la zona
+            if (!_zonaEncontrada)
             {
-                float dx = this.transform.position.x - _posicionTrabajo.x;
-                float dy = this.transform.position.y - _posicionTrabajo.y;
+                Movement(_dir);
 
-                ReachX = Mathf.Abs(dx) <= 0.7f;
-                ReachY = Mathf.Abs(dy) <= 0.7f;
-                ReachAproximateY = Mathf.Abs(dy) <= 5f;
-                ReachAproximateX = Mathf.Abs(dx) <= 6f;
+                if (_llamadoTrabajar)
+                {
+                    float dx = transform.position.x - _posicionTrabajo.x;
+                    float dy = transform.position.y - _posicionTrabajo.y;
 
-                if (ReachX && ReachAproximateY)
-                {
-                    _dirPorCaminoAntesDeTrabajo = _dir;
-                    _dirVueltaCamino = new Vector2(0f, Mathf.Sign(dy));
-                    _dir = -_dirVueltaCamino;
-                    _zonaEncontrada = true;
-                }
-                else if (ReachY && ReachAproximateX)
-                {
-                    _dirPorCaminoAntesDeTrabajo = _dir;
-                    _dirVueltaCamino = new Vector2(Mathf.Sign(dx), 0f);
-                    _dir = -_dirVueltaCamino;
-                    _zonaEncontrada = true;
+                    ReachX = Mathf.Abs(dx) <= 1f;
+                    ReachY = Mathf.Abs(dy) <= 1f;
+
+                    ReachAproximateY = Mathf.Abs(dy) <= 5f;
+                    ReachAproximateX = Mathf.Abs(dx) <= 6f;
+
+                    if (ReachX && ReachAproximateY)
+                    {
+                        _dirPorCaminoAntesDeTrabajo = _dir;
+
+                        // Dirección para regresar al camino
+                        if (Mathf.Abs(dy) > 0.001f)
+                            _dirVueltaCamino = new Vector2(0f, Mathf.Sign(dy));
+                        else if (Mathf.Abs(dx) > 0.001f)
+                            _dirVueltaCamino = new Vector2(Mathf.Sign(dx), 0f);
+                        else
+                            _dirVueltaCamino = Vector2.zero;
+
+                        _dir = -_dirVueltaCamino;
+                        _zonaEncontrada = true;
+                    }
+                    else if (ReachY && ReachAproximateX)
+                    {
+                        _dirPorCaminoAntesDeTrabajo = _dir;
+
+                        // Dirección para regresar al camino
+                        if (Mathf.Abs(dx) > 0.001f)
+                            _dirVueltaCamino = new Vector2(Mathf.Sign(dx), 0f);
+                        else if (Mathf.Abs(dy) > 0.001f)
+                            _dirVueltaCamino = new Vector2(0f, Mathf.Sign(dy));
+                        else
+                            _dirVueltaCamino = Vector2.zero;
+
+                        _dir = -_dirVueltaCamino;
+                        _zonaEncontrada = true;
+                    }
                 }
             }
-            else if (_llamadoTrabajar && _zonaEncontrada)
+            // 2. Aproximación a la posición de trabajo
+            else if (_llamadoTrabajar)
             {
-                if(!ReachX) ReachX = Mathf.Abs(this.transform.position.x - _posicionTrabajo.x) <= 0.7f;
-                else if(!ReachY) ReachY = Mathf.Abs(this.transform.position.y - _posicionTrabajo.y) <= 0.7f;
-                else
+                Movement(_dir);
+
+                ReachX = Mathf.Abs(transform.position.x - _posicionTrabajo.x) <= 1f;
+                ReachY = Mathf.Abs(transform.position.y - _posicionTrabajo.y) <= 1f;
+
+                if (ReachX && ReachY)
                 {
-                    Movement(new Vector2(0,0));
-                    _posEnElTrabajo = this.transform.position;
+                    Movement(Vector2.zero);
+
+                    _posEnElTrabajo = transform.position;
                     _paradoTrabajar = true;
                     _trabajoTerminado = false;
-                    //Vector2 pause = new Vector2(0,0);
-                    //Movement(pause);
+
                     AnimateIlde(-_dirVueltaCamino);
                 }
-                    
             }
         }
-        // Cuando esta parado y ha terminado de trabajar
+        // 3. Cuando está parado y ha terminado de trabajar
         else if (_trabajoTerminado)
         {
-            _vaPorCamino = Vector2.Distance(this.transform.position, _posEnElTrabajo) > 0.5f;
-            if (_vaPorCamino)
+            float distancia = Vector2.Distance(transform.position, _posEnElTrabajo);
+
+            // Si ya está suficientemente alejado, recuperar movimiento normal
+            if (distancia > 1f || _dirVueltaCamino == Vector2.zero)
             {
                 _dir = _dirPorCaminoAntesDeTrabajo;
+
                 _paradoTrabajar = false;
                 _llamadoTrabajar = false;
                 _zonaEncontrada = false;
                 _trabajoTerminado = false;
+
+                _dirVueltaCamino = Vector2.zero;
             }
             else
             {
+                // Seguir alejándose del punto de trabajo
                 Movement(_dirVueltaCamino);
             }
         }
@@ -193,15 +222,15 @@ public class WorkerMovement : MonoBehaviour
 
     #endregion
 
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // Estos métodos se nombren en formato PascalCase
-    /// <summary>
-    /// Indica al trabajador que debe ir a trabajar
-    /// </summary>
-    /// <param name="posLlamadoTrabajar">Zona a la que debe llegar el trabajador</param>
-    
+        // ---- MÉTODOS PÚBLICOS ----
+        #region Métodos públicos
+        // Documentar cada método que aparece aquí con ///<summary>
+        // Estos métodos se nombren en formato PascalCase
+        /// <summary>
+        /// Indica al trabajador que debe ir a trabajar
+        /// </summary>
+        /// <param name="posLlamadoTrabajar">Zona a la que debe llegar el trabajador</param>
+
     public bool IsWorking()
     {
         return _llamadoTrabajar;
@@ -251,7 +280,7 @@ public class WorkerMovement : MonoBehaviour
                 else nuevaDir = Vector2.right;
 
                 // Si el nuevo movimiento es en el mismo eje, cambiarla por 2 vez para evitar movimientos repetitivos
-                if ((_dir.x != 0 && nuevaDir.x != 0 || _dir.y != 0 && nuevaDir.y != 0))
+                if ((_dir.x != 0 && nuevaDir.x != 0) || (_dir.y != 0 && nuevaDir.y != 0))
                 {
                     direccion = UnityEngine.Random.Range(0, 4);
 
@@ -264,17 +293,16 @@ public class WorkerMovement : MonoBehaviour
             }
             else
             {
-                // Priorizamos cambiar en el eje y
-                bool mejorCambiarX = Math.Abs(this.transform.position.y - _posicionTrabajo.y) < 5;
-                if (mejorCambiarX)
+                float dx = _posicionTrabajo.x - transform.position.x;
+                float dy = _posicionTrabajo.y - transform.position.y;
+
+                if (Mathf.Abs(dx) > 1f && Mathf.Abs(dy) < 5f)
                 {
-                    if (_posicionTrabajo.x > this.transform.position.x) _dir = new Vector2(1, 0);
-                    else _dir = new Vector2(-1, 0);
+                    _dir = new Vector2(Mathf.Sign(dx), 0);
                 }
-                else
+                else if (Mathf.Abs(dy) > 1f)
                 {
-                    if (_posicionTrabajo.y > this.transform.position.y) _dir = new Vector2(0, 1);
-                    else _dir = new Vector2(0, -1);
+                    _dir = new Vector2(0, Mathf.Sign(dy));
                 }
             }
         }
