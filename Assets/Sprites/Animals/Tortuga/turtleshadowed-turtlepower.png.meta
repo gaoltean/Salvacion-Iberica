@@ -1,0 +1,1365 @@
+fileFormatVersion: 2
+guid: d08290ef2b6d381449b8beb97912cc10
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6422207620430020024
+    second: turtleshadowed-turtlepower_0
+  - first:
+      213: -2258521097390673090
+    second: turtleshadowed-turtlepower_1
+  - first:
+      213: -3227503473420159323
+    second: turtleshadowed-turtlepower_2
+  - first:
+      213: 594688785094890027
+    second: turtleshadowed-turtlepower_3
+  - first:
+      213: -9201343067042566264
+    second: turtleshadowed-turtlepower_4
+  - first:
+      213: -6772648453678405039
+    second: turtleshadowed-turtlepower_5
+  - first:
+      213: -1945513817403870676
+    second: turtleshadowed-turtlepower_6
+  - first:
+      213: -1387984501316422399
+    second: turtleshadowed-turtlepower_7
+  - first:
+      213: -2068734243872745069
+    second: turtleshadowed-turtlepower_8
+  - first:
+      213: 1423494407373837386
+    second: turtleshadowed-turtlepower_9
+  - first:
+      213: -4645569710949408074
+    second: turtleshadowed-turtlepower_10
+  - first:
+      213: -8332598430458532672
+    second: turtleshadowed-turtlepower_11
+  - first:
+      213: 5022149053852756329
+    second: turtleshadowed-turtlepower_12
+  - first:
+      213: -3037662528730279446
+    second: turtleshadowed-turtlepower_13
+  - first:
+      213: 8358279700169823330
+    second: turtleshadowed-turtlepower_14
+  - first:
+      213: 2968873374734862716
+    second: turtleshadowed-turtlepower_15
+  - first:
+      213: 2861717805155331681
+    second: turtleshadowed-turtlepower_16
+  - first:
+      213: -5861491189872969880
+    second: turtleshadowed-turtlepower_17
+  - first:
+      213: 3687173528875557783
+    second: turtleshadowed-turtlepower_18
+  - first:
+      213: -5145984102136424313
+    second: turtleshadowed-turtlepower_19
+  - first:
+      213: 7243428043927119258
+    second: turtleshadowed-turtlepower_20
+  - first:
+      213: -6839703502929390530
+    second: turtleshadowed-turtlepower_21
+  - first:
+      213: -323917854434095698
+    second: turtleshadowed-turtlepower_22
+  - first:
+      213: 1945402956369214188
+    second: turtleshadowed-turtlepower_23
+  - first:
+      213: -6804729143369292599
+    second: turtleshadowed-turtlepower_24
+  - first:
+      213: 658063325795674870
+    second: turtleshadowed-turtlepower_25
+  - first:
+      213: -5990246317558323366
+    second: turtleshadowed-turtlepower_26
+  - first:
+      213: 6258756933079443589
+    second: turtleshadowed-turtlepower_27
+  - first:
+      213: 5535545387804956720
+    second: turtleshadowed-turtlepower_28
+  - first:
+      213: -8457772291377711873
+    second: turtleshadowed-turtlepower_29
+  - first:
+      213: -2809040505192674938
+    second: turtleshadowed-turtlepower_30
+  - first:
+      213: 5573507324095904007
+    second: turtleshadowed-turtlepower_31
+  - first:
+      213: -8631851312037825466
+    second: turtleshadowed-turtlepower_32
+  - first:
+      213: 6752046610867274250
+    second: turtleshadowed-turtlepower_33
+  - first:
+      213: -501902398319238930
+    second: turtleshadowed-turtlepower_34
+  - first:
+      213: -8230479304960264528
+    second: turtleshadowed-turtlepower_35
+  - first:
+      213: 7728548296857928000
+    second: turtleshadowed-turtlepower_36
+  - first:
+      213: 3761611567978051070
+    second: turtleshadowed-turtlepower_37
+  - first:
+      213: -5981467859800219656
+    second: turtleshadowed-turtlepower_38
+  - first:
+      213: -8855264625073445912
+    second: turtleshadowed-turtlepower_39
+  - first:
+      213: -3956708992297289182
+    second: turtleshadowed-turtlepower_40
+  - first:
+      213: -2258699531464838113
+    second: turtleshadowed-turtlepower_41
+  - first:
+      213: -315898058187651717
+    second: turtleshadowed-turtlepower_42
+  - first:
+      213: -8546783000601823715
+    second: turtleshadowed-turtlepower_43
+  - first:
+      213: 5272998050032793026
+    second: turtleshadowed-turtlepower_44
+  - first:
+      213: 9050865058144008297
+    second: turtleshadowed-turtlepower_45
+  - first:
+      213: 3927480186603332062
+    second: turtleshadowed-turtlepower_46
+  - first:
+      213: -8754223624418768827
+    second: turtleshadowed-turtlepower_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 352
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bdb981fdc3402950800000000000000
+      internalID: 6422207620430020024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 351
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33bd40370f18a0e0800000000000000
+      internalID: -2258521097390673090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 352
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a6b373e0ba9533d0800000000000000
+      internalID: -3227503473420159323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_3
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 351
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b225d7b9c42c04800800000000000000
+      internalID: 594688785094890027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88fac683b334e4080800000000000000
+      internalID: -9201343067042566264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_5
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 320
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15a66e94d18b202a0800000000000000
+      internalID: -6772648453678405039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c223708ad752005e0800000000000000
+      internalID: -1945513817403870676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_7
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 320
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 105794d2373ecbce0800000000000000
+      internalID: -1387984501316422399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_8
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 288
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39957437a216a43e0800000000000000
+      internalID: -2068734243872745069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_9
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 288
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a44d54b1f9441c310800000000000000
+      internalID: 1423494407373837386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_10
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 288
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b2eb8f06fe978fb0800000000000000
+      internalID: -4645569710949408074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_11
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 288
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ccaa8020e9ac5c80800000000000000
+      internalID: -8332598430458532672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_12
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 256
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96925fbb4f142b540800000000000000
+      internalID: 5022149053852756329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_13
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 256
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae1548b360e08d5d0800000000000000
+      internalID: -3037662528730279446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_14
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 256
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2641bfd6a139ef370800000000000000
+      internalID: 8358279700169823330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_15
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 256
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79cf24ca9e833920800000000000000
+      internalID: 2968873374734862716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_16
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 224
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16ea1b78e2dd6b720800000000000000
+      internalID: 2861717805155331681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_17
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 224
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8673a8d71dcc7aea0800000000000000
+      internalID: -5861491189872969880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_18
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 224
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 793e9ddf9c87b2330800000000000000
+      internalID: 3687173528875557783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_19
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 225
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 788d95449bac598b0800000000000000
+      internalID: -5145984102136424313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a95e06abd63d58460800000000000000
+      internalID: 7243428043927119258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_21
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 192
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3416e207ed7411a0800000000000000
+      internalID: -6839703502929390530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_22
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 192
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ead8c067d66318bf0800000000000000
+      internalID: -323917854434095698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_23
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 193
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceab16f7ea57ffa10800000000000000
+      internalID: 1945402956369214188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_24
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 160
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c4a9b8a5eeb091a0800000000000000
+      internalID: -6804729143369292599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_25
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 160
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa63c5bb19e12900800000000000000
+      internalID: 658063325795674870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_26
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 160
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5728dc36be5edca0800000000000000
+      internalID: -5990246317558323366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_27
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 161
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 588a6b335429bd650800000000000000
+      internalID: 6258756933079443589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_28
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 128
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0389a2e933532dc40800000000000000
+      internalID: 5535545387804956720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_29
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 128
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff43a4589e4ff9a80800000000000000
+      internalID: -8457772291377711873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_30
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 128
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6898e402b884409d0800000000000000
+      internalID: -2809040505192674938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_31
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 129
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70936cda163195d40800000000000000
+      internalID: 5573507324095904007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_32
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 96
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 644fef717f0853880800000000000000
+      internalID: -8631851312037825466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_33
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 96
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a02cf936e9614bd50800000000000000
+      internalID: 6752046610867274250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_34
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 95
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee0e34c8d62e809f0800000000000000
+      internalID: -501902398319238930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_35
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 95
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b6b3a8dda677cd80800000000000000
+      internalID: -8230479304960264528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 041caa77ab1514b60800000000000000
+      internalID: 7728548296857928000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_37
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef5f45c8acde33430800000000000000
+      internalID: 3761611567978051070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_38
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 64
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff11353cae8dfca0800000000000000
+      internalID: -5981467859800219656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_39
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 64
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e32a6e9db7cb1580800000000000000
+      internalID: -8855264625073445912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_40
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 32
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ab6829222f619c0800000000000000
+      internalID: -3956708992297289182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_41
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 32
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1472b44ebc77a0e0800000000000000
+      internalID: -2258699531464838113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_42
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 32
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b754d78c364bd9bf0800000000000000
+      internalID: -315898058187651717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_43
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 32
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d16f7ccc42ab36980800000000000000
+      internalID: -8546783000601823715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_44
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 0
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c53889f9c37d2940800000000000000
+      internalID: 5272998050032793026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_45
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9683bac11d12b9d70800000000000000
+      internalID: 9050865058144008297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_46
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 0
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed160e8cb66318630800000000000000
+      internalID: 3927480186603332062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turtleshadowed-turtlepower_47
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 0
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 548cf26deffb28680800000000000000
+      internalID: -8754223624418768827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      turtleshadowed-turtlepower_0: 6422207620430020024
+      turtleshadowed-turtlepower_1: -2258521097390673090
+      turtleshadowed-turtlepower_10: -4645569710949408074
+      turtleshadowed-turtlepower_11: -8332598430458532672
+      turtleshadowed-turtlepower_12: 5022149053852756329
+      turtleshadowed-turtlepower_13: -3037662528730279446
+      turtleshadowed-turtlepower_14: 8358279700169823330
+      turtleshadowed-turtlepower_15: 2968873374734862716
+      turtleshadowed-turtlepower_16: 2861717805155331681
+      turtleshadowed-turtlepower_17: -5861491189872969880
+      turtleshadowed-turtlepower_18: 3687173528875557783
+      turtleshadowed-turtlepower_19: -5145984102136424313
+      turtleshadowed-turtlepower_2: -3227503473420159323
+      turtleshadowed-turtlepower_20: 7243428043927119258
+      turtleshadowed-turtlepower_21: -6839703502929390530
+      turtleshadowed-turtlepower_22: -323917854434095698
+      turtleshadowed-turtlepower_23: 1945402956369214188
+      turtleshadowed-turtlepower_24: -6804729143369292599
+      turtleshadowed-turtlepower_25: 658063325795674870
+      turtleshadowed-turtlepower_26: -5990246317558323366
+      turtleshadowed-turtlepower_27: 6258756933079443589
+      turtleshadowed-turtlepower_28: 5535545387804956720
+      turtleshadowed-turtlepower_29: -8457772291377711873
+      turtleshadowed-turtlepower_3: 594688785094890027
+      turtleshadowed-turtlepower_30: -2809040505192674938
+      turtleshadowed-turtlepower_31: 5573507324095904007
+      turtleshadowed-turtlepower_32: -8631851312037825466
+      turtleshadowed-turtlepower_33: 6752046610867274250
+      turtleshadowed-turtlepower_34: -501902398319238930
+      turtleshadowed-turtlepower_35: -8230479304960264528
+      turtleshadowed-turtlepower_36: 7728548296857928000
+      turtleshadowed-turtlepower_37: 3761611567978051070
+      turtleshadowed-turtlepower_38: -5981467859800219656
+      turtleshadowed-turtlepower_39: -8855264625073445912
+      turtleshadowed-turtlepower_4: -9201343067042566264
+      turtleshadowed-turtlepower_40: -3956708992297289182
+      turtleshadowed-turtlepower_41: -2258699531464838113
+      turtleshadowed-turtlepower_42: -315898058187651717
+      turtleshadowed-turtlepower_43: -8546783000601823715
+      turtleshadowed-turtlepower_44: 5272998050032793026
+      turtleshadowed-turtlepower_45: 9050865058144008297
+      turtleshadowed-turtlepower_46: 3927480186603332062
+      turtleshadowed-turtlepower_47: -8754223624418768827
+      turtleshadowed-turtlepower_5: -6772648453678405039
+      turtleshadowed-turtlepower_6: -1945513817403870676
+      turtleshadowed-turtlepower_7: -1387984501316422399
+      turtleshadowed-turtlepower_8: -2068734243872745069
+      turtleshadowed-turtlepower_9: 1423494407373837386
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

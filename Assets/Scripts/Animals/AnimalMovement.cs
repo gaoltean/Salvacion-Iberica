@@ -169,12 +169,13 @@ public class AnimalMovement : MonoBehaviour
         {
             
             _animator.Play("WalkL");
+            _sprite.flipX = true;
         }
         //Correr derecha
         else if (dirs.x > 0.1 && dirYNull)
         {
             _animator.Play("WalkL");
-            _sprite.flipX = true;
+           
         }
     }
     #endregion   

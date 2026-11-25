@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LiebreWalkF
+  m_Name: WalkF
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -40,13 +40,13 @@ AnimatorStateMachine:
     m_Position: {x: 340, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4272157091112660139}
-    m_Position: {x: 375, y: 175, z: 0}
+    m_Position: {x: 380, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2697997578764449326}
     m_Position: {x: 410, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -965137581057455308}
-    m_Position: {x: 445, y: 305, z: 0}
+    m_Position: {x: 440, y: 310, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -64,7 +64,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LiebreWalkB
+  m_Name: WalkB
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -112,7 +112,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LiebreWalkL
+  m_Name: WalkL
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

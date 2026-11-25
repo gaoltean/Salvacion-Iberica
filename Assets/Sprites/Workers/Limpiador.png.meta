@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: ece673c1222847f4493cc36bd38cdd62
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5863202052887268689
+    second: Limpiador_0
+  - first:
+      213: -7168371924516856132
+    second: Limpiador_1
+  - first:
+      213: 5669608739547263544
+    second: Limpiador_2
+  - first:
+      213: 8813397010197531031
+    second: Limpiador_3
+  - first:
+      213: 8966106986735971120
+    second: Limpiador_4
+  - first:
+      213: -2173032178243179615
+    second: Limpiador_5
+  - first:
+      213: -2151472542396991419
+    second: Limpiador_6
+  - first:
+      213: 3686399217850674498
+    second: Limpiador_7
+  - first:
+      213: 6965683539410770439
+    second: Limpiador_8
+  - first:
+      213: 7080380307889466999
+    second: Limpiador_9
+  - first:
+      213: 7515417234972138252
+    second: Limpiador_10
+  - first:
+      213: 5382978460539685522
+    second: Limpiador_11
+  - first:
+      213: -6257910405278124645
+    second: Limpiador_12
+  - first:
+      213: 6788486397273923769
+    second: Limpiador_13
+  - first:
+      213: -4387827258976953084
+    second: Limpiador_14
+  - first:
+      213: -5875705130985294576
+    second: Limpiador_15
+  - first:
+      213: -6526026232002928778
+    second: Limpiador_16
+  - first:
+      213: 1318331518031035676
+    second: Limpiador_17
+  - first:
+      213: 5982903834448284216
+    second: Limpiador_18
+  - first:
+      213: -868307436361340544
+    second: Limpiador_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WalkF
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 95
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15dcfa8d3374e5150800000000000000
+      internalID: 5863202052887268689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkF1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 95
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe1a4dd6b3d48c90800000000000000
+      internalID: -7168371924516856132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkF2
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 95
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8323a281c1f7eae40800000000000000
+      internalID: 5669608739547263544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkF3
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 95
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7994059a2e97f4a70800000000000000
+      internalID: 8813397010197531031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_4
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 71
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03bab8accc20e6c70800000000000000
+      internalID: 8966106986735971120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_5
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 71
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab62524fb6d7d1e0800000000000000
+      internalID: -2173032178243179615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_6
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 71
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 548bb662f1f6422e0800000000000000
+      internalID: -2151472542396991419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_7
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 71
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d6448ae88b82330800000000000000
+      internalID: 3686399217850674498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkL
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 47
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70a5d58f5441ba060800000000000000
+      internalID: 6965683539410770439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkL1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 47
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77e2c666060924260800000000000000
+      internalID: 7080380307889466999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkL2
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 47
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0bdc5528202c4860800000000000000
+      internalID: 7515417234972138252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkL3
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 47
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29a0c0eb36e24ba40800000000000000
+      internalID: 5382978460539685522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_12
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 23
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b953d2964af6729a0800000000000000
+      internalID: -6257910405278124645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_13
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 24
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b06510596c853e50800000000000000
+      internalID: 6788486397273923769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_14
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 23
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40d17ec0b5e4b13c0800000000000000
+      internalID: -4387827258976953084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Limpiador_15
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 23
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0157eae605d457ea0800000000000000
+      internalID: -5875705130985294576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkB
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67f9596e7b5ee65a0800000000000000
+      internalID: -6526026232002928778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkB1
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 0
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1df074e787ab4210800000000000000
+      internalID: 1318331518031035676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkB2
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 0
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83acc91b65b870350800000000000000
+      internalID: 5982903834448284216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkB3
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 0
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0892ad3bcf623f3f0800000000000000
+      internalID: -868307436361340544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9383ed043ea64d148b7d5e0adfe2befb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Limpiador_12: -6257910405278124645
+      Limpiador_13: 6788486397273923769
+      Limpiador_14: -4387827258976953084
+      Limpiador_15: -5875705130985294576
+      Limpiador_4: 8966106986735971120
+      Limpiador_5: -2173032178243179615
+      Limpiador_6: -2151472542396991419
+      Limpiador_7: 3686399217850674498
+      WalkB: -6526026232002928778
+      WalkB1: 1318331518031035676
+      WalkB2: 5982903834448284216
+      WalkB3: -868307436361340544
+      WalkF: 5863202052887268689
+      WalkF1: -7168371924516856132
+      WalkF2: 5669608739547263544
+      WalkF3: 8813397010197531031
+      WalkL: 6965683539410770439
+      WalkL1: 7080380307889466999
+      WalkL2: 7515417234972138252
+      WalkL3: 5382978460539685522
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
