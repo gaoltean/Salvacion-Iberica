@@ -102,11 +102,11 @@ public class WorkerMovement : MonoBehaviour
         {
             Debug.Log("No hay rigidbody por tanto no se puede mover el Trabajdor");
         }
-        //_animator = this.GetComponent<Animator>();
-        //if (_animator == null)
-        //{
-        //    Debug.Log("No hay Animator por tanto no hay animaciones el Trabajador");
-        //}
+        _animator = this.GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.Log("No hay Animator por tanto no hay animaciones el Trabajador");
+        }
         _sprite = this.GetComponent<SpriteRenderer>();
         if (_sprite == null)
         {
@@ -167,7 +167,7 @@ public class WorkerMovement : MonoBehaviour
                     _trabajoTerminado = false;
                     //Vector2 pause = new Vector2(0,0);
                     //Movement(pause);
-                    AnimateIlde(-_dirVueltaCamino);
+                    //AnimateIlde(-_dirVueltaCamino);
                 }
                     
             }
@@ -297,7 +297,6 @@ public class WorkerMovement : MonoBehaviour
     }
     private void Animate(Vector2 LookDir)
     {
-        if (!_animator) return;
         _sprite.flipX = false;
         bool dirXNull = LookDir.x > -0.1 && LookDir.x < 0.1;
         bool dirYNull = LookDir.y > -0.1 && LookDir.y < 0.1;
@@ -320,7 +319,7 @@ public class WorkerMovement : MonoBehaviour
         //Correr derecha
         else if (LookDir.x > 0.1 && dirYNull)
         {
-            _animator.Play("WalkR");
+            _animator.Play("WalkL");
         }
     }
     private void AnimateIlde(Vector2 direction)

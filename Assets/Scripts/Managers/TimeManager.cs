@@ -5,6 +5,7 @@
 //---------------------------------------------------------
 
 // Añadir aquí el resto de directivas using
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -25,6 +26,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private float LuzNoche;
     [SerializeField] private float TiempoCambio;
     [SerializeField] private GameObject PanelFinDia;
+    [SerializeField] private TextMeshProUGUI textoEstadisticas;
     [SerializeField] private GameObject BotonFinDia;
     #endregion
 
@@ -37,6 +39,8 @@ public class TimeManager : MonoBehaviour
     private bool _cambio;
     private float _startTime;
     private Light2D _luz;
+    private float _tiempoDeSalidaVisitantes = 20;
+    private float _startTimeSalidaVisitantes;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -102,16 +106,21 @@ public class TimeManager : MonoBehaviour
            // Debug.Log("cambio a noche");
             _luz.intensity -= 0.01f;
             _startTime = Time.time;
-            if (_luz.intensity <= LuzNoche)
+            if (_luz.intensity <= LuzNoche )
             {
                 _luz.intensity = LuzNoche;
                 _dia = false;
                 _cambio = false;
-                _startTime = Time.time;
-                BotonFinDia.SetActive(true);
+                _startTimeSalidaVisitantes = Time.time;
+                
+                
             }
         }
-        
+        if (Time.time - _startTimeSalidaVisitantes > _tiempoDeSalidaVisitantes && !_dia)
+        {
+            BotonFinDia.SetActive(true);
+        }
+
     }
 
     #endregion
@@ -162,6 +171,7 @@ public class TimeManager : MonoBehaviour
     public void ActivaPanelFinDia()
     {
         BotonFinDia.SetActive(false);
+        textoEstadisticas.text = $"Se ha terminado el dia\r\nStats: \n Gasto en empleados: \n {Tablet.Instance.GastosEnSalarios()} $\n Zonas total Compradas: {Tablet.Instance.CantidadZonasCompradas()}\n ";
         PanelFinDia.SetActive(true);
     }
     #endregion
