@@ -281,6 +281,10 @@ public class Tablet : MonoBehaviour
             return _instance;
         }
     }
+    public int DimeCantidadZonasCompradas()
+    {
+        return _zonasCompradas.Count;
+    }
     public float GastosEnSalarios()
     {
         return _gastosHoyEnSalarios;

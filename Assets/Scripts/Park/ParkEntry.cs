@@ -5,6 +5,7 @@
 //---------------------------------------------------------
 
 // Añadir aquí el resto de directivas using
+using TMPro;
 using UnityEngine;
 
 
@@ -19,6 +20,9 @@ public class ParkEntry : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos públicos y de inspector en formato PascalCase
     [SerializeField] private GameObject panelprice;
+    [SerializeField] private TextMeshProUGUI TextoPrecioEntrada;
+    [SerializeField] private float CantidadSubidaYBajada;
+    [SerializeField] private float AumentoPrecioMaxPorZona;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -37,6 +41,7 @@ public class ParkEntry : MonoBehaviour
     /// Movimiento del player
     /// </summary>
     private PlayerMovement _player;
+    private int _cantidadZonasDesbloqueadas = 0;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -56,7 +61,11 @@ public class ParkEntry : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        if (Tablet.Instance.DimeCantidadZonasCompradas() > _cantidadZonasDesbloqueadas)
+        {
+            _cantidadZonasDesbloqueadas++;
+            GameManager.Instance.SubePrecioMaximoEntrada(AumentoPrecioMaxPorZona);
+        }
     }
 
     #endregion
@@ -69,16 +78,22 @@ public class ParkEntry : MonoBehaviour
     /// Metodo para cambiar el precio de la entrada al parque
     /// </summary>
     /// <param name="entrance">Nuevo precio de la entrada</param>
-    public void SetEntrancePrice(string entrance)
+    public void SubePrecioEntrada()
     {
-        //Debug.Log(entrance);
-        int precio;
-        if(int.TryParse(entrance, out precio))
+        if (_entrancePrice+CantidadSubidaYBajada <= GameManager.Instance.DimePrecioMaximoEntrada())
         {
-           // Debug.Log(precio);
-            _entrancePrice = precio;
+            _entrancePrice += CantidadSubidaYBajada;
+            TextoPrecioEntrada.text = _entrancePrice.ToString();
         }
        
+    }
+    public void BajaPrecioEntrada()
+    {
+        if (_entrancePrice-CantidadSubidaYBajada >= 0)
+        {
+            _entrancePrice -= CantidadSubidaYBajada;
+            TextoPrecioEntrada.text = _entrancePrice.ToString();
+        }
     }
     #endregion
 

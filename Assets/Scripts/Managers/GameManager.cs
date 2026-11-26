@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     /// Productos de limpieza que tienes actualmente
     /// </summary>
     private int _productosLimpieza;
+
+    private float _precioMaximoEntrada = 2;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -189,6 +191,15 @@ public class GameManager : MonoBehaviour
     public int DimeProductosLimpieza()
     {
         return _productosLimpieza;
+    }
+    public void SubePrecioMaximoEntrada(float cantidad)
+    {
+        _precioMaximoEntrada += cantidad;
+    }
+
+    public float DimePrecioMaximoEntrada()
+    {
+        return _precioMaximoEntrada;
     }
     #endregion
 
