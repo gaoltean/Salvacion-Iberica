@@ -39,7 +39,7 @@ public class TimeManager : MonoBehaviour
     private bool _cambio;
     private float _startTime;
     private Light2D _luz;
-    private float _tiempoDeSalidaVisitantes = 20;
+    private float _tiempoDeSalidaVisitantes = 30;
     private float _startTimeSalidaVisitantes;
     #endregion
 

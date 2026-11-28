@@ -27,6 +27,7 @@ public class NightLight : MonoBehaviour
     // Documentar cada atributo que aparece aquí.
     // Los atributos privados en formato _camelCase
     private Light2D _luz;
+    private Animator _animator;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -40,6 +41,7 @@ public class NightLight : MonoBehaviour
     {
         _luz = this.gameObject.GetComponent<Light2D>();
         _luz.intensity = 0;
+        _animator = GetComponentInParent<Animator>();
     }
 
     /// <summary>
@@ -50,10 +52,12 @@ public class NightLight : MonoBehaviour
         if (TimeManager.Instance.IsDay())
         {
             _luz.intensity = 0;
+            _animator.Play("Day");
         }
         else
         {
             _luz.intensity = intensity;
+            _animator.Play("Night");
         }
 
     }
