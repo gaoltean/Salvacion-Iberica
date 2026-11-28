@@ -374,7 +374,7 @@ public class WorkerMovement : MonoBehaviour
         //Correr derecha
         else if (direction.x > 0.1 && dirYNull)
         {
-            _animator.Play("IldeR");
+            _animator.Play("IldeL");
         }
     }
     #endregion   
