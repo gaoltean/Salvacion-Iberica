@@ -128,7 +128,7 @@ public class RobbersMovement : MonoBehaviour
         _salida = false;
         _posInter = new Vector2(-0.5f, 3);
         _posSalida = new Vector2(-0.5f, -1.34f);
-        _posOfi = new Vector2(-6, 6);
+        _posOfi = new Vector2(-3.61f, -5.05f); 
         _salidaOfi = new Vector2(-6.7f, 2.8f);
     }
 

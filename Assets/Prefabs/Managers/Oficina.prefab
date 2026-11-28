@@ -581,8 +581,8 @@ MonoBehaviour:
   ContenedorComida: {fileID: 7014299635974504123}
   PrecioProductosLimpieza: 10
   MenuConstruir: {fileID: 2491260138684658251}
-  PrecioTienda: 500
-  "PrecioBa\xF1o": 200
+  PrecioTienda: 12000
+  "PrecioBa\xF1o": 3000
   TextoStockLimpieza: {fileID: 2222451616801074587}
   TextoComprarTienda: {fileID: 4894961757325155429}
   "TextoComprarBa\xF1o": {fileID: 2266408339638719384}

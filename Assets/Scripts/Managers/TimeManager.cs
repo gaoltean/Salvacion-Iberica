@@ -167,6 +167,7 @@ public class TimeManager : MonoBehaviour
         _cambio = false;
         _luz.intensity = LuzDia;
         PanelFinDia.SetActive(false);
+        BotonFinDia.SetActive(false);
     }
     public void ActivaPanelFinDia()
     {

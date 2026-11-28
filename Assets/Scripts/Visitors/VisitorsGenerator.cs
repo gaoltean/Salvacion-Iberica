@@ -6,6 +6,7 @@
 
 // Añadir aquí el resto de directivas using
 using UnityEngine;
+using static Unity.VisualScripting.Antlr3.Runtime.Tree.TreeWizard;
 
 
 
@@ -21,7 +22,12 @@ public class VisitorsGenerator : MonoBehaviour
     /// <summary>
     /// Prefab de los visitantes
     /// </summary>
-    [SerializeField] private GameObject Visitor;
+    [SerializeField] private GameObject Visitor1;
+    [SerializeField] private GameObject Visitor2;
+    [SerializeField] private GameObject Visitor3;
+    [SerializeField] private GameObject Visitor4;
+    [SerializeField] private GameObject Visitor5;
+    [SerializeField] private GameObject Visitor6;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -118,7 +124,20 @@ public class VisitorsGenerator : MonoBehaviour
     /// </summary>
     private void GenerateVisitor()
     {
-        GameObject visitor = Instantiate(Visitor, this.transform.position, this.transform.rotation);
+        if (TimeManager.Instance.IsDay())
+        {
+            int visitors = Random.Range(1, 7);
+            switch (visitors)
+            {
+                case 1: GameObject visitor1 = Instantiate(Visitor1, this.transform.position, this.transform.rotation);break;
+                case 2: GameObject visitor2 = Instantiate(Visitor2, this.transform.position, this.transform.rotation);break;
+                case 3: GameObject visitor3 = Instantiate(Visitor3, this.transform.position, this.transform.rotation);break;
+                case 4: GameObject visitor4 = Instantiate(Visitor4, this.transform.position, this.transform.rotation);break;
+                case 5: GameObject visitor5 = Instantiate(Visitor5, this.transform.position, this.transform.rotation);break;
+                case 6: GameObject visitor6 = Instantiate(Visitor6, this.transform.position, this.transform.rotation);break;
+            }
+        }
+       
     }
     #endregion   
 
