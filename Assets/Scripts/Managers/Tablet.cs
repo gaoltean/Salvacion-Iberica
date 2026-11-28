@@ -42,6 +42,9 @@ public class Tablet : MonoBehaviour
     [SerializeField] private Transform ContenedorEstados;
     [SerializeField] private Transform ContenedorCuadros;
 
+    [SerializeField] private Sprite FondoBotones;
+    [SerializeField] private Texture2D CursorBotones;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -184,6 +187,8 @@ public class Tablet : MonoBehaviour
     }
     private void Update()
     {
+        ActualizaListaCuidadoresDisponibles();
+        ActualizaListaLimpiadoresDisponibles();
         if (!PanelTablet.activeSelf && Time.time > _momentoPuedeAbrirTablet && InputManager.Instance.TabletIsPressed())
         {
             PanelTablet.SetActive(true);
@@ -212,8 +217,6 @@ public class Tablet : MonoBehaviour
                     TextoCuidadoresDisponibles.text = $"Cuidadores disponibles\n: {_listaCuidadoresDisponibles.Count}/{_cantidadCuidadores}";
                     TextoLimpiadoresDisponibles.text = $"Limpiadores disponibles\n: {_listaLimpiadoresDisponibles.Count}/{_cantidadLimpiadores}";
                     ActualizaContenedoresZonas();
-                    ActualizaListaCuidadoresDisponibles();
-                    ActualizaListaLimpiadoresDisponibles();
                 }
                 else if (MenuContratarEmpleados.activeSelf)
                 {
@@ -277,6 +280,10 @@ public class Tablet : MonoBehaviour
             Debug.Assert(_instance != null);
             return _instance;
         }
+    }
+    public int DimeCantidadZonasCompradas()
+    {
+        return _zonasCompradas.Count;
     }
     public float GastosEnSalarios()
     {
@@ -476,6 +483,36 @@ public class Tablet : MonoBehaviour
             }
         }
     }
+    public GameObject CreaBoton(string name, string text, Transform parent, float width, float height, float fontSize)
+    {
+        // Botón
+        GameObject ObjetoBoton = new GameObject(name, typeof(RectTransform), typeof(UnityEngine.UI.Image), typeof(Button), typeof(LayoutElement), typeof(CambioMouseBoton));
+        ObjetoBoton.transform.SetParent(parent, false);
+
+        CambioMouseBoton cambioMouse = ObjetoBoton.GetComponent<CambioMouseBoton>();
+        cambioMouse.cursorMano = CursorBotones;
+
+        RectTransform rectbotoncuidador = ObjetoBoton.GetComponent<RectTransform>();
+        rectbotoncuidador.sizeDelta = new Vector2(width, height);
+
+        Image imagenBoton = ObjetoBoton.GetComponent<Image>();
+        imagenBoton.sprite = FondoBotones;
+        imagenBoton.type = Image.Type.Sliced;
+
+        // Texto del botón
+        GameObject textoBotonCuidador = new GameObject("Texto", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textoBotonCuidador.transform.SetParent(ObjetoBoton.transform, false);
+
+        TMP_Text textCuidador = textoBotonCuidador.GetComponent<TMP_Text>();
+        textCuidador.text = text;
+        textCuidador.fontSize = fontSize;
+        textCuidador.fontStyle = FontStyles.Bold;
+        textCuidador.color = Color.white;
+        textCuidador.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        textCuidador.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        return ObjetoBoton;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -612,73 +649,20 @@ public class Tablet : MonoBehaviour
         texto.verticalAlignment = VerticalAlignmentOptions.Middle;
 
         // Botón
-        GameObject BotonEnviarCuidador = new GameObject("BotonCuidador", typeof(RectTransform), typeof(UnityEngine.UI.Image), typeof(Button), typeof(LayoutElement));
-        BotonEnviarCuidador.transform.SetParent(objetoEnviarEmpleados.transform, false);
-
-
-        RectTransform rectbotoncuidador = BotonEnviarCuidador.GetComponent<RectTransform>();
-        rectbotoncuidador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento / 1.5f);
-
-        Button botoncuidador = BotonEnviarCuidador.GetComponent<Button>();
-        botoncuidador.transition = Selectable.Transition.ColorTint;
-        ColorBlock colores = botoncuidador.colors;
-        colores.normalColor = new Color32(0, 195, 255, 255);
-        colores.highlightedColor = new Color32(152, 231, 255, 255);
-        colores.selectedColor = new Color32(152, 231, 255, 255);
-        colores.pressedColor = new Color32(0, 143, 183, 255);
-        colores.disabledColor = new Color32(0, 143, 183, 255);
-        botoncuidador.colors = colores;
-
-        botoncuidador.onClick.AddListener(() =>
+        GameObject BotonEnviarCuidador = CreaBoton("BotonCuidador", "Cuidador", objetoEnviarEmpleados.transform, AnchoElemento/3, AltoElemento/1.5f, FontSize*0.75f);
+        Button compBotonCuidador = BotonEnviarCuidador.GetComponent<Button>();
+        compBotonCuidador.onClick.AddListener(() =>
         {
             EnviaCuidador(zona);
         });
-
-        // Texto del botón
-        GameObject textoBotonCuidador = new GameObject("Cuidador", typeof(RectTransform), typeof(TextMeshProUGUI));
-        textoBotonCuidador.transform.SetParent(BotonEnviarCuidador.transform, false);
-
-        TMP_Text textCuidador = textoBotonCuidador.GetComponent<TMP_Text>();
-        textCuidador.text = "Cuidador";
-        textCuidador.fontSize = FontSize;
-        textCuidador.fontStyle = FontStyles.Bold;
-        textCuidador.color = Color.white;
-        textCuidador.horizontalAlignment = HorizontalAlignmentOptions.Center;
-        textCuidador.verticalAlignment = VerticalAlignmentOptions.Middle;
         // Botón
-        GameObject BotonEnviarLimpiador = new GameObject("BotonLimpiador", typeof(RectTransform), typeof(UnityEngine.UI.Image), typeof(Button), typeof(LayoutElement));
+        GameObject BotonEnviarLimpiador = CreaBoton("BotonLimpiador", "Limpiador", objetoEnviarEmpleados.transform, AnchoElemento / 3, AltoElemento / 1.5f, FontSize * 0.75f);
         BotonEnviarLimpiador.transform.SetParent(objetoEnviarEmpleados.transform, false);
-
-
-        RectTransform rectbotonLimpiador = BotonEnviarLimpiador.GetComponent<RectTransform>();
-        rectbotonLimpiador.sizeDelta = new Vector2(AnchoElemento / 3, AltoElemento / 1.5f);
-
-        Button botonLimpiador = BotonEnviarLimpiador.GetComponent<Button>();
-        botonLimpiador.transition = Selectable.Transition.ColorTint;
-        colores = botonLimpiador.colors;
-        colores.normalColor = new Color32(0, 195, 255, 255);
-        colores.highlightedColor = new Color32(152, 231, 255, 255);
-        colores.selectedColor = new Color32(152, 231, 255, 255);
-        colores.pressedColor = new Color32(0, 143, 183, 255);
-        colores.disabledColor = new Color32(0, 143, 183, 255);
-        botonLimpiador.colors = colores;
-
-        botonLimpiador.onClick.AddListener(() =>
+        Button compBotonLimpiador = BotonEnviarLimpiador.GetComponent<Button>();
+        compBotonLimpiador.onClick.AddListener(() =>
         {
             EnviaLimpiador(zona);
         });
-
-        // Texto del botón
-        GameObject textoBotonLimpiador = new GameObject("Limpiador", typeof(RectTransform), typeof(TextMeshProUGUI));
-        textoBotonLimpiador.transform.SetParent(BotonEnviarLimpiador.transform, false);
-
-        TMP_Text textLimpiador = textoBotonLimpiador.GetComponent<TMP_Text>();
-        textLimpiador.text = "Limpiador";
-        textLimpiador.fontSize = FontSize;
-        textLimpiador.fontStyle = FontStyles.Bold;
-        textLimpiador.color = Color.white;
-        textLimpiador.horizontalAlignment = HorizontalAlignmentOptions.Center;
-        textLimpiador.verticalAlignment = VerticalAlignmentOptions.Middle;
         
         // Guardar referencias
         _elementosEnviarEmpleados.Add(objetoEnviarEmpleados);
@@ -727,8 +711,8 @@ public class Tablet : MonoBehaviour
             Debug.Log($"Cuidador enviado a: {PosicionTrabajo.x} , {PosicionTrabajo.y}");
             int trabajadorEnviado = Random.Range(0, cantidadTrabajadores);
             _listaCuidadoresDisponibles[trabajadorEnviado].Call(zonaTrabajo.GetPosition());
+            _zonasTrabajadores[indice].TrabajadorEnviado(_listaCuidadoresDisponibles[trabajadorEnviado]);
             _listaCuidadoresDisponibles.Remove(_listaCuidadoresDisponibles[trabajadorEnviado]);
-            _zonasTrabajadores[indice].TrabajadorEnviado();
         }
     }
     private void EnviaLimpiador(ZonaAnimal zona)
@@ -743,8 +727,8 @@ public class Tablet : MonoBehaviour
             Debug.Log($"Limpiador enviado a: {PosicionTrabajo.x} , {PosicionTrabajo.y}");
             int trabajadorEnviado = Random.Range(0, cantidadTrabajadores);
             _listaLimpiadoresDisponibles[trabajadorEnviado].Call(PosicionTrabajo);
+            zonaTrabajo.TrabajadorEnviado(_listaLimpiadoresDisponibles[trabajadorEnviado]);
             _listaLimpiadoresDisponibles.Remove(_listaLimpiadoresDisponibles[trabajadorEnviado]);
-            zonaTrabajo.TrabajadorEnviado();
         }
     }
 

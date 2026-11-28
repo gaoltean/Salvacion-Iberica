@@ -21,7 +21,7 @@ public class CambioMouseBoton : MonoBehaviour, IPointerEnterHandler, IPointerExi
     // Los atributos públicos y de inspector en formato PascalCase
 
 
-    [SerializeField] private Texture2D cursorMano;
+    [SerializeField] public Texture2D cursorMano;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----

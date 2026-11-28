@@ -41,10 +41,11 @@ public class WorkerStation : MonoBehaviour
     /// True cuando hay un trabajador
     /// </summary>
     private bool _hasWorker;
+    private WorkerMovement _workerSent;
     /// <summary>
     /// True cuando hay un trabajador en camino
     /// </summary>
-    private bool _workerSent;
+    private bool _excpectsWorker;
     /// <summary>
     /// True cuando el tranajador es limpiador
     /// </summary>
@@ -105,13 +106,13 @@ public class WorkerStation : MonoBehaviour
                 _worker.finish();
                 _hasWorker = false;
                 _zoneNeedsWorker = false;
-                _workerSent = false;
+                _excpectsWorker = false;
             }
             else if (!_zoneNeedsWorker && Time.time - _startTime > _duracionComprobacion)
             {
                 _worker.finish();
                 _hasWorker = false;
-                _workerSent = false;
+                _excpectsWorker = false;
             }
         }
     }
@@ -123,13 +124,14 @@ public class WorkerStation : MonoBehaviour
     // Documentar cada método que aparece aquí con ///<summary>
     // Estos métodos se nombren en formato PascalCase
     
-    public void TrabajadorEnviado()
+    public void TrabajadorEnviado(WorkerMovement trabajador)
     {
-        _workerSent = true;
+        _workerSent = trabajador;
+        _excpectsWorker = true;
     }
     public bool HayTrabajador()
     {
-        return _workerSent;
+        return _excpectsWorker;
     }
     public Vector2 GetPosition()
     {
@@ -145,10 +147,10 @@ public class WorkerStation : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (_workerSent && !_hasWorker)
+        if (_excpectsWorker && !_hasWorker)
         {
             _worker = collision.GetComponent<WorkerMovement>();
-            if (!_worker) return;
+            if (!_worker || _worker != _workerSent) return;
 
             _cleaner = _worker.IsCleaner();
             _zoneNeedsWorker = _cleaner && _zonaAnimal.NecesitaLimpieza() || !_cleaner && _zonaAnimal.NecesitaAlimentar();
