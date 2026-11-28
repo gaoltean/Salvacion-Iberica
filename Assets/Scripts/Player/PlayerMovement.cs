@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     /// Sprite render del player
     /// </summary>
     private SpriteRenderer _sprite;
+    private AudioSource _sonido;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -66,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("No hay sprite y no hay animaciones en el player");
         }
+        _sonido = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -98,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
     {
         dir.Normalize();
         _rb.linearVelocity = dir * Speed;
+       
         Animations(dir);
     }
     /// <summary>
@@ -112,49 +115,86 @@ public class PlayerMovement : MonoBehaviour
         if(dirXNull && dirYNull)
         {
             _animator.Play("Ilde");
+            if (!_sonido.mute)
+            {
+                _sonido.mute = true;
+            }
+            
         }
         //Andar hacia delante
         else if (dir.y < -0.1  && dirXNull)
         {
             _animator.Play("RunF");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Andar hacia atras
         else if (dir.y > 0.1 && dirXNull)
         {
             _animator.Play("RunB");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Correr hacia atras y derecha
         else if (dir.y > 0.1 && dir.x>0.1)
         {
             _animator.Play("RunLateralB");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Correr hacia delante y derecha
         else if (dir.y < -0.1 && dir.x > 0.1)
         {
             _animator.Play("RunLateralF");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Correr hacia atras y izquierda
         else if (dir.y > 0.1 && dir.x < -0.1)
         {
             _sprite.flipX = true;
             _animator.Play("RunLateralB");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Correr hacia delante y izquierda
         else if (dir.y < -0.1 && dir.x < -0.1)
         {
             _sprite.flipX = true;
             _animator.Play("RunLateralF");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Correr izquierda
         else if(dir.x <-0.1 && dirYNull)
         {
             _sprite.flipX = true;
             _animator.Play("RunLateral");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
         //Correr derecha
         else if (dir.x > 0.1 && dirYNull)
         {
             _animator.Play("RunLateral");
+            if (_sonido.mute)
+            {
+                _sonido.mute = false;
+            }
         }
     }
     #endregion   
